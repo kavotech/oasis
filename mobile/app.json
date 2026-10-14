@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "OASIS",
+    "slug": "oasis",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ug.co.oasis.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ECEBFD",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "ug.co.oasis.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/logo-mark.png",
+          "imageWidth": 160,
+          "resizeMode": "contain",
+          "backgroundColor": "#f6f6fb"
+        }
+      ]
+    ],
+    "scheme": "oasisapp",
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}
