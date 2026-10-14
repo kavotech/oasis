@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Alert, Linking, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, Linking, Pressable, ScrollView, View } from "react-native";
+import { Text } from "@/components/Text";
 import { Feather } from "@expo/vector-icons";
 import { Glass } from "@/components/glass";
 import { router } from "expo-router";

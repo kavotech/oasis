@@ -1,7 +1,8 @@
 // Mobile take on the website's auth pages (styles/auth.css): soft lavender
 // gradient, drifting colour blobs and a frosted card holding the form.
 import type { ReactNode } from "react";
-import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
+import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
+import { Text } from "@/components/Text";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colors, radius } from "@/theme";

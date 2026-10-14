@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import { Text } from "@/components/Text";
 import { useAuth } from "@/lib/auth";
 import { useRealtimeRows } from "@/lib/useRealtimeRows";
 import { Badge, Card, CardHeader, EmptyState, Spinner } from "@/components/ui";

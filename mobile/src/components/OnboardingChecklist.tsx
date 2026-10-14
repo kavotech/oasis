@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
+import { Text } from "@/components/Text";
 import { router, useFocusEffect } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { useAuth } from "@/lib/auth";

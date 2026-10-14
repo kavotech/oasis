@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
+import { Pressable, RefreshControl, ScrollView, View } from "react-native";
+import { Text } from "@/components/Text";
 import { findModule } from "@/modules/registry";
 import { ModuleSection } from "@/components/ModuleSection";
 import { Card, EmptyState, PageHeader } from "@/components/ui";

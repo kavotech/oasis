@@ -1,20 +1,8 @@
 // React Native ports of the website portal's UI primitives
 // (components/portal/ui/*). Same colours, radii, weights and spacing.
 import { useState, type ReactNode } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Modal,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  type StyleProp,
-  type TextInputProps,
-  type ViewStyle,
-} from "react-native";
+import { ActivityIndicator, FlatList, Modal, Platform, Pressable, StyleSheet, View, type StyleProp, type TextInputProps, type ViewStyle } from "react-native";
+import { Text, TextInput } from "@/components/Text";
 import { Feather } from "@expo/vector-icons";
 import DateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";

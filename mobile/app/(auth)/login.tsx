@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Linking, Pressable, Text, View } from "react-native";
+import { Linking, Pressable, View } from "react-native";
+import { Text } from "@/components/Text";
 import { Link, router } from "expo-router";
 import { useAuth } from "@/lib/auth";
 import { AuthShell } from "@/components/AuthShell";
