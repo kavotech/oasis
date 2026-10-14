@@ -9,18 +9,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <AuthProvider>
         <StatusBar style="dark" />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: colors.bg },
-            headerTintColor: colors.oasis600,
-            headerTitleStyle: { color: colors.slate900, fontWeight: "600" },
-            headerShadowVisible: false,
-            headerStyle: { backgroundColor: colors.bg },
-          }}
-        >
-          <Stack.Screen name="module/[slug]" options={{ headerShown: true, headerBackTitle: "Back" }} />
-        </Stack>
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }} />
       </AuthProvider>
     </SafeAreaProvider>
   );

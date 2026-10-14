@@ -7,6 +7,7 @@ import { ROLE_LABELS, useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { Avatar, Badge, Button, Card, CardHeader, Field, Input, PageHeader } from "@/components/ui";
 import { colors } from "@/theme";
+import { TAB_BAR_SPACE } from "@/components/GlassTabBar";
 
 export default function Account() {
   const { user, profile, role, signOut, refreshProfile } = useAuth();
@@ -42,8 +43,8 @@ export default function Account() {
   const name = profile?.full_name || user?.email || "Account";
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top"]}>
-      <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
+    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+      <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: TAB_BAR_SPACE + 24 }} keyboardShouldPersistTaps="handled">
         <PageHeader title="Account" />
         <Card style={{ marginBottom: 16, flexDirection: "row", alignItems: "center", gap: 14 }}>
           <Avatar name={name} size={52} />

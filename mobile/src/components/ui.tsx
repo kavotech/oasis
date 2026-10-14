@@ -19,11 +19,29 @@ import { Feather } from "@expo/vector-icons";
 import DateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colors, radius, shadow, toneColors, type Tone } from "@/theme";
+import { Glass } from "./glass";
 
 export type IconName = keyof typeof Feather.glyphMap;
 
+// Layout keys belong on the outer (shadow) wrapper; the rest styles the glass.
+const OUTER_KEYS = ["flex", "flexGrow", "flexShrink", "flexBasis", "alignSelf", "width", "minWidth", "maxWidth", "margin", "marginTop", "marginBottom", "marginLeft", "marginRight", "marginHorizontal", "marginVertical"] as const;
+function splitStyle(style: StyleProp<ViewStyle>) {
+  const flat = (StyleSheet.flatten(style) ?? {}) as Record<string, unknown>;
+  const outer: Record<string, unknown> = {};
+  const inner: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(flat)) ((OUTER_KEYS as readonly string[]).includes(k) ? outer : inner)[k] = v;
+  return { outer: outer as ViewStyle, inner: inner as ViewStyle };
+}
+
 export function Card({ children, style, padded = true }: { children: ReactNode; style?: StyleProp<ViewStyle>; padded?: boolean }) {
-  return <View style={[s.card, padded && { padding: 20 }, style]}>{children}</View>;
+  const { outer, inner } = splitStyle(style);
+  return (
+    <View style={[s.cardShadow, outer]}>
+      <Glass radius={radius.card + 4} style={[padded && { padding: 20 }, inner]}>
+        {children}
+      </Glass>
+    </View>
+  );
 }
 
 export function CardHeader({ title, subtitle, action }: { title: string; subtitle?: string; action?: ReactNode }) {
@@ -385,14 +403,16 @@ export function StatCard({
 }) {
   const a = accentColors[accent];
   return (
-    <View style={[s.card, { padding: 18, flex: 1 }]}>
-      <View style={[s.iconBox, { backgroundColor: a.bg }]}>
-        <Feather name={icon} size={18} color={a.fg} />
+    <Card style={{ flex: 1 }} padded={false}>
+      <View style={{ padding: 18 }}>
+        <View style={[s.iconBox, { backgroundColor: a.bg }]}>
+          <Feather name={icon} size={18} color={a.fg} />
+        </View>
+        <Text style={s.statValue}>{value}</Text>
+        <Text style={s.statLabel}>{label}</Text>
+        {trendLabel ? <Text style={s.statTrend}>{trendLabel}</Text> : null}
       </View>
-      <Text style={s.statValue}>{value}</Text>
-      <Text style={s.statLabel}>{label}</Text>
-      {trendLabel ? <Text style={s.statTrend}>{trendLabel}</Text> : null}
-    </View>
+    </Card>
   );
 }
 
@@ -414,12 +434,13 @@ export function ErrorBanner({ message }: { message: string }) {
 }
 
 export const s = StyleSheet.create({
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.card,
-    borderWidth: 1,
-    borderColor: "rgba(226,232,240,0.7)",
-    ...shadow.card,
+  cardShadow: {
+    borderRadius: radius.card + 4,
+    shadowColor: "#4c4ea3",
+    shadowOpacity: 0.1,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 3,
   },
   cardHeader: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 14 },
   cardTitle: { fontSize: 15, fontWeight: "600", color: colors.slate900 },
@@ -443,11 +464,11 @@ export const s = StyleSheet.create({
   label: { fontSize: 13, fontWeight: "600", color: colors.slate700, marginBottom: 6 },
   hint: { fontSize: 12, color: colors.slate400, marginTop: 4 },
   input: {
-    height: 46,
-    borderRadius: radius.md,
+    height: 48,
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: colors.slate200,
-    backgroundColor: "#fff",
+    borderColor: "rgba(148,152,239,0.22)",
+    backgroundColor: "rgba(255,255,255,0.7)",
     paddingHorizontal: 14,
     fontSize: 15,
     color: colors.slate900,
@@ -466,8 +487,8 @@ export const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#fff",
-    borderRadius: radius.md,
+    backgroundColor: "rgba(255,255,255,0.8)",
+    borderRadius: 14,
     borderWidth: 1,
     borderColor: colors.slate100,
     paddingHorizontal: 16,
@@ -480,10 +501,10 @@ export const s = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     height: 44,
-    borderRadius: radius.md,
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: colors.slate200,
-    backgroundColor: "#fff",
+    borderColor: "rgba(148,152,239,0.18)",
+    backgroundColor: "rgba(118,118,128,0.10)",
     paddingHorizontal: 12,
   },
   empty: { alignItems: "center", paddingVertical: 32, paddingHorizontal: 16 },

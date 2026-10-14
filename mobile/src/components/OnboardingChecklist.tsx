@@ -75,7 +75,7 @@ export function OnboardingChecklist() {
         return (
           <Pressable
             key={step.key}
-            onPress={() => !done && step.key !== "school_profile" && router.push("/module/setup")}
+            onPress={() => !done && step.key !== "school_profile" && router.push("/modules/setup")}
             style={{
               flexDirection: "row",
               alignItems: "center",

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Alert, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { useAuth } from "@/lib/auth";
@@ -128,8 +128,8 @@ export function ModuleSection({ section, showTitle, refreshSignal = 0 }: { secti
                 }}
                 style={({ pressed }) => [
                   { flexDirection: "row", alignItems: "center", gap: 12, paddingHorizontal: 16, paddingVertical: 14 },
-                  i > 0 && { borderTopWidth: 1, borderTopColor: colors.slate100 },
-                  pressed && { backgroundColor: colors.slate50 },
+                  i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: "rgba(100,104,180,0.18)" },
+                  pressed && { backgroundColor: "rgba(148,152,239,0.12)" },
                 ]}
               >
                 {section.item.avatar && <Avatar name={title} />}

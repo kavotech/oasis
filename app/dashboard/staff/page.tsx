@@ -33,8 +33,8 @@ const staffFields: FieldDef[] = [
   { key: "emergency_contact_phone", label: "Emergency contact phone", type: "text" },
   { key: "status", label: "Employment status", type: "select", options: [
     { value: "active", label: "Active" },
-    { value: "on_leave", label: "On leave" },
     { value: "inactive", label: "Inactive" },
+    { value: "left", label: "Left" },
   ] },
 ];
 

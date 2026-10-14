@@ -8,6 +8,7 @@ import { Avatar, Card, EmptyState, PageHeader, StatCard } from "@/components/ui"
 import { OnboardingChecklist } from "@/components/OnboardingChecklist";
 import { ModuleGrid } from "@/components/ModuleGrid";
 import { colors } from "@/theme";
+import { TAB_BAR_SPACE } from "@/components/GlassTabBar";
 
 type Stats = { students: number; staff: number; presentToday: number; outstanding: number };
 
@@ -41,7 +42,7 @@ export default function Dashboard() {
   const displayName = profile?.full_name || user?.email || "";
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top"]}>
+    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10, paddingHorizontal: 20, paddingVertical: 10 }}>
         <Image source={require("../../assets/logo.png")} style={{ width: 92, height: 32 }} resizeMode="contain" />
         <Text style={{ flex: 1, fontSize: 12, color: colors.slate400 }} numberOfLines={1}>
@@ -50,7 +51,7 @@ export default function Dashboard() {
         <Avatar name={displayName} size={34} />
       </View>
       <ScrollView
-        contentContainerStyle={{ padding: 20, paddingTop: 12, paddingBottom: 40 }}
+        contentContainerStyle={{ padding: 20, paddingTop: 12, paddingBottom: TAB_BAR_SPACE + 24 }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -67,7 +68,7 @@ export default function Dashboard() {
         <PageHeader title={`Welcome, ${displayName.split(" ")[0] || displayName}`} description={role ? ROLE_LABELS[role] : undefined} />
 
         {!profile?.school_id ? (
-          <Card style={{ marginBottom: 20, borderStyle: "dashed", backgroundColor: "rgba(248,250,252,0.6)" }}>
+          <Card style={{ marginBottom: 20 }}>
             <EmptyState
               icon="home"
               title="Not linked to a school yet"

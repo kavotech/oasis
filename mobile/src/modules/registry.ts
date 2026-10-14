@@ -210,8 +210,7 @@ const studentsSection: SectionDef = {
     { key: "status", label: "Status", type: "select", editOnly: true, options: [
       { value: "active", label: "Active" },
       { value: "inactive", label: "Inactive" },
-      { value: "graduated", label: "Graduated" },
-      { value: "transferred", label: "Transferred" },
+      { value: "left", label: "Left" },
     ] },
   ],
   // Keep the legacy flat name columns in step with the FK ids, exactly as
@@ -510,14 +509,14 @@ export const modules: ModuleDef[] = [
           { key: "emergency_contact_phone", label: "Emergency contact phone", type: "phone" },
           { key: "status", label: "Employment status", type: "select", options: [
             { value: "active", label: "Active" },
-            { value: "on_leave", label: "On leave" },
             { value: "inactive", label: "Inactive" },
+            { value: "left", label: "Left" },
           ] },
         ],
         item: {
           title: (r) => String(r.full_name),
           subtitle: (r, rel) => join(str(r.job_title), rel("department_id") ?? str(r.department)),
-          badge: tone({ active: "success", on_leave: "warning" }),
+          badge: tone({ active: "success", left: "warning" }),
           avatar: true,
         },
       },

@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { modules } from "@/modules/registry";
 import { Card, PageHeader, SearchInput } from "@/components/ui";
 import { colors } from "@/theme";
+import { TAB_BAR_SPACE } from "@/components/GlassTabBar";
 
 /** The website's sidebar, as a searchable list. */
 export default function Modules() {
@@ -13,8 +14,8 @@ export default function Modules() {
   const list = query.trim() ? modules.filter((m) => m.label.toLowerCase().includes(query.trim().toLowerCase())) : modules;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top"]}>
-      <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
+    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+      <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: TAB_BAR_SPACE + 24 }} keyboardShouldPersistTaps="handled">
         <PageHeader title="Modules" description="Everything in your OASIS school dashboard." />
         <View style={{ marginBottom: 14 }}>
           <SearchInput value={query} onChangeText={setQuery} placeholder="Search modules…" />
@@ -23,11 +24,11 @@ export default function Modules() {
           {list.map((m, i) => (
             <Pressable
               key={m.slug}
-              onPress={() => router.push(`/module/${m.slug}`)}
+              onPress={() => router.push(`/modules/${m.slug}`)}
               style={({ pressed }) => [
                 { flexDirection: "row", alignItems: "center", gap: 12, paddingHorizontal: 16, paddingVertical: 13 },
-                i > 0 && { borderTopWidth: 1, borderTopColor: colors.slate100 },
-                pressed && { backgroundColor: colors.oasis50 },
+                i > 0 && { borderTopWidth: 1, borderTopColor: "rgba(148,152,239,0.12)" },
+                pressed && { backgroundColor: "rgba(148,152,239,0.12)" },
               ]}
             >
               <View style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: colors.oasis50, alignItems: "center", justifyContent: "center" }}>
