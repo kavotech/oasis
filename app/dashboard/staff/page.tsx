@@ -43,6 +43,19 @@ const leaveFields: FieldDef[] = [
   { key: "start_date", label: "Start date", type: "date", required: true },
   { key: "end_date", label: "End date", type: "date", required: true },
   { key: "reason", label: "Reason", type: "textarea" },
+  {
+    key: "status",
+    label: "Status",
+    type: "select",
+    required: true,
+    editOnly: true,
+    roles: ["school_admin"],
+    options: [
+      { value: "pending", label: "Pending" },
+      { value: "approved", label: "Approved" },
+      { value: "rejected", label: "Rejected" },
+    ],
+  },
 ];
 
 export default function StaffPage() {
