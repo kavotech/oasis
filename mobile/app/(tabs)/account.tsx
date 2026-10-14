@@ -13,7 +13,7 @@ import { colors } from "@/theme";
 import { TAB_BAR_SPACE } from "@/components/GlassTabBar";
 
 export default function Account() {
-  const { user, profile, role, signOut, refreshProfile } = useAuth();
+  const { user, profile, role, signOut, refreshProfile, demo } = useAuth();
   const [fullName, setFullName] = useState(profile?.full_name ?? "");
   const [saving, setSaving] = useState(false);
 
@@ -30,6 +30,10 @@ export default function Account() {
   }
 
   function confirmSignOut() {
+    if (demo) {
+      signOut().then(() => router.replace("/login"));
+      return;
+    }
     Alert.alert("Sign out?", undefined, [
       { text: "Cancel", style: "cancel" },
       {
@@ -83,7 +87,7 @@ export default function Account() {
         </Card>
 
         <Button variant="danger" icon="log-out" onPress={confirmSignOut}>
-          Sign out
+          {demo ? "Exit demo" : "Sign out"}
         </Button>
         <Text style={{ textAlign: "center", color: colors.slate400, fontSize: 12, marginTop: 20 }}>OASIS v{Constants.expoConfig?.version ?? "1.0.0"}</Text>
       </ScrollView>

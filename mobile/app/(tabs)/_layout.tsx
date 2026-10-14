@@ -5,9 +5,10 @@ import { Backdrop } from "@/components/glass";
 import { GlassTabBar } from "@/components/GlassTabBar";
 
 export default function TabsLayout() {
-  const { user, loading } = useAuth();
+  const { user, role, schoolStatus, loading } = useAuth();
   if (loading) return <Spinner />;
   if (!user) return <Redirect href="/login" />;
+  if (role === "school_admin" && schoolStatus && schoolStatus !== "approved") return <Redirect href="/pending" />;
 
   return (
     <Backdrop>

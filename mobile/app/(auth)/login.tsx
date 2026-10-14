@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Linking, Pressable, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Text } from "@/components/Text";
 import { Link, router } from "expo-router";
 import { useAuth } from "@/lib/auth";
@@ -8,7 +8,7 @@ import { Button, ErrorBanner, Field, Input } from "@/components/ui";
 import { colors } from "@/theme";
 
 export default function Login() {
-  const { signIn } = useAuth();
+  const { signIn, enterDemo } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -25,7 +25,7 @@ export default function Login() {
     const result = await signIn(email, password);
     setLoading(false);
     if (result.error) setError(result.error);
-    else router.replace("/(tabs)");
+    else router.replace("/");
   }
 
   return (
@@ -33,12 +33,23 @@ export default function Login() {
       title="Welcome back"
       subtitle="Sign in to your OASIS school account."
       footer={
+        <View style={{ alignItems: "center", gap: 14 }}>
         <Text style={{ color: colors.slate500, fontSize: 14 }}>
           New school?{" "}
-          <Text style={{ color: colors.oasis600, fontWeight: "600" }} onPress={() => Linking.openURL("https://oasis.co.ug/register")}>
-            Register on the website
+          <Text style={{ color: colors.oasis600, fontWeight: "600" }} onPress={() => router.push("/signup")}>
+            Create an account
           </Text>
         </Text>
+        <Pressable
+          onPress={async () => {
+            await enterDemo();
+            router.replace("/(tabs)");
+          }}
+          style={{ flexDirection: "row", alignItems: "center", gap: 6, paddingVertical: 8, paddingHorizontal: 14, borderRadius: 999, backgroundColor: "rgba(148,152,239,0.14)" }}
+        >
+          <Text style={{ color: colors.oasis700, fontSize: 14, fontWeight: "600" }}>Just looking? Explore the demo school →</Text>
+        </Pressable>
+        </View>
       }
     >
       {error && <ErrorBanner message={error} />}

@@ -1,14 +1,26 @@
+import { useEffect, useState } from "react";
 import { Redirect } from "expo-router";
 import { View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text } from "@/components/Text";
 import { useAuth } from "@/lib/auth";
 import { supabaseConfigured } from "@/lib/supabase";
 import { Spinner } from "@/components/ui";
 import { AuthShell } from "@/components/AuthShell";
 import { colors } from "@/theme";
+import { WELCOME_SEEN_KEY } from "./welcome";
 
+/** Entry gate: welcome slides on first launch, then sign-in, the approval
+ * screen for schools still under review, or the dashboard. */
 export default function Index() {
-  const { user, loading } = useAuth();
+  const { user, role, schoolStatus, loading } = useAuth();
+  const [seenWelcome, setSeenWelcome] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem(WELCOME_SEEN_KEY)
+      .then((v) => setSeenWelcome(v === "1"))
+      .catch(() => setSeenWelcome(true));
+  }, []);
 
   if (!supabaseConfigured) {
     return (
@@ -23,6 +35,8 @@ export default function Index() {
     );
   }
 
-  if (loading) return <Spinner />;
-  return <Redirect href={user ? "/(tabs)" : "/login"} />;
+  if (loading || seenWelcome === null) return <Spinner />;
+  if (!user) return <Redirect href={seenWelcome ? "/login" : "/welcome"} />;
+  if (role === "school_admin" && schoolStatus && schoolStatus !== "approved") return <Redirect href="/pending" />;
+  return <Redirect href="/(tabs)" />;
 }

@@ -296,7 +296,8 @@ function FormSheet({
 
   return (
     <Modal visible={open} animationType="slide" presentationStyle="pageSheet" onShow={reset} onRequestClose={onClose}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["bottom"]}>
+      {/* Web has no native page sheet, so respect the top inset there. */}
+      <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={Platform.OS === "web" ? ["top", "bottom"] : ["bottom"]}>
         <View style={s.sheetHeader}>
           <Text style={s.sheetTitle}>
             {editing ? "Edit" : "Add"} {section.title.replace(/s$/, "")}

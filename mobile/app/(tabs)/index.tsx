@@ -126,7 +126,7 @@ export default function Home() {
               {firstName}
             </Text>
             <Text style={{ fontSize: 12, color: colors.slate500 }} numberOfLines={1}>
-              {[data?.schoolName, role ? ROLE_LABELS[role] : null].filter(Boolean).join(" · ")}
+              {data?.schoolName ?? (role ? ROLE_LABELS[role] : "")}
             </Text>
           </View>
           <RoundButton icon="search" label="Search modules" onPress={() => router.push("/modules")} />

@@ -1,10 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "./supabase";
+import { disableDemo, enableDemo, isDemo } from "@/demo/mode";
 import type { Enums, Tables } from "@/types/database.types";
 
 export type UserRole = Enums<"user_role">;
 type Profile = Tables<"profiles">;
+export type SchoolStatus = Tables<"schools">["status"];
 type AuthResult = { error: string | null };
 
 export const ROLE_LABELS: Record<UserRole, string> = {
@@ -23,11 +25,18 @@ type AuthContextValue = {
   profile: Profile | null;
   role: UserRole | null;
   loading: boolean;
+  /** Linked school's review status - new self-signups start pending_review. */
+  schoolStatus: SchoolStatus | null;
+  sendSignupOtp: (email: string) => Promise<AuthResult>;
+  completeSignup: (input: { email: string; code: string; password: string; fullName: string; schoolName: string }) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   sendPasswordResetOtp: (email: string) => Promise<AuthResult>;
   resetPasswordWithOtp: (input: { email: string; code: string; newPassword: string }) => Promise<AuthResult>;
   refreshProfile: () => Promise<void>;
+  /** Browse the app with the OASIS Demo School snapshot - no account needed. */
+  enterDemo: () => Promise<void>;
+  demo: boolean;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -59,12 +68,17 @@ async function functionErrorMessage(error: unknown): Promise<string> {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [schoolStatus, setSchoolStatus] = useState<SchoolStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const user = session?.user ?? null;
 
   const loadProfile = useCallback(async (userId: string) => {
     const { data } = await supabase.from("profiles").select("*").eq("id", userId).maybeSingle();
     setProfile(data ?? null);
+    if (data?.school_id) {
+      const { data: school } = await supabase.from("schools").select("status").eq("id", data.school_id).maybeSingle();
+      setSchoolStatus(school?.status ?? null);
+    } else setSchoolStatus(null);
   }, []);
 
   useEffect(() => {
@@ -78,7 +92,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {
       setSession(next);
       if (next?.user) loadProfile(next.user.id);
-      else setProfile(null);
+      else {
+        setProfile(null);
+        setSchoolStatus(null);
+      }
     });
     return () => {
       active = false;
@@ -96,7 +113,44 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [loadProfile]
   );
 
+  // Same OTP signup as the website: send-otp (signup_verify), then
+  // create-account, which creates the school (pending_review) and links the
+  // new school_admin profile to it.
+  const sendSignupOtp = useCallback(async (email: string) => {
+    const { error } = await supabase.functions.invoke("send-otp", { body: { email: email.trim(), purpose: "signup_verify" } });
+    return { error: error ? await functionErrorMessage(error) : null };
+  }, []);
+
+  const completeSignup = useCallback(
+    async ({ email, code, password, fullName, schoolName }: { email: string; code: string; password: string; fullName: string; schoolName: string }) => {
+      const { error } = await supabase.functions.invoke("create-account", {
+        body: { email: email.trim(), code, password, full_name: fullName.trim(), role: "school_admin", new_school_name: schoolName.trim() },
+      });
+      return { error: error ? await functionErrorMessage(error) : null };
+    },
+    []
+  );
+
+  const [demo, setDemo] = useState(isDemo());
+
+  const enterDemo = useCallback(async () => {
+    enableDemo();
+    setDemo(true);
+    const { data } = await supabase.auth.getSession();
+    setSession(data.session);
+    if (data.session?.user) await loadProfile(data.session.user.id);
+  }, [loadProfile]);
+
   const signOut = useCallback(async () => {
+    if (isDemo()) {
+      // Leaving the demo: drop back to the real (signed-out) client.
+      disableDemo();
+      setDemo(false);
+      setSession(null);
+      setProfile(null);
+      setSchoolStatus(null);
+      return;
+    }
     await supabase.auth.signOut();
   }, []);
 
@@ -122,11 +176,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         profile,
         role: (profile?.role as UserRole | undefined) ?? null,
         loading,
+        schoolStatus,
+        sendSignupOtp,
+        completeSignup,
         signIn,
         signOut,
         sendPasswordResetOtp,
         resetPasswordWithOtp,
         refreshProfile,
+        enterDemo,
+        demo,
       }}
     >
       {children}

@@ -3,7 +3,8 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaInsetsContext, SafeAreaProvider } from "react-native-safe-area-context";
+import { screenshotInsets } from "@/lib/screenshot";
 import { AuthProvider } from "@/lib/auth";
 import { FONT_ITALIC, FONT_REGULAR } from "@/components/Text";
 import { colors } from "@/theme";
@@ -25,12 +26,16 @@ export default function RootLayout() {
 
   if (!ready) return null;
 
+  const app = (
+    <AuthProvider>
+      <StatusBar style="dark" />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }} />
+    </AuthProvider>
+  );
+
   return (
     <SafeAreaProvider>
-      <AuthProvider>
-        <StatusBar style="dark" />
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }} />
-      </AuthProvider>
+      {screenshotInsets ? <SafeAreaInsetsContext.Provider value={screenshotInsets}>{app}</SafeAreaInsetsContext.Provider> : app}
     </SafeAreaProvider>
   );
 }

@@ -20,7 +20,8 @@ export default function ModulesStack() {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="[slug]" options={{ title: "" }} />
+      {/* Module screens draw their own glass back button + title. */}
+      <Stack.Screen name="[slug]" options={{ headerShown: false }} />
     </Stack>
   );
 }

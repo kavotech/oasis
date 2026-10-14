@@ -1,14 +1,12 @@
-import { Stack, useLocalSearchParams } from "expo-router";
-import { findModule } from "@/modules/registry";
+import { useLocalSearchParams } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { ModuleView } from "@/screens/ModuleView";
 
 export default function ModuleScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
-  const mod = findModule(String(slug));
   return (
-    <>
-      <Stack.Screen options={{ title: mod?.label ?? "" }} />
-      <ModuleView slug={String(slug)} />
-    </>
+    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+      <ModuleView slug={String(slug)} topInset={8} showBreadcrumb={false} showBack />
+    </SafeAreaView>
   );
 }
