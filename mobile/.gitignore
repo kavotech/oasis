@@ -43,3 +43,6 @@ yarn-error.*
 
 # Regenerable bare captures
 screenshots/raw/
+
+# Promo video work (large media; kept local)
+screenshots/video/

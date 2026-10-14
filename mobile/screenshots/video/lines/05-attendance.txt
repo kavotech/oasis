@@ -1,1 +1,0 @@
-Take attendance in seconds. See who is present, who is late, and who is absent, every single day.
