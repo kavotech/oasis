@@ -1,6 +1,8 @@
 "use client";
 
 import { Badge } from "@/components/portal/ui/Badge";
+import { Layers } from "lucide-react";
+import { ButtonLink } from "@/components/portal/ui/Button";
 import { SimpleModule, type FieldDef } from "@/components/school/SimpleModule";
 import type { Tables } from "@/types/database.types";
 
@@ -34,6 +36,11 @@ export default function FeesPage() {
     <SimpleModule<Row>
       table="fee_invoices"
       title="Fees & Payments"
+      headerActions={
+        <ButtonLink href="/dashboard/fees/bulk">
+          <Layers className="h-4 w-4" /> Invoice a class
+        </ButtonLink>
+      }
       description="School fees, invoices and payment status."
       fields={fields}
       writeRoles={["school_admin", "teacher", "bursar"]}

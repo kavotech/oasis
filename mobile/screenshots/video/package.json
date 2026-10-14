@@ -1,0 +1,1 @@
+{"name":"oasis-voice","private":true,"type":"module","dependencies":{"edge-tts-universal":"^1.4.0","msedge-tts":"^2.1.0","ws":"^8.22.0"}}

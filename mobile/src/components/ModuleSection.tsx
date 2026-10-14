@@ -3,6 +3,8 @@ import { Alert, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, St
 import { Text } from "@/components/Text";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { friendlyDbError } from "@/lib/db-errors";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { useLookups, useRealtimeRows } from "@/lib/useRealtimeRows";
@@ -103,16 +105,23 @@ export function ModuleSection({
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <Text style={{ fontSize: 16, fontWeight: "600", color: colors.slate800 }}>{showTitle ? section.title : `${rows.length} records`}</Text>
           {canWrite && (
-            <Button
-              size="sm"
-              icon="plus"
-              onPress={() => {
-                setEditing(null);
-                setFormOpen(true);
-              }}
-            >
-              Add
-            </Button>
+            <View style={{ flexDirection: "row", gap: 8 }}>
+              {section.actions?.map((a) => (
+                <Button key={a.href} size="sm" variant="secondary" icon={a.icon} onPress={() => router.push(a.href as never)}>
+                  {a.label}
+                </Button>
+              ))}
+              <Button
+                size="sm"
+                icon="plus"
+                onPress={() => {
+                  setEditing(null);
+                  setFormOpen(true);
+                }}
+              >
+                Add
+              </Button>
+            </View>
           )}
         </View>
       )}
@@ -261,10 +270,12 @@ function FormSheet({
 
     const result = editing
       ? await supabase.from(section.table).update(payload as never).eq("id", editing.id).select("id").single()
-      : await supabase.from(section.table).insert(payload as never).select("id").single();
+      : section.upsertOn
+        ? await supabase.from(section.table).upsert(payload as never, { onConflict: section.upsertOn }).select("id").single()
+        : await supabase.from(section.table).insert(payload as never).select("id").single();
     if (result.error || !result.data) {
       setSaving(false);
-      setFormError(result.error?.message ?? "Couldn't save.");
+      setFormError(result.error ? friendlyDbError(result.error.message) : "Couldn't save.");
       return;
     }
     const followUp = section.afterSave ? await section.afterSave((result.data as { id: string }).id, ctx) : null;
@@ -284,7 +295,7 @@ function FormSheet({
         onPress: async () => {
           const { error } = await supabase.from(section.table).delete().eq("id", editing.id);
           if (error) {
-            setFormError(error.message);
+            setFormError(friendlyDbError(error.message));
             return;
           }
           onSaved();

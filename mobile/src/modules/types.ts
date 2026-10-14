@@ -55,6 +55,11 @@ export type SectionDef = {
   transform?: (payload: Record<string, unknown>, ctx: SaveContext) => Record<string, unknown>;
   /** Runs after a successful insert/update with the saved row id. */
   afterSave?: (id: string, ctx: SaveContext) => Promise<string | null>;
+  /** Insert as an upsert on these columns (e.g. one attendance mark per
+   * student per day) so re-adding edits instead of failing. */
+  upsertOn?: string;
+  /** Extra shortcuts shown beside Add, e.g. bulk tools. */
+  actions?: { label: string; icon: IconName; href: string }[];
 };
 
 export type ModuleDef =

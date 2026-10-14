@@ -89,7 +89,8 @@ const uuid = () =>
 type Filter = (r: Row) => boolean;
 
 class Query implements PromiseLike<{ data: unknown; error: { message: string } | null; count?: number | null }> {
-  private op: "select" | "insert" | "update" | "delete" = "select";
+  private op: "select" | "insert" | "upsert" | "update" | "delete" = "select";
+  private conflict: string[] = [];
   private filters: Filter[] = [];
   private sort: { col: string; asc: boolean } | null = null;
   private max: number | null = null;
@@ -110,6 +111,12 @@ class Query implements PromiseLike<{ data: unknown; error: { message: string } |
   insert(payload: unknown) {
     this.op = "insert";
     this.payload = payload;
+    return this;
+  }
+  upsert(payload: unknown, opts?: { onConflict?: string }) {
+    this.op = "upsert";
+    this.payload = payload;
+    this.conflict = (opts?.onConflict ?? "id").split(",").map((c) => c.trim());
     return this;
   }
   update(payload: unknown) {
@@ -162,6 +169,25 @@ class Query implements PromiseLike<{ data: unknown; error: { message: string } |
     const rows = (db()[this.table] ??= []);
     const match = (r: Row) => this.filters.every((f) => f(r));
 
+    if (this.op === "upsert") {
+      const items = (Array.isArray(this.payload) ? this.payload : [this.payload]) as Record<string, unknown>[];
+      const out: Row[] = [];
+      for (const p of items) {
+        const i = rows.findIndex((r) => this.conflict.every((c) => r[c] === p[c]));
+        if (i >= 0) {
+          const old = rows[i];
+          rows[i] = { ...old, ...p };
+          out.push(rows[i]);
+          emit(this.table, { eventType: "UPDATE", new: rows[i], old });
+        } else {
+          const r = { ...DEFAULTS[this.table], id: uuid(), created_at: new Date().toISOString(), ...p } as Row;
+          rows.unshift(r);
+          out.push(r);
+          emit(this.table, { eventType: "INSERT", new: r, old: {} });
+        }
+      }
+      return this.shape(out);
+    }
     if (this.op === "insert") {
       const items = (Array.isArray(this.payload) ? this.payload : [this.payload]) as Record<string, unknown>[];
       const created = items.map((p) => ({ ...DEFAULTS[this.table], id: uuid(), created_at: new Date().toISOString(), ...p }) as Row);

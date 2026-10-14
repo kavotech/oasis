@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
-import { Plus } from "lucide-react";
+import { Plus, Users } from "lucide-react";
 import { PageHeader } from "@/components/portal/PageHeader";
 import { Card } from "@/components/portal/ui/Card";
 import { Table, type Column } from "@/components/portal/ui/Table";
-import { Button } from "@/components/portal/ui/Button";
+import { Button, ButtonLink } from "@/components/portal/ui/Button";
 import { Drawer } from "@/components/portal/ui/Drawer";
 import { Input, Select, SearchInput } from "@/components/portal/ui/Input";
 import { Avatar } from "@/components/portal/ui/Avatar";
@@ -147,9 +147,14 @@ export default function StudentsPage() {
         breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: "Student Management" }]}
         action={
           canWrite && (
-            <Button onClick={() => setOpen(true)}>
-              <Plus className="h-4 w-4" /> Add student
-            </Button>
+            <div className="flex flex-wrap gap-2">
+              <ButtonLink href="/dashboard/students/bulk">
+                <Users className="h-4 w-4" /> Bulk add
+              </ButtonLink>
+              <Button onClick={() => setOpen(true)}>
+                <Plus className="h-4 w-4" /> Add student
+              </Button>
+            </div>
           )
         }
       />

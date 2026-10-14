@@ -187,7 +187,7 @@ export default function Home() {
                     </View>
                   </View>
                   {marked < data.students && (
-                    <Button variant="secondary" icon="check-circle" style={{ marginTop: 16 }} onPress={() => router.push("/attendance?add=1")}>
+                    <Button variant="secondary" icon="check-circle" style={{ marginTop: 16 }} onPress={() => router.push("/modules/register")}>
                       {marked ? `${data.students - marked} still to mark` : "Take today's attendance"}
                     </Button>
                   )}

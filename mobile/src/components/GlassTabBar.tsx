@@ -100,9 +100,11 @@ export function GlassTabBar({ state, descriptors, navigation }: TabBarProps) {
 }
 
 export const QUICK_ACTIONS: { label: string; icon: IconName; href: string; color: string }[] = [
-  { label: "Take attendance", icon: "check-circle", href: "/attendance?add=1", color: "#10b981" },
+  { label: "Take register", icon: "check-circle", href: "/modules/register", color: "#10b981" },
   { label: "Add student", icon: "user-plus", href: "/students?add=1", color: colors.oasis600 },
+  { label: "Bulk add students", icon: "users", href: "/modules/bulk-students", color: "#6366f1" },
   { label: "New invoice", icon: "credit-card", href: "/modules/fees?add=1", color: "#f59e0b" },
+  { label: "Invoice a class", icon: "layers", href: "/modules/bulk-invoice", color: "#d97706" },
   { label: "Send message", icon: "send", href: "/messages?add=1", color: "#0ea5e9" },
   { label: "Add event", icon: "calendar", href: "/modules/calendar?add=1", color: "#ec4899" },
   { label: "Log behaviour", icon: "award", href: "/modules/behaviour?add=1", color: "#8b5cf6" },

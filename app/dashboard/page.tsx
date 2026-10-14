@@ -12,6 +12,7 @@ import {
   ChevronRight,
   ClipboardCheck,
   CreditCard,
+  Layers,
   Send,
   ThumbsUp,
   TriangleAlert,
@@ -34,9 +35,11 @@ import type { Tables } from "@/types/database.types";
 // Same quick actions as the mobile app's round + menu; ?add=1 opens the
 // module's Add drawer straight away.
 const QUICK_ACTIONS: { label: string; href: string; icon: LucideIcon; tone: string }[] = [
-  { label: "Take attendance", href: "/dashboard/attendance?add=1", icon: ClipboardCheck, tone: "bg-emerald-50 text-emerald-600" },
+  { label: "Take register", href: "/dashboard/attendance/register", icon: ClipboardCheck, tone: "bg-emerald-50 text-emerald-600" },
   { label: "Add student", href: "/dashboard/students?add=1", icon: UserPlus, tone: "bg-oasis-50 text-oasis-600" },
+  { label: "Bulk add students", href: "/dashboard/students/bulk", icon: Users, tone: "bg-indigo-50 text-indigo-600" },
   { label: "New invoice", href: "/dashboard/fees?add=1", icon: CreditCard, tone: "bg-amber-50 text-amber-600" },
+  { label: "Invoice a class", href: "/dashboard/fees/bulk", icon: Layers, tone: "bg-orange-50 text-orange-600" },
   { label: "Send message", href: "/dashboard/communication?add=1", icon: Send, tone: "bg-sky-50 text-sky-600" },
   { label: "Add event", href: "/dashboard/calendar?add=1", icon: CalendarPlus, tone: "bg-pink-50 text-pink-600" },
   { label: "Log behaviour", href: "/dashboard/behaviour?add=1", icon: Award, tone: "bg-violet-50 text-violet-600" },
@@ -162,7 +165,7 @@ export default function DashboardPage() {
                     </div>
                     {marked < students.length && (
                       <Link
-                        href="/dashboard/attendance?add=1"
+                        href="/dashboard/attendance/register"
                         className="mt-4 flex h-10 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
                       >
                         <ClipboardCheck className="h-4 w-4" />

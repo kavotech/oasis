@@ -189,6 +189,7 @@ const setupSections: SectionDef[] = [
 const studentsSection: SectionDef = {
   table: "students",
   title: "Students",
+  actions: [{ label: "Bulk add", icon: "users", href: "/modules/bulk-students" }],
   orderBy: "full_name",
   searchable: true,
   writeRoles: ["school_admin", "teacher"],
@@ -305,6 +306,8 @@ export const modules: ModuleDef[] = [
       {
         table: "attendance_records",
         title: "Attendance",
+        upsertOn: "student_id,date",
+        actions: [{ label: "Take register", icon: "check-square", href: "/modules/register" }],
         orderBy: "date",
         writeRoles: ["school_admin", "teacher"],
         deleteRoles: [],
@@ -452,6 +455,7 @@ export const modules: ModuleDef[] = [
       {
         table: "fee_invoices",
         title: "Invoices",
+        actions: [{ label: "Invoice a class", icon: "layers", href: "/modules/bulk-invoice" }],
         writeRoles: STAFF_EDIT,
         fields: [
           student,

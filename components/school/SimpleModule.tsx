@@ -14,6 +14,7 @@ import { useRealtimeRows } from "@/lib/supabase/useRealtimeRows";
 import { createClient } from "@/lib/supabase/client";
 import { useToast } from "@/hooks/useToast";
 import { useOpenOnAddParam } from "@/hooks/useOpenOnAddParam";
+import { friendlyDbError } from "@/lib/db-errors";
 import type { Database } from "@/types/database.types";
 
 type TableName = keyof Database["public"]["Tables"] & string;
@@ -109,6 +110,8 @@ export function SimpleModule<T extends Row>({
   readRoles,
   extraOnInsert,
   compact,
+  upsertOn,
+  headerActions,
 }: {
   table: TableName;
   title: string;
@@ -124,6 +127,11 @@ export function SimpleModule<T extends Row>({
   /** Skip the full PageHeader (breadcrumbs) - for stacking a second table
    * lower on a page that already has its own PageHeader. */
   compact?: boolean;
+  /** Insert as an upsert on these columns (e.g. "student_id,date" for
+   * attendance) so adding an existing record updates it instead of failing. */
+  upsertOn?: string;
+  /** Extra buttons/links beside Add, e.g. bulk tools. */
+  headerActions?: React.ReactNode;
 }) {
   const { profile, role } = useAuth();
   const { toast } = useToast();
@@ -198,10 +206,12 @@ export function SimpleModule<T extends Row>({
     const supabase = createClient();
     const { error } = editing
       ? await supabase.from(table).update(payload as never).eq("id", editing.id)
-      : await supabase.from(table).insert(payload as never);
+      : upsertOn
+        ? await supabase.from(table).upsert(payload as never, { onConflict: upsertOn })
+        : await supabase.from(table).insert(payload as never);
     setSaving(false);
     if (error) {
-      toast("error", "Couldn't save", error.message);
+      toast("error", "Couldn't save", friendlyDbError(error.message));
       return;
     }
     const wasEditing = !!editing;
@@ -219,7 +229,7 @@ export function SimpleModule<T extends Row>({
     if (!window.confirm("Delete this record? This can't be undone.")) return;
     const { error } = await createClient().from(table).delete().eq("id", row.id);
     if (error) {
-      toast("error", "Couldn't delete", error.message);
+      toast("error", "Couldn't delete", friendlyDbError(error.message));
       return;
     }
     refetch();
@@ -244,9 +254,12 @@ export function SimpleModule<T extends Row>({
           action={
             canWrite &&
             hasReadAccess && (
-              <Button onClick={openCreate}>
-                <Plus className="h-4 w-4" /> Add
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                {headerActions}
+                <Button onClick={openCreate}>
+                  <Plus className="h-4 w-4" /> Add
+                </Button>
+              </div>
             )
           }
         />

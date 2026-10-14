@@ -39,6 +39,9 @@ const SCREENS = [
   ["17-reporting", `/modules/reporting?${DEMO}`],
   ["18-calendar", `/modules/calendar?${DEMO}`],
   ["19-account", `/account?${DEMO}`],
+  ["20-class-register", `/modules/register?${DEMO}`],
+  ["21-bulk-add-students", `/modules/bulk-students?${DEMO}`],
+  ["22-invoice-a-class", `/modules/bulk-invoice?${DEMO}`],
 ];
 
 fs.mkdirSync(OUT, { recursive: true });

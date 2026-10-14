@@ -36,6 +36,9 @@ const CAPTIONS = {
   "17-reporting": ["Live reports,", "real numbers"],
   "18-calendar": ["Never miss", "a school event"],
   "19-account": ["Your account,", "your way"],
+  "20-class-register": ["A whole class register", "in one tap"],
+  "21-bulk-add-students": ["Add a whole class", "in seconds"],
+  "22-invoice-a-class": ["Invoice every student", "at once"],
 };
 
 // iPhone 16 in points: 393x852 screen, ~21pt frame, 55pt screen corners.

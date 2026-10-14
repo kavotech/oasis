@@ -1,6 +1,8 @@
 "use client";
 
 import { Badge } from "@/components/portal/ui/Badge";
+import { ClipboardCheck } from "lucide-react";
+import { ButtonLink } from "@/components/portal/ui/Button";
 import { SimpleModule, type FieldDef } from "@/components/school/SimpleModule";
 import type { Tables } from "@/types/database.types";
 
@@ -36,6 +38,12 @@ export default function AttendancePage() {
     <SimpleModule<Row>
       table="attendance_records"
       title="Attendance"
+      upsertOn="student_id,date"
+      headerActions={
+        <ButtonLink href="/dashboard/attendance/register">
+          <ClipboardCheck className="h-4 w-4" /> Take register
+        </ButtonLink>
+      }
       description="Daily attendance records."
       orderBy="date"
       fields={fields}

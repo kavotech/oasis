@@ -46,6 +46,7 @@ export default function ClubsPage() {
 
       <SimpleModule<Member>
         table="club_members"
+        orderBy="joined_at"
         title="Members"
         description=""
         fields={memberFields}
