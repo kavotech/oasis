@@ -1492,11 +1492,13 @@ export type Database = {
       }
       staff: {
         Row: {
+          access_role: string
           address: string | null
           created_at: string
           date_of_birth: string | null
           department: string | null
           department_id: string | null
+          email: string | null
           emergency_contact_name: string | null
           emergency_contact_phone: string | null
           employment_date: string | null
@@ -1518,11 +1520,13 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          access_role?: string
           address?: string | null
           created_at?: string
           date_of_birth?: string | null
           department?: string | null
           department_id?: string | null
+          email?: string | null
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
           employment_date?: string | null
@@ -1544,11 +1548,13 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          access_role?: string
           address?: string | null
           created_at?: string
           date_of_birth?: string | null
           department?: string | null
           department_id?: string | null
+          email?: string | null
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
           employment_date?: string | null
@@ -2310,6 +2316,8 @@ export type Database = {
         }
         Returns: undefined
       }
+      my_class_ids: { Args: never; Returns: string[] }
+      my_staff_id: { Args: never; Returns: string }
       submit_school_registration: {
         Args: {
           p_address?: string

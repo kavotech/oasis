@@ -271,6 +271,8 @@ const session = {
 
 export const demoClient = {
   from: (table: string) => new Query(table),
+  // The demo user is a school admin, so the teacher helpers return nothing.
+  rpc: async (_fn: string) => ({ data: _fn === "my_class_ids" ? [] : null, error: null }),
   channel: () => new Channel(),
   removeChannel: async (ch: Channel) => {
     ch.unsubscribeAll();

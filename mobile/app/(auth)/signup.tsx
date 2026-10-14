@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Pressable, View } from "react-native";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Text } from "@/components/Text";
 import { useAuth } from "@/lib/auth";
 import { AuthShell } from "@/components/AuthShell";
 import { Button, ErrorBanner, Field, Input } from "@/components/ui";
 import { colors } from "@/theme";
+import { SchoolPicker } from "@/components/SchoolPicker";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -15,6 +16,12 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export default function Signup() {
   const { sendSignupOtp, completeSignup, signIn } = useAuth();
   const [step, setStep] = useState<"details" | "code">("details");
+  // new = register a new school (becomes its admin); staff / parent = join a
+  // school that already has you on file.
+  // ?mode=staff|parent deep-links straight to joining (e.g. a link a school sends its teachers).
+  const params = useLocalSearchParams<{ mode?: string }>();
+  const [mode, setMode] = useState<"new" | "staff" | "parent">(params.mode === "staff" || params.mode === "parent" ? params.mode : "new");
+  const [schoolId, setSchoolId] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +32,8 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
 
   async function requestCode() {
-    if (!schoolName.trim()) return setError("Enter your school's name.");
+    if (mode === "new" && !schoolName.trim()) return setError("Enter your school's name.");
+    if (mode !== "new" && !schoolId) return setError("Choose your school.");
     if (!fullName.trim()) return setError("Enter your name.");
     if (!EMAIL_RE.test(email.trim())) return setError("Enter a valid work email address.");
     if (password.length < 8) return setError("Use at least 8 characters for your password.");
@@ -42,7 +50,11 @@ export default function Signup() {
     if (code.trim().length !== 6) return setError("Enter the 6-digit code we emailed you.");
     setError(null);
     setLoading(true);
-    const created = await completeSignup({ email, code: code.trim(), password, fullName, schoolName });
+    const created = await completeSignup(
+      mode === "new"
+        ? { email, code: code.trim(), password, fullName, schoolName }
+        : { email, code: code.trim(), password, fullName, role: mode === "parent" ? "parent" : "teacher", schoolId }
+    );
     if (created.error) {
       setLoading(false);
       return setError(created.error);
@@ -50,7 +62,7 @@ export default function Signup() {
     const signedIn = await signIn(email, password);
     setLoading(false);
     if (signedIn.error) return setError(signedIn.error);
-    router.replace("/pending");
+    router.replace(mode === "new" ? "/pending" : "/");
   }
 
   const footer = (
@@ -95,18 +107,48 @@ export default function Signup() {
 
   return (
     <AuthShell
-      title="Create your school account"
-      subtitle="Start with the basics. Your login works right away; your school just needs approval before your dashboard unlocks."
+      title={mode === "new" ? "Create your school account" : mode === "staff" ? "Join your school as staff" : "Join as a parent"}
+      subtitle={
+        mode === "new"
+          ? "Start with the basics. Your login works right away; your school just needs approval before your dashboard unlocks."
+          : mode === "staff"
+            ? "Use the email your school admin added you with - your classes and access come from the school."
+            : "Use the email your school has on file for you - you'll see your children's attendance, results and fees."
+      }
       footer={footer}
     >
+      <View style={{ flexDirection: "row", backgroundColor: "rgba(118,118,128,0.12)", borderRadius: 12, padding: 3, marginBottom: 18 }}>
+        {([
+          ["new", "New school"],
+          ["staff", "I'm staff"],
+          ["parent", "I'm a parent"],
+        ] as const).map(([m, label]) => (
+          <Pressable
+            key={m}
+            onPress={() => {
+              setMode(m);
+              setError(null);
+            }}
+            style={{ flex: 1, paddingVertical: 8, borderRadius: 10, alignItems: "center", backgroundColor: mode === m ? "#fff" : "transparent" }}
+          >
+            <Text style={{ fontSize: 13, fontWeight: mode === m ? "700" : "500", color: mode === m ? colors.slate900 : colors.slate500 }}>{label}</Text>
+          </Pressable>
+        ))}
+      </View>
       {error && <ErrorBanner message={error} />}
-      <Field label="School name">
-        <Input value={schoolName} onChangeText={setSchoolName} placeholder="e.g. Kampala Parents School" autoCapitalize="words" />
-      </Field>
+      {mode === "new" ? (
+        <Field label="School name">
+          <Input value={schoolName} onChangeText={setSchoolName} placeholder="e.g. Kampala Parents School" autoCapitalize="words" />
+        </Field>
+      ) : (
+        <Field label="Your school">
+          <SchoolPicker value={schoolId} onChange={setSchoolId} />
+        </Field>
+      )}
       <Field label="Your name">
         <Input value={fullName} onChangeText={setFullName} placeholder="Full name" autoCapitalize="words" textContentType="name" autoComplete="name" />
       </Field>
-      <Field label="Work email address">
+      <Field label={mode === "parent" ? "Email address" : "Work email address"}>
         <Input
           value={email}
           onChangeText={setEmail}

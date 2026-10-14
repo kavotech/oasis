@@ -10,7 +10,7 @@ type Profile = Tables<"profiles">;
 
 type AuthResult = { error: string | null };
 type SchoolStatus = Tables<"schools">["status"];
-type SignInResult = AuthResult & { role: UserRole | null; schoolStatus?: SchoolStatus | null };
+type SignInResult = AuthResult & { role: UserRole | null; schoolStatus?: SchoolStatus | null; schoolId?: string | null };
 type SelfServiceRole = Exclude<UserRole, "super_admin">;
 
 type AuthContextValue = {
@@ -172,10 +172,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // review status rather than assuming approval.
       if (role === "school_admin" && profileRow?.school_id) {
         const { data: school } = await supabase.from("schools").select("status").eq("id", profileRow.school_id).maybeSingle();
-        return { error: null, role, schoolStatus: school?.status ?? null };
+        return { error: null, role, schoolStatus: school?.status ?? null, schoolId: profileRow.school_id };
       }
 
-      return { error: null, role };
+      return { error: null, role, schoolId: profileRow?.school_id ?? null };
     },
     [supabase]
   );

@@ -10,7 +10,8 @@ import { Avatar, Badge, Button, Card, EmptyState, StatCard } from "@/components/
 import { Glass } from "@/components/glass";
 import { AttendanceRing } from "@/components/AttendanceRing";
 import { OnboardingChecklist } from "@/components/OnboardingChecklist";
-import { QUICK_ACTIONS, TAB_BAR_SPACE } from "@/components/GlassTabBar";
+import { TeacherHome } from "@/screens/TeacherHome";
+import { quickActionsFor, TAB_BAR_SPACE } from "@/components/GlassTabBar";
 import { colors } from "@/theme";
 
 type Overview = {
@@ -41,7 +42,8 @@ export default function Home() {
   const [data, setData] = useState<Overview | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [checklistKey, setChecklistKey] = useState(0);
-  const staffView = role !== "parent" && role !== "student";
+  // School-wide figures are for admins and bursars; teachers get their own classes.
+  const staffView = role === "school_admin" || role === "bursar" || role === "librarian";
 
   const load = useCallback(async () => {
     if (!profile?.school_id) return;
@@ -144,9 +146,9 @@ export default function Home() {
         ) : (
           <>
             {/* Quick actions - round, WhatsApp-style */}
-            {staffView && (
+            {quickActionsFor(role).length > 0 && (
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -20, marginBottom: 22 }} contentContainerStyle={{ paddingHorizontal: 20, gap: 16 }}>
-                {QUICK_ACTIONS.map((a) => (
+                {quickActionsFor(role).map((a) => (
                   <Pressable key={a.label} onPress={() => router.push(a.href as never)} style={({ pressed }) => ({ alignItems: "center", width: 70, transform: [{ scale: pressed ? 0.93 : 1 }] })}>
                     <Glass radius={30} interactive style={{ width: 60, height: 60, alignItems: "center", justifyContent: "center" }}>
                       <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: a.color + "1f", alignItems: "center", justifyContent: "center" }}>
@@ -163,10 +165,12 @@ export default function Home() {
 
             {role === "school_admin" && <OnboardingChecklist key={checklistKey} />}
 
+            {role === "teacher" && <TeacherHome refreshKey={checklistKey} />}
+
             {staffView && data && (
               <>
                 {/* Today */}
-                <SectionHeader title="Today" action="Attendance" onAction={() => router.push("/attendance")} />
+                <SectionHeader title="Today" action="Registers" onAction={() => router.push("/modules/register")} />
                 <Card style={{ marginBottom: 24 }}>
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 18 }}>
                     <AttendanceRing
@@ -188,7 +192,7 @@ export default function Home() {
                   </View>
                   {marked < data.students && (
                     <Button variant="secondary" icon="check-circle" style={{ marginTop: 16 }} onPress={() => router.push("/modules/register")}>
-                      {marked ? `${data.students - marked} still to mark` : "Take today's attendance"}
+                      {marked ? `${data.students - marked} students not marked yet - view registers` : "No registers taken yet - view classes"}
                     </Button>
                   )}
                 </Card>
@@ -290,7 +294,7 @@ export default function Home() {
               </>
             )}
 
-            {!staffView && (
+            {(role === "parent" || role === "student") && (
               <>
                 <SectionHeader title="Your portal" />
                 <Card padded={false}>

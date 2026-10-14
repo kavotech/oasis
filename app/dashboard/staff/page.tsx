@@ -13,6 +13,12 @@ type LeaveRequest = Tables<"staff_leave_requests">;
 const staffFields: FieldDef[] = [
   { key: "staff_number", label: "Staff ID", type: "text" },
   { key: "full_name", label: "Full name", type: "text", required: true },
+  { key: "email", label: "Email (for their OASIS login)", type: "email" },
+  { key: "access_role", label: "Login access", type: "select", options: [
+    { value: "teacher", label: "Teacher - registers & their classes" },
+    { value: "bursar", label: "Bursar - fees & payments" },
+    { value: "librarian", label: "Librarian" },
+  ] },
   { key: "gender", label: "Gender", type: "select", options: [
     { value: "male", label: "Male" },
     { value: "female", label: "Female" },
@@ -66,7 +72,7 @@ export default function StaffPage() {
     <div>
       <PageHeader
         title="Staff Management"
-        description="Staff profiles and leave requests."
+        description="Add your staff, then assign class teachers (in School Setup) and teaching subjects below. Staff sign up with the email you add here and see only their own classes."
         breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: "Staff Management" }]}
       />
 
@@ -79,12 +85,41 @@ export default function StaffPage() {
           writeRoles={["school_admin"]}
           deleteRoles={[]}
           compact
+          answerAddParam
           columns={[
             { key: "name", header: "Name", render: (r) => <p className="font-medium text-slate-800">{r.full_name}</p> },
             { key: "title", header: "Job title", render: (r) => r.job_title || "—" },
             { key: "dept", header: "Department", render: (r) => (r.department_id && departmentById.get(r.department_id)) || r.department || "—" },
+            {
+              key: "login",
+              header: "OASIS login",
+              render: (r) =>
+                r.profile_id ? (
+                  <Badge tone="success">Active</Badge>
+                ) : r.email ? (
+                  <span className="text-xs text-slate-500">Can sign up with {r.email}</span>
+                ) : (
+                  <span className="text-xs text-amber-700">Add an email</span>
+                ),
+            },
             { key: "status", header: "Status", render: (r) => <Badge tone={r.status === "active" ? "success" : "neutral"}>{r.status}</Badge> },
           ]}
+        />
+      </div>
+
+      <div className="mb-6">
+        <SimpleModule<Tables<"subject_assignments">>
+          table="subject_assignments"
+          title="Teaching assignments"
+          description=""
+          writeRoles={["school_admin"]}
+          compact
+          fields={[
+            { key: "teacher_id", label: "Teacher", type: "relation", relationTable: "staff", labelKey: "full_name", required: true },
+            { key: "subject_id", label: "Subject", type: "relation", relationTable: "subjects", labelKey: "name", required: true },
+            { key: "class_id", label: "Class", type: "relation", relationTable: "classes", labelKey: "name", required: true },
+          ]}
+          columns={[]}
         />
       </div>
 

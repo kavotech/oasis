@@ -28,22 +28,34 @@ import { Avatar } from "@/components/portal/ui/Avatar";
 import { StatCard } from "@/components/portal/ui/StatCard";
 import { EmptyState } from "@/components/portal/ui/EmptyState";
 import { OnboardingChecklist } from "@/components/school/OnboardingChecklist";
+import { TeacherHome } from "@/components/school/TeacherHome";
 import { useRealtimeRows } from "@/lib/supabase/useRealtimeRows";
 import { schoolNav } from "@/lib/school-nav";
 import type { Tables } from "@/types/database.types";
 
-// Same quick actions as the mobile app's round + menu; ?add=1 opens the
-// module's Add drawer straight away.
-const QUICK_ACTIONS: { label: string; href: string; icon: LucideIcon; tone: string }[] = [
-  { label: "Take register", href: "/dashboard/attendance/register", icon: ClipboardCheck, tone: "bg-emerald-50 text-emerald-600" },
-  { label: "Add student", href: "/dashboard/students?add=1", icon: UserPlus, tone: "bg-oasis-50 text-oasis-600" },
-  { label: "Bulk add students", href: "/dashboard/students/bulk", icon: Users, tone: "bg-indigo-50 text-indigo-600" },
-  { label: "New invoice", href: "/dashboard/fees?add=1", icon: CreditCard, tone: "bg-amber-50 text-amber-600" },
-  { label: "Invoice a class", href: "/dashboard/fees/bulk", icon: Layers, tone: "bg-orange-50 text-orange-600" },
-  { label: "Send message", href: "/dashboard/communication?add=1", icon: Send, tone: "bg-sky-50 text-sky-600" },
-  { label: "Add event", href: "/dashboard/calendar?add=1", icon: CalendarPlus, tone: "bg-pink-50 text-pink-600" },
-  { label: "Log behaviour", href: "/dashboard/behaviour?add=1", icon: Award, tone: "bg-violet-50 text-violet-600" },
-];
+// Same quick actions as the mobile app's round + menu, by role: admins set
+// the school up and oversee it, teachers run their classes, bursars handle
+// money. ?add=1 opens the module's Add drawer straight away.
+type QuickAction = { label: string; href: string; icon: LucideIcon; tone: string };
+const A: Record<string, QuickAction> = {
+  registers: { label: "View registers", href: "/dashboard/attendance/register", icon: ClipboardCheck, tone: "bg-emerald-50 text-emerald-600" },
+  takeRegister: { label: "Take register", href: "/dashboard/attendance/register", icon: ClipboardCheck, tone: "bg-emerald-50 text-emerald-600" },
+  addStaff: { label: "Add staff", href: "/dashboard/staff?add=1", icon: Briefcase, tone: "bg-teal-50 text-teal-600" },
+  addStudent: { label: "Add student", href: "/dashboard/students?add=1", icon: UserPlus, tone: "bg-oasis-50 text-oasis-600" },
+  bulkStudents: { label: "Bulk add students", href: "/dashboard/students/bulk", icon: Users, tone: "bg-indigo-50 text-indigo-600" },
+  newInvoice: { label: "New invoice", href: "/dashboard/fees?add=1", icon: CreditCard, tone: "bg-amber-50 text-amber-600" },
+  classInvoice: { label: "Invoice a class", href: "/dashboard/fees/bulk", icon: Layers, tone: "bg-orange-50 text-orange-600" },
+  message: { label: "Send message", href: "/dashboard/communication?add=1", icon: Send, tone: "bg-sky-50 text-sky-600" },
+  event: { label: "Add event", href: "/dashboard/calendar?add=1", icon: CalendarPlus, tone: "bg-pink-50 text-pink-600" },
+  behaviour: { label: "Log behaviour", href: "/dashboard/behaviour?add=1", icon: Award, tone: "bg-violet-50 text-violet-600" },
+  marks: { label: "Record marks", href: "/dashboard/academic?add=1", icon: BookOpen, tone: "bg-sky-50 text-sky-700" },
+};
+function quickActionsFor(role: string | null): QuickAction[] {
+  if (role === "teacher") return [A.takeRegister, A.behaviour, A.marks, A.message, A.event];
+  if (role === "bursar") return [A.newInvoice, A.classInvoice, A.message];
+  if (role === "parent" || role === "student") return [];
+  return [A.addStaff, A.addStudent, A.bulkStudents, A.registers, A.newInvoice, A.classInvoice, A.message, A.event];
+}
 
 function localToday() {
   const d = new Date();
@@ -60,7 +72,9 @@ const ugx = (n: number) => `UGX ${n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)
 export default function DashboardPage() {
   const { user, profile, role } = useAuth();
   const linked = !!profile?.school_id;
-  const staffView = role !== "parent" && role !== "student";
+  // School-wide figures are for admins and bursars; teachers get their own classes.
+  const staffView = role === "school_admin" || role === "bursar" || role === "librarian";
+  const actions = quickActionsFor(role);
 
   const { rows: schools } = useRealtimeRows<Tables<"schools">>("schools");
   const { rows: students } = useRealtimeRows<Tables<"students">>("students", "full_name");
@@ -122,9 +136,9 @@ export default function DashboardPage() {
         </Card>
       ) : (
         <>
-          {staffView && (
+          {actions.length > 0 && (
             <div className="flex gap-5 overflow-x-auto pb-1">
-              {QUICK_ACTIONS.map((a) => (
+              {actions.map((a) => (
                 <Link key={a.label} href={a.href} className="group flex w-20 flex-shrink-0 flex-col items-center gap-2 text-center">
                   <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/80 bg-white/70 shadow-card backdrop-blur transition group-hover:-translate-y-0.5 group-hover:shadow-card-hover">
                     <span className={`flex h-11 w-11 items-center justify-center rounded-full ${a.tone}`}>
@@ -139,11 +153,13 @@ export default function DashboardPage() {
 
           {role === "school_admin" && <OnboardingChecklist />}
 
+          {role === "teacher" && <TeacherHome />}
+
           {staffView && (
             <>
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
                 {/* Today */}
-                <Section title="Today" href="/dashboard/attendance" action="Attendance">
+                <Section title="Today" href="/dashboard/attendance/register" action="Registers">
                   <Card className="h-full">
                     <div className="flex items-center gap-6">
                       <Ring
@@ -169,7 +185,7 @@ export default function DashboardPage() {
                         className="mt-4 flex h-10 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
                       >
                         <ClipboardCheck className="h-4 w-4" />
-                        {marked ? `${students.length - marked} still to mark` : "Take today's attendance"}
+                        {marked ? `${students.length - marked} students not marked yet - view registers` : "No registers taken yet - view classes"}
                       </Link>
                     )}
                   </Card>

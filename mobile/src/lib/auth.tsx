@@ -28,7 +28,9 @@ type AuthContextValue = {
   /** Linked school's review status - new self-signups start pending_review. */
   schoolStatus: SchoolStatus | null;
   sendSignupOtp: (email: string) => Promise<AuthResult>;
-  completeSignup: (input: { email: string; code: string; password: string; fullName: string; schoolName: string }) => Promise<AuthResult>;
+  /** school_admin registers a new school (schoolName); staff and parents join
+   * an approved school (schoolId) - the server checks the school has them on file. */
+  completeSignup: (input: { email: string; code: string; password: string; fullName: string; schoolName?: string; role?: "school_admin" | "teacher" | "parent"; schoolId?: string }) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   sendPasswordResetOtp: (email: string) => Promise<AuthResult>;
@@ -122,9 +124,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const completeSignup = useCallback(
-    async ({ email, code, password, fullName, schoolName }: { email: string; code: string; password: string; fullName: string; schoolName: string }) => {
+    async ({ email, code, password, fullName, schoolName, role = "school_admin", schoolId }: { email: string; code: string; password: string; fullName: string; schoolName?: string; role?: "school_admin" | "teacher" | "parent"; schoolId?: string }) => {
       const { error } = await supabase.functions.invoke("create-account", {
-        body: { email: email.trim(), code, password, full_name: fullName.trim(), role: "school_admin", new_school_name: schoolName.trim() },
+        body:
+          role === "school_admin"
+            ? { email: email.trim(), code, password, full_name: fullName.trim(), role, new_school_name: schoolName?.trim() }
+            : { email: email.trim(), code, password, full_name: fullName.trim(), role, school_id: schoolId },
       });
       return { error: error ? await functionErrorMessage(error) : null };
     },

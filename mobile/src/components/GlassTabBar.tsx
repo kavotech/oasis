@@ -5,6 +5,7 @@ import { router, Tabs } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/theme";
+import { useAuth } from "@/lib/auth";
 import { Glass } from "./glass";
 import type { IconName } from "./ui";
 
@@ -29,6 +30,7 @@ const BAR_HEIGHT = 66;
 export function GlassTabBar({ state, descriptors, navigation }: TabBarProps) {
   const insets = useSafeAreaInsets();
   const [actionsOpen, setActionsOpen] = useState(false);
+  const { role } = useAuth();
 
   return (
     <>
@@ -82,16 +84,18 @@ export function GlassTabBar({ state, descriptors, navigation }: TabBarProps) {
           </Glass>
         </View>
 
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Quick actions"
-          onPress={() => setActionsOpen(true)}
-          style={({ pressed }) => [shadow, { borderRadius: BAR_HEIGHT / 2, transform: [{ scale: pressed ? 0.92 : 1 }] }]}
-        >
-          <Glass radius={BAR_HEIGHT / 2} intensity={85} interactive tint={colors.oasis500} style={{ width: BAR_HEIGHT, height: BAR_HEIGHT, alignItems: "center", justifyContent: "center" }}>
-            <Feather name="plus" size={26} color={colors.oasis700} />
-          </Glass>
-        </Pressable>
+        {quickActionsFor(role).length > 0 && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Quick actions"
+            onPress={() => setActionsOpen(true)}
+            style={({ pressed }) => [shadow, { borderRadius: BAR_HEIGHT / 2, transform: [{ scale: pressed ? 0.92 : 1 }] }]}
+          >
+            <Glass radius={BAR_HEIGHT / 2} intensity={85} interactive tint={colors.oasis500} style={{ width: BAR_HEIGHT, height: BAR_HEIGHT, alignItems: "center", justifyContent: "center" }}>
+              <Feather name="plus" size={26} color={colors.oasis700} />
+            </Glass>
+          </Pressable>
+        )}
       </View>
 
       <QuickActions open={actionsOpen} onClose={() => setActionsOpen(false)} bottom={Math.max(insets.bottom - 6, 12) + BAR_HEIGHT + 12} />
@@ -99,18 +103,41 @@ export function GlassTabBar({ state, descriptors, navigation }: TabBarProps) {
   );
 }
 
-export const QUICK_ACTIONS: { label: string; icon: IconName; href: string; color: string }[] = [
-  { label: "Take register", icon: "check-circle", href: "/modules/register", color: "#10b981" },
-  { label: "Add student", icon: "user-plus", href: "/students?add=1", color: colors.oasis600 },
-  { label: "Bulk add students", icon: "users", href: "/modules/bulk-students", color: "#6366f1" },
-  { label: "New invoice", icon: "credit-card", href: "/modules/fees?add=1", color: "#f59e0b" },
-  { label: "Invoice a class", icon: "layers", href: "/modules/bulk-invoice", color: "#d97706" },
-  { label: "Send message", icon: "send", href: "/messages?add=1", color: "#0ea5e9" },
-  { label: "Add event", icon: "calendar", href: "/modules/calendar?add=1", color: "#ec4899" },
-  { label: "Log behaviour", icon: "award", href: "/modules/behaviour?add=1", color: "#8b5cf6" },
-];
+export type QuickAction = { label: string; icon: IconName; href: string; color: string };
+
+const A: Record<string, QuickAction> = {
+  registers: { label: "View registers", icon: "check-circle", href: "/modules/register", color: "#10b981" },
+  takeRegister: { label: "Take register", icon: "check-circle", href: "/modules/register", color: "#10b981" },
+  addStaff: { label: "Add staff", icon: "briefcase", href: "/modules/staff?add=1", color: "#0d9488" },
+  addStudent: { label: "Add student", icon: "user-plus", href: "/students?add=1", color: colors.oasis600 },
+  bulkStudents: { label: "Bulk add students", icon: "users", href: "/modules/bulk-students", color: "#6366f1" },
+  newInvoice: { label: "New invoice", icon: "credit-card", href: "/modules/fees?add=1", color: "#f59e0b" },
+  classInvoice: { label: "Invoice a class", icon: "layers", href: "/modules/bulk-invoice", color: "#d97706" },
+  message: { label: "Send message", icon: "send", href: "/messages?add=1", color: "#0ea5e9" },
+  event: { label: "Add event", icon: "calendar", href: "/modules/calendar?add=1", color: "#ec4899" },
+  behaviour: { label: "Log behaviour", icon: "award", href: "/modules/behaviour?add=1", color: "#8b5cf6" },
+  marks: { label: "Record marks", icon: "edit-3", href: "/modules/academic?add=1", color: "#0284c7" },
+};
+
+/** What each role actually does day to day - admins set the school up and
+ * oversee it, teachers run their classes, bursars handle money. */
+export function quickActionsFor(role: string | null): QuickAction[] {
+  switch (role) {
+    case "teacher":
+      return [A.takeRegister, A.behaviour, A.marks, A.message, A.event];
+    case "bursar":
+      return [A.newInvoice, A.classInvoice, A.message];
+    case "parent":
+    case "student":
+      return [];
+    default:
+      return [A.addStaff, A.addStudent, A.bulkStudents, A.registers, A.newInvoice, A.classInvoice, A.message, A.event];
+  }
+}
 
 function QuickActions({ open, onClose, bottom }: { open: boolean; onClose: () => void; bottom: number }) {
+  const { role } = useAuth();
+  const actions = quickActionsFor(role);
   return (
     <Modal visible={open} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable style={{ flex: 1, backgroundColor: "rgba(15,23,42,0.18)" }} onPress={onClose}>
@@ -119,7 +146,7 @@ function QuickActions({ open, onClose, bottom }: { open: boolean; onClose: () =>
             <Glass radius={28} intensity={90} style={{ padding: 18 }}>
               <Text style={{ fontSize: 13, fontWeight: "600", color: colors.slate500, marginBottom: 14, marginLeft: 4 }}>Quick actions</Text>
               <View style={{ flexDirection: "row", flexWrap: "wrap", rowGap: 18 }}>
-                {QUICK_ACTIONS.map((a) => (
+                {actions.map((a) => (
                   <Pressable
                     key={a.label}
                     onPress={() => {

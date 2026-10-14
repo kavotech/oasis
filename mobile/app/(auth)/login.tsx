@@ -6,9 +6,12 @@ import { useAuth } from "@/lib/auth";
 import { AuthShell } from "@/components/AuthShell";
 import { Button, ErrorBanner, Field, Input } from "@/components/ui";
 import { colors } from "@/theme";
+import { supabase } from "@/lib/supabase";
+import { SchoolPicker, UNLISTED_SCHOOL } from "@/components/SchoolPicker";
 
 export default function Login() {
-  const { signIn, enterDemo } = useAuth();
+  const { signIn, signOut, enterDemo } = useAuth();
+  const [school, setSchool] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +19,10 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   async function submit() {
+    if (!school) {
+      setError("Choose your school first.");
+      return;
+    }
     if (!email.trim() || !password) {
       setError("Enter your email and password.");
       return;
@@ -23,9 +30,21 @@ export default function Login() {
     setLoading(true);
     setError(null);
     const result = await signIn(email, password);
+    if (result.error) {
+      setLoading(false);
+      return setError(result.error);
+    }
+    // The account must belong to the school picked above (OASIS super admins
+    // and schools still under review are exempt).
+    const { data: auth } = await supabase.auth.getUser();
+    const { data: me } = await supabase.from("profiles").select("school_id, role").eq("id", auth.user?.id ?? "").maybeSingle();
+    if (me && me.role !== "super_admin" && school !== UNLISTED_SCHOOL && me.school_id !== school) {
+      await signOut();
+      setLoading(false);
+      return setError("This account isn't registered at the school you picked. Check the school and try again.");
+    }
     setLoading(false);
-    if (result.error) setError(result.error);
-    else router.replace("/");
+    router.replace("/");
   }
 
   return (
@@ -53,6 +72,9 @@ export default function Login() {
       }
     >
       {error && <ErrorBanner message={error} />}
+      <Field label="School">
+        <SchoolPicker value={school} onChange={setSchool} allowUnlisted />
+      </Field>
       <Field label="Email">
         <Input
           value={email}

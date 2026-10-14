@@ -20,7 +20,7 @@ const CAPTIONS = {
   "01-welcome-1": ["Your whole school,", "in your pocket"],
   "02-welcome-2": ["Attendance", "in seconds"],
   "03-welcome-3": ["Always in sync", "with the web"],
-  "04-sign-in": ["Sign in securely", "to your school"],
+  "04-sign-in": ["Pick your school,", "sign in securely"],
   "05-sign-up": ["Set up your school", "in minutes"],
   "06-forgot-password": ["Locked out?", "Reset with a code"],
   "07-pending-approval": ["Every school", "verified by OASIS"],
@@ -39,6 +39,8 @@ const CAPTIONS = {
   "20-class-register": ["A whole class register", "in one tap"],
   "21-bulk-add-students": ["Add a whole class", "in seconds"],
   "22-invoice-a-class": ["Invoice every student", "at once"],
+  "23-staff-and-teaching": ["Add staff, assign", "who teaches what"],
+  "24-join-as-staff": ["Teachers join with", "the email you added"],
 };
 
 // iPhone 16 in points: 393x852 screen, ~21pt frame, 55pt screen corners.

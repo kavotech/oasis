@@ -101,16 +101,17 @@ export function ModuleSection({
 
   return (
     <View style={{ marginBottom: 24 }}>
-      {(showTitle || canWrite) && (
+      {(showTitle || canWrite || !!section.actions?.length) && (
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <Text style={{ fontSize: 16, fontWeight: "600", color: colors.slate800 }}>{showTitle ? section.title : `${rows.length} records`}</Text>
-          {canWrite && (
-            <View style={{ flexDirection: "row", gap: 8 }}>
-              {section.actions?.map((a) => (
-                <Button key={a.href} size="sm" variant="secondary" icon={a.icon} onPress={() => router.push(a.href as never)}>
-                  {a.label}
-                </Button>
-              ))}
+          <View style={{ flexDirection: "row", gap: 8 }}>
+            {/* Shortcuts show for everyone who can read the section (e.g. admins' Registers view). */}
+            {section.actions?.map((a) => (
+              <Button key={a.href} size="sm" variant="secondary" icon={a.icon} onPress={() => router.push(a.href as never)}>
+                {a.label}
+              </Button>
+            ))}
+            {canWrite && (
               <Button
                 size="sm"
                 icon="plus"
@@ -121,8 +122,8 @@ export function ModuleSection({
               >
                 Add
               </Button>
-            </View>
-          )}
+            )}
+          </View>
         </View>
       )}
 

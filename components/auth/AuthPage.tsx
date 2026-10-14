@@ -8,6 +8,7 @@ import { AuthLogo, AuthWordmark } from "@/components/auth/AuthLogo";
 import { loadApplication, saveApplication } from "@/lib/onboarding-storage";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { redirectPathForRole } from "@/lib/auth/roles";
+import { SchoolCombobox, UNLISTED_SCHOOL } from "@/components/auth/SchoolCombobox";
 
 type Status = "idle" | "loading" | "success" | "error";
 type Mode = "login" | "signup";
@@ -109,16 +110,18 @@ export function AuthPage({ mode }: { mode: Mode }) {
 
 function LoginForm() {
   const router = useRouter();
-  const { signIn } = useAuth();
+  const { signIn, signOut } = useAuth();
+  const [school, setSchool] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [errors, setErrors] = useState<{ school?: string; email?: string; password?: string }>({});
   const [status, setStatus] = useState<Status>("idle");
   const [formError, setFormError] = useState("");
 
   function validate() {
-    const next: { email?: string; password?: string } = {};
+    const next: { school?: string; email?: string; password?: string } = {};
+    if (!school) next.school = "Choose your school.";
     if (!email.trim()) next.email = "Enter your email address.";
     else if (!EMAIL_RE.test(email)) next.email = "Enter a valid email address.";
     if (!password) next.password = "Enter your password.";
@@ -137,6 +140,15 @@ function LoginForm() {
     if (result.error) {
       setStatus("error");
       setFormError(result.error);
+      return;
+    }
+
+    // The account must belong to the school picked above (OASIS super admins
+    // and schools still under review are exempt).
+    if (result.role !== "super_admin" && school !== UNLISTED_SCHOOL && result.schoolId !== school) {
+      await signOut();
+      setStatus("error");
+      setFormError("This account isn't registered at the school you picked. Check the school and try again.");
       return;
     }
 
@@ -164,6 +176,7 @@ function LoginForm() {
       )}
 
       <form onSubmit={handleSubmit} noValidate>
+        <SchoolCombobox value={school} onChange={setSchool} error={errors.school} allowUnlisted />
         <TextField
           label="Email address"
           type="email"
@@ -219,6 +232,10 @@ function SignupForm({ onDone }: { onDone: () => void }) {
   const { sendSignupOtp, completeSignup, signIn } = useAuth();
 
   const [step, setStep] = useState<"details" | "code">("details");
+  // new = register a new school (becomes its admin); staff / parent = join a
+  // school that already has you on file (checked by create-account).
+  const [mode, setMode] = useState<"new" | "staff" | "parent">("new");
+  const [schoolId, setSchoolId] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -231,7 +248,8 @@ function SignupForm({ onDone }: { onDone: () => void }) {
 
   function validateDetails() {
     const next: Record<string, string> = {};
-    if (!schoolName.trim()) next.schoolName = "Enter your school's name.";
+    if (mode === "new" && !schoolName.trim()) next.schoolName = "Enter your school's name.";
+    if (mode !== "new" && !schoolId) next.school = "Choose your school.";
     if (!fullName.trim()) next.fullName = "Enter your name.";
     if (!email.trim()) next.email = "Enter a work email address.";
     else if (!EMAIL_RE.test(email)) next.email = "Enter a valid email address.";
@@ -264,14 +282,11 @@ function SignupForm({ onDone }: { onDone: () => void }) {
     }
     setStatus("loading");
 
-    const created = await completeSignup({
-      email: email.trim(),
-      code: code.trim(),
-      password,
-      fullName: fullName.trim(),
-      role: "school_admin",
-      newSchoolName: schoolName.trim(),
-    });
+    const created = await completeSignup(
+      mode === "new"
+        ? { email: email.trim(), code: code.trim(), password, fullName: fullName.trim(), role: "school_admin", newSchoolName: schoolName.trim() }
+        : { email: email.trim(), code: code.trim(), password, fullName: fullName.trim(), role: mode === "parent" ? "parent" : "teacher", schoolId }
+    );
     if (created.error) {
       setStatus("idle");
       setFormError(created.error);
@@ -285,6 +300,12 @@ function SignupForm({ onDone }: { onDone: () => void }) {
     if (signedIn.error) {
       setStatus("idle");
       setFormError(signedIn.error);
+      return;
+    }
+
+    if (mode !== "new") {
+      setStatus("idle");
+      router.push(redirectPathForRole(signedIn.role));
       return;
     }
 
@@ -351,10 +372,47 @@ function SignupForm({ onDone }: { onDone: () => void }) {
 
   return (
     <>
-      <h1>Create your school account</h1>
+      <div role="tablist" aria-label="Account type" style={{ display: "flex", gap: 4, padding: 4, borderRadius: 12, background: "rgba(22,20,12,0.06)", marginBottom: 20 }}>
+        {([
+          ["new", "New school"],
+          ["staff", "I'm staff"],
+          ["parent", "I'm a parent"],
+        ] as const).map(([m, label]) => (
+          <button
+            key={m}
+            type="button"
+            role="tab"
+            aria-selected={mode === m}
+            onClick={() => {
+              setMode(m);
+              setErrors({});
+              setFormError("");
+            }}
+            style={{
+              flex: 1,
+              padding: "8px 6px",
+              border: 0,
+              borderRadius: 9,
+              cursor: "pointer",
+              fontFamily: "inherit",
+              fontSize: 13,
+              fontWeight: mode === m ? 700 : 500,
+              background: mode === m ? "#fff" : "transparent",
+              color: mode === m ? "#16140c" : "#635f56",
+              boxShadow: mode === m ? "0 1px 3px rgba(22,20,12,0.12)" : "none",
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <h1>{mode === "new" ? "Create your school account" : mode === "staff" ? "Join your school as staff" : "Join as a parent"}</h1>
       <p className="auth-subtitle">
-        Start with the basics &#8212; you&#8217;ll complete the full registration in the next step. Your login works
-        right away; your school just needs approval before your dashboard unlocks.
+        {mode === "new"
+          ? "Start with the basics - you'll complete the full registration in the next step. Your login works right away; your school just needs approval before your dashboard unlocks."
+          : mode === "staff"
+            ? "Use the email your school admin added you with - your classes and access come from your school."
+            : "Use the email your school has on file for you - you'll see your children's attendance, results and fees."}
       </p>
 
       {formError && (
@@ -365,15 +423,19 @@ function SignupForm({ onDone }: { onDone: () => void }) {
       )}
 
       <form onSubmit={handleRequestCode} noValidate>
-        <TextField
-          label="School name"
-          autoComplete="organization"
-          value={schoolName}
-          onChange={(e) => setSchoolName(e.target.value)}
-          error={errors.schoolName}
-          success={schoolName.trim().length > 1}
-          required
-        />
+        {mode === "new" ? (
+          <TextField
+            label="School name"
+            autoComplete="organization"
+            value={schoolName}
+            onChange={(e) => setSchoolName(e.target.value)}
+            error={errors.schoolName}
+            success={schoolName.trim().length > 1}
+            required
+          />
+        ) : (
+          <SchoolCombobox value={schoolId} onChange={setSchoolId} error={errors.school} />
+        )}
         <TextField
           label="Your name"
           autoComplete="name"
@@ -417,7 +479,7 @@ function SignupForm({ onDone }: { onDone: () => void }) {
               <Spinner /> Sending code&hellip;
             </>
           ) : (
-            "Continue to registration"
+            mode === "new" ? "Continue to registration" : "Continue"
           )}
         </button>
       </form>

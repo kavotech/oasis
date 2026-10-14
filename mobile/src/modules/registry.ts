@@ -307,9 +307,10 @@ export const modules: ModuleDef[] = [
         table: "attendance_records",
         title: "Attendance",
         upsertOn: "student_id,date",
-        actions: [{ label: "Take register", icon: "check-square", href: "/modules/register" }],
+        actions: [{ label: "Registers", icon: "check-square", href: "/modules/register" }],
         orderBy: "date",
-        writeRoles: ["school_admin", "teacher"],
+        // Class teachers take attendance; admins review it.
+        writeRoles: ["teacher"],
         deleteRoles: [],
         fields: [
           student,
@@ -481,7 +482,7 @@ export const modules: ModuleDef[] = [
     slug: "staff",
     label: "Staff Management",
     icon: "briefcase",
-    description: "Staff profiles and leave requests.",
+    description: "Add staff and their login emails, assign who teaches what, and handle leave requests.",
     kind: "crud",
     sections: [
       {
@@ -493,6 +494,12 @@ export const modules: ModuleDef[] = [
         fields: [
           { key: "staff_number", label: "Staff ID", type: "text" },
           { key: "full_name", label: "Full name", type: "text", required: true },
+          { key: "email", label: "Email (for their OASIS login)", type: "email" },
+          { key: "access_role", label: "Login access", type: "select", options: [
+            { value: "teacher", label: "Teacher - registers & classes" },
+            { value: "bursar", label: "Bursar - fees & payments" },
+            { value: "librarian", label: "Librarian" },
+          ] },
           { key: "gender", label: "Gender", type: "select", options: [
             { value: "male", label: "Male" },
             { value: "female", label: "Female" },
@@ -520,8 +527,23 @@ export const modules: ModuleDef[] = [
         item: {
           title: (r) => String(r.full_name),
           subtitle: (r, rel) => join(str(r.job_title), rel("department_id") ?? str(r.department)),
+          meta: (r) => (r.profile_id ? "Has an OASIS login" : r.email ? "No login yet - they can sign up with " + r.email : "Add an email so they can get a login"),
           badge: tone({ active: "success", left: "warning" }),
           avatar: true,
+        },
+      },
+      {
+        table: "subject_assignments",
+        title: "Teaching assignments",
+        writeRoles: ADMIN,
+        fields: [
+          { key: "teacher_id", label: "Teacher", type: "relation", relationTable: "staff", labelKey: "full_name", required: true },
+          { key: "subject_id", label: "Subject", type: "relation", relationTable: "subjects", labelKey: "name", required: true },
+          { key: "class_id", label: "Class", type: "relation", relationTable: "classes", labelKey: "name", required: true },
+        ],
+        item: {
+          title: (_r, rel) => rel("teacher_id") ?? "Teacher",
+          subtitle: (_r, rel) => join(rel("subject_id"), rel("class_id")),
         },
       },
       {

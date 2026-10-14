@@ -112,6 +112,7 @@ export function SimpleModule<T extends Row>({
   compact,
   upsertOn,
   headerActions,
+  answerAddParam,
 }: {
   table: TableName;
   title: string;
@@ -132,6 +133,8 @@ export function SimpleModule<T extends Row>({
   upsertOn?: string;
   /** Extra buttons/links beside Add, e.g. bulk tools. */
   headerActions?: React.ReactNode;
+  /** Let a compact table answer ?add=1 (normally only the page's main table does). */
+  answerAddParam?: boolean;
 }) {
   const { profile, role } = useAuth();
   const { toast } = useToast();
@@ -173,7 +176,7 @@ export function SimpleModule<T extends Row>({
   }
 
   // Only the page's primary (non-compact) table answers ?add=1.
-  useOpenOnAddParam(canWrite && hasReadAccess && !compact, openCreate);
+  useOpenOnAddParam(canWrite && hasReadAccess && (!compact || !!answerAddParam), openCreate);
 
   function openEdit(row: T) {
     setEditing(row);
@@ -252,13 +255,15 @@ export function SimpleModule<T extends Row>({
           description={description}
           breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: breadcrumbLabel ?? title }]}
           action={
-            canWrite &&
-            hasReadAccess && (
+            hasReadAccess &&
+            (canWrite || headerActions) && (
               <div className="flex flex-wrap gap-2">
                 {headerActions}
-                <Button onClick={openCreate}>
-                  <Plus className="h-4 w-4" /> Add
-                </Button>
+                {canWrite && (
+                  <Button onClick={openCreate}>
+                    <Plus className="h-4 w-4" /> Add
+                  </Button>
+                )}
               </div>
             )
           }

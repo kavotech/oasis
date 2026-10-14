@@ -41,13 +41,13 @@ export default function AttendancePage() {
       upsertOn="student_id,date"
       headerActions={
         <ButtonLink href="/dashboard/attendance/register">
-          <ClipboardCheck className="h-4 w-4" /> Take register
+          <ClipboardCheck className="h-4 w-4" /> Registers
         </ButtonLink>
       }
       description="Daily attendance records."
       orderBy="date"
       fields={fields}
-      writeRoles={["school_admin", "teacher"]}
+      writeRoles={["teacher"]}
       deleteRoles={[]}
       columns={[
         { key: "date", header: "Date", render: (r) => r.date },
