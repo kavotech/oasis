@@ -7,6 +7,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
+    <>
     <div
       className={"wp-block-group is-layout-flow wp-block-group-is-layout-flow"}
       dangerouslySetInnerHTML={{ __html: `<div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
@@ -666,5 +667,51 @@ export default function Page() {
 </div>
 </div>` }}
     />
+    <AppShowcase />
+    </>
+  );
+}
+
+// The OASIS iPhone app, in sync with this site. Inline styles: the marketing
+// pages run on the legacy site CSS, not the portal's Tailwind.
+function AppShowcase() {
+  return (
+    <section
+      aria-labelledby="oasis-app"
+      style={{
+        padding: "72px 24px 88px",
+        background:
+          "radial-gradient(circle at 12% 10%, rgba(166,169,247,.45), transparent 40%), radial-gradient(circle at 90% 40%, rgba(201,184,255,.35), transparent 38%), linear-gradient(160deg, #f3f1ff, #fbfaff 55%, #eef0ff)",
+      }}
+    >
+      <div style={{ maxWidth: 1180, margin: "0 auto", textAlign: "center" }}>
+        <p style={{ display: "inline-block", margin: 0, padding: "6px 14px", borderRadius: 999, background: "rgba(148,152,239,.16)", color: "#5f61c9", fontSize: 14 }}>
+          New · OASIS for iPhone
+        </p>
+        <h2 id="oasis-app" style={{ margin: "18px auto 10px", maxWidth: 720, fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, color: "#16151f" }}>
+          Run your school from your pocket
+        </h2>
+        <p style={{ margin: "0 auto", maxWidth: 620, fontSize: 18, lineHeight: 1.55, color: "#635f56" }}>
+          Attendance, fees, students, timetables and every other OASIS module - on your phone, and always in sync with your dashboard here.
+        </p>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/oasis-app-showcase.png"
+          alt="The OASIS iPhone app: welcome, home dashboard, attendance, fees and students screens"
+          width={1600}
+          height={900}
+          loading="lazy"
+          style={{ display: "block", width: "100%", height: "auto", margin: "32px auto 0", borderRadius: 28 }}
+        />
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 28 }}>
+          <a href="/signup" className="wp-block-button__link wp-element-button">
+            Create your school account
+          </a>
+          <a href="/contact/" className="wp-block-button__link wp-element-button" style={{ background: "#fff", color: "#16140c", border: "1px solid #e2e8f0" }}>
+            Book a demo
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }

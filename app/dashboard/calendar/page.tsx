@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Calendar as CalendarIcon, Plus, Trash2 } from "lucide-react";
 import { PageHeader } from "@/components/portal/PageHeader";
+import { useOpenOnAddParam } from "@/hooks/useOpenOnAddParam";
 import { Card } from "@/components/portal/ui/Card";
 import { Table, type Column } from "@/components/portal/ui/Table";
 import { Button } from "@/components/portal/ui/Button";
@@ -26,6 +27,7 @@ export default function CalendarPage() {
   const canDelete = role === "school_admin";
 
   const [open, setOpen] = useState(false);
+  useOpenOnAddParam(canWrite, () => setOpen(true));
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [eventDate, setEventDate] = useState("");

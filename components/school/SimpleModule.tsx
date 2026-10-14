@@ -13,6 +13,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useRealtimeRows } from "@/lib/supabase/useRealtimeRows";
 import { createClient } from "@/lib/supabase/client";
 import { useToast } from "@/hooks/useToast";
+import { useOpenOnAddParam } from "@/hooks/useOpenOnAddParam";
 import type { Database } from "@/types/database.types";
 
 type TableName = keyof Database["public"]["Tables"] & string;
@@ -162,6 +163,9 @@ export function SimpleModule<T extends Row>({
     setValues({});
     setOpen(true);
   }
+
+  // Only the page's primary (non-compact) table answers ?add=1.
+  useOpenOnAddParam(canWrite && hasReadAccess && !compact, openCreate);
 
   function openEdit(row: T) {
     setEditing(row);

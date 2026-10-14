@@ -36,7 +36,16 @@ export function SchoolShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div
+      className="flex min-h-screen bg-slate-50"
+      // Same soft lavender field as the mobile app, so the frosted cards and
+      // quick-action buttons have colour to pick up.
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at 8% 0%, rgba(166,169,247,.28), transparent 38%), radial-gradient(circle at 95% 30%, rgba(201,184,255,.22), transparent 36%), linear-gradient(160deg, #f5f4ff, #fbfaff 50%, #f1f2ff)",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <FirstRunTutorial />
       <Sidebar
         collapsed={collapsed}

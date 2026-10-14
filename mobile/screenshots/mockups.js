@@ -169,10 +169,10 @@ if (!only || only === "showcase") {
         })
         .join("")}</div>
     </body></html>`,
-    path.join(ROOT, "showcase.png"),
+    process.env.SHOWCASE_OUT || path.join(ROOT, "showcase.png"),
     1600,
     900,
-    { scale: 2 }
+    { scale: Number(process.env.SHOWCASE_SCALE || 2) }
   );
   console.log("showcase done");
 }

@@ -15,6 +15,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useRealtimeRows } from "@/lib/supabase/useRealtimeRows";
 import { createClient } from "@/lib/supabase/client";
 import { useToast } from "@/hooks/useToast";
+import { useOpenOnAddParam } from "@/hooks/useOpenOnAddParam";
 import { useDebounce } from "@/hooks/useDebounce";
 import type { Tables } from "@/types/database.types";
 
@@ -39,6 +40,7 @@ export default function StudentsPage() {
   const filtered = rows.filter((s) => !debouncedQuery.trim() || s.full_name.toLowerCase().includes(debouncedQuery.trim().toLowerCase()));
 
   const [open, setOpen] = useState(false);
+  useOpenOnAddParam(canWrite, () => setOpen(true));
   const [fullName, setFullName] = useState("");
   const [admissionNumber, setAdmissionNumber] = useState("");
   const [classId, setClassId] = useState("");
