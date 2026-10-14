@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { findModule } from "@/modules/registry";
 import { ModuleSection } from "@/components/ModuleSection";
@@ -16,6 +17,17 @@ export function ModuleView({ slug, topInset = 8, showBreadcrumb = true }: { slug
   const [refreshSignal, setRefreshSignal] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
   const [active, setActive] = useState(0);
+  const [autoAddSignal, setAutoAddSignal] = useState(0);
+  const { add } = useLocalSearchParams<{ add?: string }>();
+
+  // Quick actions link here with ?add=1 to open the first section's Add form.
+  useEffect(() => {
+    if (add === "1") {
+      setActive(0);
+      setAutoAddSignal((n) => n + 1);
+      router.setParams({ add: undefined });
+    }
+  }, [add]);
 
   if (!mod) {
     return (
@@ -65,7 +77,15 @@ export function ModuleView({ slug, topInset = 8, showBreadcrumb = true }: { slug
       )}
 
       {mod.kind === "crud" &&
-        sections.map((sec) => <ModuleSection key={sec.table} section={sec} showTitle={tabbed || mod.sections.length > 1} refreshSignal={refreshSignal} />)}
+        sections.map((sec, i) => (
+          <ModuleSection
+            key={sec.table}
+            section={sec}
+            showTitle={tabbed || mod.sections.length > 1}
+            refreshSignal={refreshSignal}
+            autoAddSignal={i === 0 ? autoAddSignal : 0}
+          />
+        ))}
 
       {mod.slug === "parents-portal" && <PortalScreen kind="parent" refreshSignal={refreshSignal} />}
       {mod.slug === "student-portal" && <PortalScreen kind="student" refreshSignal={refreshSignal} />}

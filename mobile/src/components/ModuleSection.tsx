@@ -32,7 +32,18 @@ export function useSectionAccess(section: SectionDef) {
 
 /** One table on a module screen: live list + add/edit sheet. The mobile
  * twin of the website's SimpleModule. */
-export function ModuleSection({ section, showTitle, refreshSignal = 0 }: { section: SectionDef; showTitle: boolean; refreshSignal?: number }) {
+export function ModuleSection({
+  section,
+  showTitle,
+  refreshSignal = 0,
+  autoAddSignal = 0,
+}: {
+  section: SectionDef;
+  showTitle: boolean;
+  refreshSignal?: number;
+  /** Bumped by quick actions to open the Add form straight away. */
+  autoAddSignal?: number;
+}) {
   const { profile } = useAuth();
   const { role, canRead, canWrite, canDelete } = useSectionAccess(section);
   const { rows, loading, error, refetch } = useRealtimeRows<Row>(section.table, section.orderBy ?? "created_at", canRead);
@@ -61,6 +72,13 @@ export function ModuleSection({ section, showTitle, refreshSignal = 0 }: { secti
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState<Row | null>(null);
   const [formOpen, setFormOpen] = useState(false);
+
+  useEffect(() => {
+    if (autoAddSignal && canWrite) {
+      setEditing(null);
+      setFormOpen(true);
+    }
+  }, [autoAddSignal, canWrite]);
 
   const filtered = query.trim()
     ? rows.filter((r) => {

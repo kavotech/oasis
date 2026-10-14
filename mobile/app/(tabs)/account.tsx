@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Alert, Linking, ScrollView, Text, View } from "react-native";
+import { Alert, Linking, Pressable, ScrollView, Text, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { Glass } from "@/components/glass";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -45,6 +47,11 @@ export default function Account() {
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
       <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: TAB_BAR_SPACE + 24 }} keyboardShouldPersistTaps="handled">
+        <Pressable onPress={() => (router.canGoBack() ? router.back() : router.navigate("/"))} accessibilityLabel="Back" style={{ alignSelf: "flex-start", marginBottom: 12 }}>
+          <Glass radius={22} interactive style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
+            <Feather name="chevron-left" size={22} color={colors.slate700} />
+          </Glass>
+        </Pressable>
         <PageHeader title="Account" />
         <Card style={{ marginBottom: 16, flexDirection: "row", alignItems: "center", gap: 14 }}>
           <Avatar name={name} size={52} />

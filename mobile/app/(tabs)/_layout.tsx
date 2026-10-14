@@ -17,8 +17,11 @@ export default function TabsLayout() {
       >
         <Tabs.Screen name="index" options={{ title: "Home" }} />
         <Tabs.Screen name="students" options={{ title: "Students" }} />
-        <Tabs.Screen name="modules" options={{ title: "Modules" }} />
-        <Tabs.Screen name="account" options={{ title: "Account" }} />
+        <Tabs.Screen name="attendance" options={{ title: "Attendance" }} />
+        <Tabs.Screen name="messages" options={{ title: "Messages" }} />
+        <Tabs.Screen name="modules" options={{ title: "More" }} />
+        {/* Reached from the avatar on Home, not the bar. */}
+        <Tabs.Screen name="account" options={{ title: "Account", href: null }} />
       </Tabs>
     </Backdrop>
   );

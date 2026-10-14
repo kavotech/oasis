@@ -16,7 +16,19 @@ export default function Modules() {
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
       <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: TAB_BAR_SPACE + 24 }} keyboardShouldPersistTaps="handled">
-        <PageHeader title="Modules" description="Everything in your OASIS school dashboard." />
+        <PageHeader title="More" description="Every module in your OASIS school dashboard." />
+        <Card padded={false} style={{ marginBottom: 14 }}>
+          <Pressable
+            onPress={() => router.push("/account")}
+            style={({ pressed }) => [{ flexDirection: "row", alignItems: "center", gap: 12, paddingHorizontal: 16, paddingVertical: 13 }, pressed && { backgroundColor: "rgba(148,152,239,0.12)" }]}
+          >
+            <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: "rgba(148,152,239,0.16)", alignItems: "center", justifyContent: "center" }}>
+              <Feather name="user" size={17} color={colors.oasis600} />
+            </View>
+            <Text style={{ flex: 1, fontSize: 14.5, fontWeight: "600", color: colors.slate800 }}>Account & sign out</Text>
+            <Feather name="chevron-right" size={18} color={colors.slate300} />
+          </Pressable>
+        </Card>
         <View style={{ marginBottom: 14 }}>
           <SearchInput value={query} onChangeText={setQuery} placeholder="Search modules…" />
         </View>
@@ -31,7 +43,7 @@ export default function Modules() {
                 pressed && { backgroundColor: "rgba(148,152,239,0.12)" },
               ]}
             >
-              <View style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: colors.oasis50, alignItems: "center", justifyContent: "center" }}>
+              <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: "rgba(148,152,239,0.16)", alignItems: "center", justifyContent: "center" }}>
                 <Feather name={m.icon} size={17} color={colors.oasis600} />
               </View>
               <View style={{ flex: 1 }}>
