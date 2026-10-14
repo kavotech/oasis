@@ -7,7 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { useLookups, useRealtimeRows } from "@/lib/useRealtimeRows";
 import { colors } from "@/theme";
 import type { FieldDef, Row, SectionDef } from "@/modules/types";
-import { Avatar, Badge, Button, Card, EmptyState, ErrorBanner, Field, Input, SearchInput, Select, Spinner, s } from "./ui";
+import { Avatar, Badge, Button, Card, DateTimeField, EmptyState, ErrorBanner, Field, Input, SearchInput, Select, Spinner, s } from "./ui";
 
 type RelationField = Extract<FieldDef, { type: "relation" }>;
 const OPTIONAL = /\s*\(optional\)$/i;
@@ -372,15 +372,10 @@ function FieldInput({
         </Field>
       );
     case "date":
-      return (
-        <Field label={label} hint="YYYY-MM-DD">
-          <Input value={value} onChangeText={onChange} placeholder={field.placeholder ?? new Date().toISOString().slice(0, 10)} keyboardType="numbers-and-punctuation" maxLength={10} />
-        </Field>
-      );
     case "time":
       return (
-        <Field label={label} hint="24-hour, e.g. 08:30">
-          <Input value={value} onChangeText={onChange} placeholder="08:30" keyboardType="numbers-and-punctuation" maxLength={5} />
+        <Field label={label}>
+          <DateTimeField mode={field.type} value={value} onChange={onChange} allowClear={!field.required} />
         </Field>
       );
     case "number":

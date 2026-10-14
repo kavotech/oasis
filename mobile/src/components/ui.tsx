@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   FlatList,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -15,6 +16,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import DateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colors, radius, shadow, toneColors, type Tone } from "@/theme";
 
@@ -222,6 +224,110 @@ export function Select({
   );
 }
 
+// Dates are stored as Postgres `date` (YYYY-MM-DD) and times as HH:MM, the
+// same strings the website writes - built from local parts, never toISOString,
+// so a date picked late in the evening doesn't land on the next day.
+const pad = (n: number) => String(n).padStart(2, "0");
+const toDateString = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const toTimeString = (d: Date) => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+
+function parseValue(value: string, mode: "date" | "time"): Date | null {
+  if (mode === "date") {
+    const m = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : null;
+  }
+  const m = value.match(/^(\d{1,2}):(\d{2})/);
+  if (!m) return null;
+  const d = new Date();
+  d.setHours(Number(m[1]), Number(m[2]), 0, 0);
+  return d;
+}
+
+function formatValue(value: string, mode: "date" | "time"): string | null {
+  const d = parseValue(value, mode);
+  if (!d) return null;
+  return mode === "date" ? d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" }) : toTimeString(d);
+}
+
+/** Tap-to-pick date or time: a calendar/spinner sheet on iOS, the native
+ * dialog on Android. */
+export function DateTimeField({
+  value,
+  onChange,
+  mode,
+  placeholder,
+  allowClear = true,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  mode: "date" | "time";
+  placeholder?: string;
+  allowClear?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const [draft, setDraft] = useState<Date>(new Date());
+  const label = formatValue(value, mode);
+  const commit = (d: Date) => onChange(mode === "date" ? toDateString(d) : toTimeString(d));
+
+  function show() {
+    const initial = parseValue(value, mode) ?? new Date();
+    if (Platform.OS === "android") {
+      DateTimePickerAndroid.open({ value: initial, mode, is24Hour: true, onValueChange: (_e, d) => commit(d) });
+      return;
+    }
+    setDraft(initial);
+    setOpen(true);
+  }
+
+  return (
+    <>
+      <Pressable onPress={show} style={[s.input, s.selectTrigger]}>
+        <Feather name={mode === "date" ? "calendar" : "clock"} size={16} color={label ? colors.oasis500 : colors.slate400} />
+        <Text style={{ flex: 1, fontSize: 15, color: label ? colors.slate900 : colors.slate400 }}>
+          {label ?? placeholder ?? (mode === "date" ? "Pick a date" : "Pick a time")}
+        </Text>
+        {label && allowClear ? (
+          <Pressable onPress={() => onChange("")} hitSlop={10}>
+            <Feather name="x-circle" size={16} color={colors.slate300} />
+          </Pressable>
+        ) : null}
+      </Pressable>
+      {Platform.OS !== "android" && (
+        <Modal visible={open} transparent animationType="slide" onRequestClose={() => setOpen(false)}>
+          <Pressable style={{ flex: 1, backgroundColor: "rgba(15,23,42,0.25)" }} onPress={() => setOpen(false)} />
+          <SafeAreaView edges={["bottom"]} style={s.pickerSheet}>
+            <View style={s.pickerHeader}>
+              <Pressable onPress={() => setOpen(false)} hitSlop={10}>
+                <Text style={{ fontSize: 15, color: colors.slate500 }}>Cancel</Text>
+              </Pressable>
+              <Text style={{ fontSize: 15, fontWeight: "600", color: colors.slate900 }}>{mode === "date" ? "Choose date" : "Choose time"}</Text>
+              <Pressable
+                onPress={() => {
+                  commit(draft);
+                  setOpen(false);
+                }}
+                hitSlop={10}
+              >
+                <Text style={{ fontSize: 15, fontWeight: "700", color: colors.oasis600 }}>Done</Text>
+              </Pressable>
+            </View>
+            <DateTimePicker
+              value={draft}
+              mode={mode}
+              display={mode === "date" ? "inline" : "spinner"}
+              locale="en-GB"
+              accentColor={colors.oasis500}
+              themeVariant="light"
+              onValueChange={(_e, d) => setDraft(d)}
+              style={{ alignSelf: "stretch" }}
+            />
+          </SafeAreaView>
+        </Modal>
+      )}
+    </>
+  );
+}
+
 export function SearchInput(props: TextInputProps) {
   return (
     <View style={s.search}>
@@ -388,6 +494,22 @@ export const s = StyleSheet.create({
   statValue: { fontSize: 22, fontWeight: "700", letterSpacing: -0.4, color: colors.slate900, marginTop: 14 },
   statLabel: { fontSize: 13, color: colors.slate500, marginTop: 2 },
   statTrend: { fontSize: 11, color: colors.slate400, marginTop: 6 },
+  pickerSheet: {
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 22,
+    borderTopRightRadius: 22,
+    paddingHorizontal: 12,
+    paddingBottom: 8,
+  },
+  pickerHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 8,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.slate100,
+  },
   errorBanner: {
     flexDirection: "row",
     alignItems: "center",
