@@ -18,7 +18,7 @@ export default function Page() {
 
 
 <div class="wp-block-group alignwide has-accent-5-background-color has-background is-layout-flow wp-block-group-is-layout-flow" style="margin-top:48px;margin-bottom:48px">
-<figure class="wp-block-image aligncenter size-full is-style-default"><img width="2342" height="1562" src="/images/about-us-page-image-1.webp" alt="OASIS team" class="wp-image-15747" srcset="/images/about-us-page-image-1.webp 2342w, /images/about-us-page-image-1-300x200.webp 300w, /images/about-us-page-image-1-1024x683.webp 1024w, /images/about-us-page-image-1-768x512.webp 768w, /images/about-us-page-image-1-1536x1024.webp 1536w, /images/about-us-page-image-1-2048x1366.webp 2048w, /images/about-us-page-image-1-1200x800.webp 1200w" sizes="auto, (max-width: 2342px) 100vw, 2342px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-style-default"><img loading="lazy" width="1176" height="730" src="/images/app/card-home.png" alt="OASIS team" class="wp-image-15747" /></figure>
 </div>
 
 
@@ -49,7 +49,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="1048" height="791" src="/images/Arbor-careers.png" alt="" class="wp-image-13503" style="box-shadow:var(--wp--preset--shadow--deep)" srcset="/images/Arbor-careers.png 1048w, /images/Arbor-careers-300x226.png 300w, /images/Arbor-careers-1024x773.png 1024w, /images/Arbor-careers-768x580.png 768w, /images/Arbor-careers-200x150.png?crop=1 200w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-console.png" alt="" class="wp-image-13503" style="box-shadow:var(--wp--preset--shadow--deep)" /></figure>
 </div>
 </div>
 
@@ -75,7 +75,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="1048" height="791" src="/images/Arbor-careers-2.png" alt="" class="wp-image-13502" style="box-shadow:var(--wp--preset--shadow--deep)" srcset="/images/Arbor-careers-2.png 1048w, /images/Arbor-careers-2-300x226.png 300w, /images/Arbor-careers-2-1024x773.png 1024w, /images/Arbor-careers-2-768x580.png 768w, /images/Arbor-careers-2-200x150.png?crop=1 200w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-register.png" alt="" class="wp-image-13502" style="box-shadow:var(--wp--preset--shadow--deep)" /></figure>
 </div>
 </div>
 </div>
@@ -364,7 +364,7 @@ export default function Page() {
 
 
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:88px;margin-bottom:88px">
-<figure class="wp-block-image aligncenter size-large" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--50)"><img src="/images/about-us-page-image-2.svg" alt="" class="wp-image-508"/></figure>
+<figure class="wp-block-image aligncenter size-large" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--50)"><img loading="lazy" height="730" width="1176" src="/images/app/card-students.png" alt="" class="wp-image-508"/></figure>
 </div>
 </div>` }}
     />

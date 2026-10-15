@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { AlertCircle, CheckCircle2, Download, Upload } from "lucide-react";
+import { AlertCircle, CheckCircle2, Download, Sparkles, Upload } from "lucide-react";
 import { PageHeader } from "@/components/portal/PageHeader";
 import { Card, CardHeader } from "@/components/portal/ui/Card";
 import { Button } from "@/components/portal/ui/Button";
@@ -13,6 +13,9 @@ import { useToast } from "@/hooks/useToast";
 import { friendlyDbError } from "@/lib/db-errors";
 import { guardianKey, IMPORT_TEMPLATE, normPhone, parseStudentImport, type ImportGuardian } from "@/lib/import-students";
 import type { Tables } from "@/types/database.types";
+import { AiFileReader } from "@/components/school/AiFileReader";
+import { uploadSchoolFile } from "@/lib/school-uploads";
+import { AI_FILE_ACCEPT } from "@/lib/ai-reader";
 
 type Summary = { students: number; guardians: number; links: number; classes: number; streams: number; skipped: number };
 
@@ -174,6 +177,8 @@ export default function ImportPage() {
         </Card>
       )}
 
+      <AiImportCard schoolId={profile?.school_id ?? null} />
+
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-5">
         <Card className="space-y-3 xl:col-span-2">
           <CardHeader title="Your data" subtitle="Headings are recognised automatically: Name, Admission no, Class, Stream, Gender, Date of birth, Parent/Father, Mother, phones and emails." />
@@ -221,7 +226,6 @@ export default function ImportPage() {
           <label className="flex items-center gap-2 text-sm text-slate-600">
             <input type="checkbox" checked={createClasses} onChange={(e) => setCreateClasses(e.target.checked)} /> Create classes and streams that don&rsquo;t exist yet
           </label>
-          <p className="text-xs text-slate-500">Have Excel files, PDFs or a folder of records instead? Upload them on the registration documents page and the OASIS team will import them for you.</p>
         </Card>
 
         <Card className="p-0 xl:col-span-3">
@@ -280,5 +284,53 @@ export default function ImportPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+/** Any file - Excel with several sheets, a PDF class list or a photo of a
+ * register: Claude works out what's in it, you check, then import. */
+function AiImportCard({ schoolId }: { schoolId: string | null }) {
+  const { toast } = useToast();
+  const { rows: files } = useRealtimeRows<Tables<"school_files">>("school_files");
+  const [uploading, setUploading] = useState(false);
+  const [current, setCurrent] = useState<string | null>(null);
+  const ref = useRef<HTMLInputElement>(null);
+  const dataFiles = files.filter((f) => f.category === "data").sort((a, b) => b.created_at.localeCompare(a.created_at));
+  const shown = current ? [current, ...dataFiles.map((f) => f.id).filter((id) => id !== current)] : dataFiles.map((f) => f.id);
+
+  async function pick(list: FileList | null) {
+    if (!schoolId || !list?.length) return;
+    setUploading(true);
+    let last: string | null = null;
+    for (const f of Array.from(list)) {
+      const { error, id } = await uploadSchoolFile(schoolId, f, "data", { note: "Uploaded for AI import" });
+      if (error) toast("error", `Couldn't upload ${f.name}`, error);
+      else if (id) last = id;
+    }
+    setUploading(false);
+    if (last) setCurrent(last);
+  }
+
+  return (
+    <Card className="mb-5 space-y-3">
+      <CardHeader
+        title="Let AI read your files"
+        subtitle="Upload an Excel file (any layout, several sheets is fine), a CSV, a PDF class list or a photo of a register. Claude works out the students, parents, staff and classes; you check the preview and import."
+        action={<Sparkles className="h-5 w-5 text-oasis-500" />}
+      />
+      <input ref={ref} type="file" multiple accept={AI_FILE_ACCEPT} className="hidden" onChange={(e) => { pick(e.target.files); e.target.value = ""; }} />
+      <Button variant="secondary" onClick={() => ref.current?.click()} loading={uploading} disabled={!schoolId}>
+        <Upload className="h-4 w-4" /> Upload files
+      </Button>
+      {shown.slice(0, 6).map((id) => {
+        const f = files.find((x) => x.id === id);
+        return (
+          <div key={id} className="space-y-2 border-t border-slate-100 pt-3">
+            <p className="text-sm font-medium text-slate-700">{f?.name ?? "New file"}</p>
+            <AiFileReader fileId={id} compact={id !== current} />
+          </div>
+        );
+      })}
+    </Card>
   );
 }

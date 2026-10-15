@@ -9,6 +9,8 @@ import { Button, Card, ErrorBanner, Field, Input } from "@/components/ui";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { friendlyDbError } from "@/lib/db-errors";
+import { uploadSchoolAsset } from "@/lib/uploads";
+import { AiFileReader } from "@/components/AiFileReader";
 import { IMPORT_TEMPLATE, guardianKey, normPhone, parseStudentImport, type ImportGuardian } from "@/lib/import-students";
 import { colors } from "@/theme";
 
@@ -26,6 +28,23 @@ export default function ImportStudents() {
   const [running, setRunning] = useState<string | null>(null);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [aiFiles, setAiFiles] = useState<{ id: string; name: string }[]>([]);
+  const [aiUploading, setAiUploading] = useState(false);
+
+  async function aiPick() {
+    if (!profile?.school_id) return;
+    const res = await DocumentPicker.getDocumentAsync({ copyToCacheDirectory: true, multiple: true });
+    if (res.canceled) return;
+    setAiUploading(true);
+    const added: { id: string; name: string }[] = [];
+    for (const asset of res.assets) {
+      const { error: upErr, id } = await uploadSchoolAsset(profile.school_id, asset, "data", "Uploaded for AI import");
+      if (upErr) Alert.alert(`Couldn't upload ${asset.name}`, upErr);
+      else if (id) added.push({ id, name: asset.name });
+    }
+    setAiUploading(false);
+    setAiFiles((f) => [...added, ...f]);
+  }
 
   useEffect(() => {
     supabase
@@ -195,6 +214,28 @@ export default function ImportStudents() {
         </Card>
       )}
 
+      <Card style={{ marginBottom: 16 }}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 6 }}>
+          <Feather name="zap" size={17} color={colors.oasis600} />
+          <Text style={{ fontSize: 15, fontWeight: "700", color: colors.slate900 }}>Let AI read your files</Text>
+        </View>
+        <Text style={{ fontSize: 13, color: colors.slate600, lineHeight: 18, marginBottom: 12 }}>
+          Excel (any layout), CSV, a PDF class list or a photo of a register - Claude finds the students, parents, staff and classes. Check the preview, then import.
+        </Text>
+        <Button variant="secondary" icon="upload" loading={aiUploading} onPress={aiPick}>
+          Choose files
+        </Button>
+        {aiFiles.map((f) => (
+          <View key={f.id} style={{ marginTop: 12, gap: 6 }}>
+            <Text style={{ fontSize: 13.5, fontWeight: "600", color: colors.slate800 }} numberOfLines={1}>
+              {f.name}
+            </Text>
+            <AiFileReader fileId={f.id} />
+          </View>
+        ))}
+      </Card>
+
+      <Text style={{ fontSize: 15, fontWeight: "700", color: colors.slate900, marginBottom: 10 }}>Or paste a list</Text>
       <View style={{ flexDirection: "row", gap: 10, marginBottom: 14 }}>
         <Button variant="secondary" icon="file" onPress={chooseFile} style={{ flex: 1 }}>
           Choose CSV

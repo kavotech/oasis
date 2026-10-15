@@ -11,6 +11,7 @@ import { Input } from "@/components/portal/ui/Input";
 import { Modal } from "@/components/portal/ui/Modal";
 import { EmptyState } from "@/components/portal/ui/EmptyState";
 import { SchoolLogo } from "@/components/auth/SchoolCombobox";
+import { AiFileReader } from "@/components/school/AiFileReader";
 import { useRealtimeRows } from "@/lib/supabase/useRealtimeRows";
 import { createClient } from "@/lib/supabase/client";
 import { useToast } from "@/hooks/useToast";
@@ -201,6 +202,11 @@ function FilesTab({ files }: { files: Tables<"school_files">[] }) {
             <Button size="sm" variant="secondary" onClick={() => open(f.path)} loading={opening === f.path}>
               <Download className="h-3.5 w-3.5" /> Download
             </Button>
+            {(f.category === "data" || /.(xlsx?|xlsm|ods|csv|tsv)$/i.test(f.name)) && (
+              <div className="basis-full pl-8">
+                <AiFileReader fileId={f.id} compact />
+              </div>
+            )}
           </div>
         ))
       )}

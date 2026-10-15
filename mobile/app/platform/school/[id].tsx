@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { Text } from "@/components/Text";
 import { ListRow, PlatformScreen, Segments } from "@/components/PlatformScreen";
+import { AiFileReader } from "@/components/AiFileReader";
 import { Badge, Button, Card, EmptyState, ErrorBanner, Field, Input, Select, Spinner } from "@/components/ui";
 import { supabase } from "@/lib/supabase";
 import { EMAIL_RE, platformAction } from "@/lib/platform";
@@ -181,6 +182,11 @@ function FilesTab({ files, onChange }: { files: Tables<"school_files">[]; onChan
               Open
             </Button>
           </View>
+          {(f.category === "data" || /.(xlsx?|xlsm|ods|csv|tsv)$/i.test(f.name)) && (
+            <View style={{ marginTop: 10 }}>
+              <AiFileReader fileId={f.id} />
+            </View>
+          )}
           {f.category === "data" && (
             <View style={{ marginTop: 10 }}>
               <Select

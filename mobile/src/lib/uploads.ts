@@ -6,7 +6,7 @@ export type UploadCategory = "document" | "data" | "other";
 /** Same layout as the website (lib/school-uploads.ts): the file goes into the
  * school's private folder in "school-uploads" and is indexed in school_files
  * so OASIS developers can review and import it. */
-export async function uploadSchoolAsset(schoolId: string, asset: DocumentPickerAsset, category: UploadCategory, note?: string): Promise<{ error: string | null }> {
+export async function uploadSchoolAsset(schoolId: string, asset: DocumentPickerAsset, category: UploadCategory, note?: string): Promise<{ error: string | null; id?: string }> {
   const safe = asset.name.replace(/[^\w.\- ()]+/g, "_").slice(0, 120);
   const path = `${schoolId}/${category}/${Date.now()}-${Math.random().toString(36).slice(2, 7)}/${safe}`;
   try {
@@ -17,7 +17,7 @@ export async function uploadSchoolAsset(schoolId: string, asset: DocumentPickerA
     return { error: (e as Error).message };
   }
   const { data: auth } = await supabase.auth.getUser();
-  const { error } = await supabase.from("school_files").insert({
+  const { data: row, error } = await supabase.from("school_files").insert({
     school_id: schoolId,
     path,
     name: asset.name,
@@ -26,8 +26,8 @@ export async function uploadSchoolAsset(schoolId: string, asset: DocumentPickerA
     category,
     note: note ?? null,
     uploaded_by: auth.user?.id ?? null,
-  });
-  return { error: error?.message ?? null };
+  }).select("id").single();
+  return { error: error?.message ?? null, id: row?.id };
 }
 
 export async function signedUrl(path: string, seconds = 600) {

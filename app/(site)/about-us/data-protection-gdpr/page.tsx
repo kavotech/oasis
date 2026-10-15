@@ -79,15 +79,15 @@ export default function Page() {
 
 
 <figure class="wp-block-gallery has-nested-images columns-4 is-cropped wp-block-gallery-3 is-layout-flex wp-block-gallery-is-layout-flex">
-<figure class="wp-block-image size-large is-style-default mix-blend-mode-multiply"><img width="740" height="416" data-id="1032" src="/images/data-protection-gdpr-page-image-1.jpg" alt="" class="wp-image-1032" srcset="/images/data-protection-gdpr-page-image-1.jpg 740w, /images/data-protection-gdpr-page-image-1-300x169.jpg 300w" sizes="auto, (max-width: 740px) 100vw, 740px" /></figure>
+<figure class="wp-block-image size-large is-style-default mix-blend-mode-multiply"><img loading="lazy" width="1176" height="730" src="/images/app/card-console.png" alt="" class="wp-image-1032" /></figure>
 
 
 
-<figure class="wp-block-image size-large mix-blend-mode-multiply"><img width="740" height="416" data-id="1033" src="/images/data-protection-gdpr-page-image-2.jpg" alt="" class="wp-image-1033" srcset="/images/data-protection-gdpr-page-image-2.jpg 740w, /images/data-protection-gdpr-page-image-3-300x169.jpg 300w" sizes="auto, (max-width: 740px) 100vw, 740px" /></figure>
+<figure class="wp-block-image size-large mix-blend-mode-multiply"><img loading="lazy" width="1176" height="730" src="/images/app/card-console.png" alt="" class="wp-image-1033" /></figure>
 
 
 
-<figure class="wp-block-image size-large mix-blend-mode-multiply"><img width="740" height="416" data-id="1034" src="/images/data-protection-gdpr-page-image-4.jpg" alt="" class="wp-image-1034" srcset="/images/data-protection-gdpr-page-image-4.jpg 740w, /images/data-protection-gdpr-page-image-5-300x169.jpg 300w" sizes="auto, (max-width: 740px) 100vw, 740px" /></figure>
+<figure class="wp-block-image size-large mix-blend-mode-multiply"><img loading="lazy" width="1176" height="730" src="/images/app/card-console.png" alt="" class="wp-image-1034" /></figure>
 </figure>
 </div>
 </div>

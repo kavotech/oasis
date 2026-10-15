@@ -35,7 +35,7 @@ export default function Page() {
 
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
 <div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-a8319191 wp-block-group-is-layout-constrained" style="margin-bottom:88px">
-<figure class="wp-block-image alignwide size-large"><img src="/images/request-a-brochure-page-image-1-1024x565.jpg" alt="" class="wp-image-448"/></figure>
+<figure class="wp-block-image alignwide size-large"><img loading="lazy" height="730" width="1176" src="/images/app/card-messages.png" alt="" class="wp-image-448"/></figure>
 
 
 

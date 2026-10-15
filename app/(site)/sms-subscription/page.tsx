@@ -34,7 +34,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full has-custom-border"><img width="866" height="720" src="/images/sms-subscription-page-image-1.png" alt="" class="wp-image-14465" style="border-radius:4px" srcset="/images/sms-subscription-page-image-1.png 866w, /images/sms-subscription-page-image-1-300x249.png 300w, /images/sms-subscription-page-image-1-768x639.png 768w" sizes="auto, (max-width: 866px) 100vw, 866px" /></figure>
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-messages.png" alt="" class="wp-image-14465" style="border-radius:4px" /></figure>
 </div>
 </div>
 </div>
@@ -68,7 +68,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-container-core-column-is-layout-ad7c68f1 wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full is-resized" style="margin-right:0;margin-left:0"><img width="432" height="836" src="/images/sms-subscription-page-image-2.png" alt="" class="wp-image-14255" style="width:150px" srcset="/images/sms-subscription-page-image-2.png 432w, /images/sms-subscription-page-image-2-155x300.png 155w" sizes="auto, (max-width: 432px) 100vw, 432px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized" style="margin-right:0;margin-left:0"><img loading="lazy" width="1176" height="730" src="/images/app/card-messages.png" alt="" class="wp-image-14255" style="width:150px" /></figure>
 </div>
 </div>
 
@@ -96,7 +96,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full is-resized"><img width="776" height="1012" src="/images/sms-subscription-page-image-3.png" alt="" class="wp-image-14258" style="width:225px" srcset="/images/sms-subscription-page-image-3.png 776w, /images/sms-subscription-page-image-3-230x300.png 230w, /images/sms-subscription-page-image-3-768x1002.png 768w" sizes="auto, (max-width: 776px) 100vw, 776px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-messages.png" alt="" class="wp-image-14258" style="width:225px" /></figure>
 </div>
 </div>
 </div>

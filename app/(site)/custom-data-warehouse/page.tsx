@@ -29,7 +29,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="780" height="660" src="/images/Data-Warehouse.png" alt="Data Warehouse" class="wp-image-14095" srcset="/images/Data-Warehouse.png 780w, /images/Data-Warehouse-300x254.png 300w, /images/Data-Warehouse-768x650.png 768w" sizes="auto, (max-width: 780px) 100vw, 780px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-reporting.png" alt="Data Warehouse" class="wp-image-14095" /></figure>
 </div>
 </div>
 </div>
@@ -66,7 +66,7 @@ export default function Page() {
 
 
 
-<p class="wp-block-paragraph">Bring together multiple datasets, including MIS, Ofsted, IDACI, DfE ASP, and a range of other HR and Finance systems</p>
+<p class="wp-block-paragraph">Bring together multiple datasets, including MIS, UNEB results, UBOS, Ministry of Education, and a range of other HR and Finance systems</p>
 </div>
 
 
@@ -105,7 +105,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full is-resized"><img width="1288" height="1012" src="/images/custom-data-warehouse-page-image-1.png" alt="Data" class="wp-image-14493" style="width:350px" srcset="/images/custom-data-warehouse-page-image-1.png 1288w, /images/custom-data-warehouse-page-image-1-300x236.png 300w, /images/custom-data-warehouse-page-image-1-1024x805.png 1024w, /images/custom-data-warehouse-page-image-1-768x603.png 768w, /images/custom-data-warehouse-page-image-1-1200x943.png 1200w" sizes="auto, (max-width: 1288px) 100vw, 1288px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-reporting.png" alt="Data" class="wp-image-14493" style="width:350px" /></figure>
 </div>
 </div>
 
@@ -165,7 +165,7 @@ export default function Page() {
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-layout-flex wp-container-core-columns-is-layout-044b9ecc wp-block-columns-is-layout-flex" style="margin-top:88px;margin-bottom:88px">
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-large is-resized"><img width="1024" height="689" src="/images/auto-absence-page-image-2-1024x689.png" alt="" class="wp-image-14240" style="width:331px;height:auto" srcset="/images/auto-absence-page-image-2-1024x689.png 1024w, /images/auto-absence-page-image-2-300x202.png 300w, /images/auto-absence-page-image-2-768x517.png 768w, /images/auto-absence-page-image-2.png 1040w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image aligncenter size-large is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="" class="wp-image-14240" style="width:331px;height:auto" /></figure>
 </div>
 </div>
 </div>

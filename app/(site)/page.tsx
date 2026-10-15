@@ -478,7 +478,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-center is-layout-flex wp-container-core-group-is-layout-1af4f3bb wp-block-group-is-layout-flex" style="min-height:100%">
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
-<figure class="wp-block-image size-full"><img width="587" height="365" src="/images/Arbor-FInance-card-1.png" alt="" class="wp-image-14219" srcset="/images/Arbor-FInance-card-1.png 587w, /images/Arbor-FInance-card-1-300x187.png 300w" sizes="auto, (max-width: 587px) 100vw, 587px" /></figure>
+<figure class="wp-block-image size-full"><img width="588" height="365" src="/images/app/card-fees.png" alt="School fees and invoices in the OASIS app" loading="lazy" style="border-radius:8px;width:100%;height:auto" /></figure>
 
 
 
@@ -498,7 +498,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-center is-layout-flex wp-container-core-group-is-layout-1af4f3bb wp-block-group-is-layout-flex" style="min-height:100%">
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
-<figure class="wp-block-image size-full"><img width="587" height="365" src="/images/SAMpeople-card.png" alt="" class="wp-image-14969" srcset="/images/SAMpeople-card.png 587w, /images/SAMpeople-card-300x187.png 300w" sizes="auto, (max-width: 587px) 100vw, 587px" /></figure>
+<figure class="wp-block-image size-full"><img width="588" height="365" src="/images/app/card-staff.png" alt="Staff management in the OASIS app" loading="lazy" style="border-radius:8px;width:100%;height:auto" /></figure>
 
 
 
@@ -518,7 +518,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-center is-layout-flex wp-container-core-group-is-layout-1af4f3bb wp-block-group-is-layout-flex" style="min-height:100%">
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
-<figure class="wp-block-image size-full"><img width="588" height="365" src="/images/Product-visual-1-1.png" alt="OASIS Timetable Management" class="wp-image-14081" srcset="/images/Product-visual-1-1.png 588w, /images/Product-visual-1-1-300x186.png 300w" sizes="auto, (max-width: 588px) 100vw, 588px" /></figure>
+<figure class="wp-block-image size-full"><img width="588" height="365" src="/images/app/card-timetable.png" alt="The school timetable in the OASIS app" loading="lazy" style="border-radius:8px;width:100%;height:auto" /></figure>
 
 
 

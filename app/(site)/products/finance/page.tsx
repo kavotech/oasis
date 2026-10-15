@@ -40,14 +40,14 @@ export default function Page() {
 
 
 
-<figure class="wp-block-image size-full is-resized"><img width="367" height="117" src="/images/Arbor-Finance.png" alt="" class="wp-image-13504" style="width:240px;height:auto" srcset="/images/Arbor-Finance.png 367w, /images/Arbor-Finance-300x96.png 300w" sizes="auto, (max-width: 367px) 100vw, 367px" /></figure>
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="" class="wp-image-13504" style="width:240px;height:auto" /></figure>
 </div>
 </div>
 
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="1084" height="984" src="/images/Arbor-Finance-1.png" alt="OASIS Finance" class="wp-image-13616" srcset="/images/Arbor-Finance-1.png 1084w, /images/Arbor-Finance-1-300x272.png 300w, /images/Arbor-Finance-1-1024x930.png 1024w, /images/Arbor-Finance-1-768x697.png 768w" sizes="auto, (max-width: 1084px) 100vw, 1084px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="OASIS Finance" class="wp-image-13616" /></figure>
 </div>
 </div>
 </div>
@@ -66,7 +66,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image size-full"><img width="1048" height="395" src="/images/Arbor-Finance-2.png" alt="OASIS Finance 2" class="wp-image-13614" srcset="/images/Arbor-Finance-2.png 1048w, /images/Arbor-Finance-2-300x113.png 300w, /images/Arbor-Finance-2-1024x386.png 1024w, /images/Arbor-Finance-2-768x289.png 768w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="OASIS Finance 2" class="wp-image-13614" /></figure>
 </div>
 </div>
 
@@ -171,7 +171,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img width="1000" height="668" src="/images/Cloud-finance.png" alt="Cloud finance" class="wp-image-13618" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;width:500px" srcset="/images/Cloud-finance.png 1000w, /images/Cloud-finance-300x200.png 300w, /images/Cloud-finance-768x513.png 768w" sizes="auto, (max-width: 1000px) 100vw, 1000px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="Cloud finance" class="wp-image-13618" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;width:500px" /></figure>
 </div>
 </div>
 
@@ -193,7 +193,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full is-resized"><img width="772" height="597" src="/images/Budget-reporting-Arbor-Finance.png" alt="Budget reporting OASIS Finance" class="wp-image-13617" style="box-shadow:var(--wp--preset--shadow--deep);width:386px" srcset="/images/Budget-reporting-Arbor-Finance.png 772w, /images/Budget-reporting-Arbor-Finance-300x232.png 300w, /images/Budget-reporting-Arbor-Finance-768x594.png 768w" sizes="auto, (max-width: 772px) 100vw, 772px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-reporting.png" alt="Budget reporting OASIS Finance" class="wp-image-13617" style="box-shadow:var(--wp--preset--shadow--deep);width:386px" /></figure>
 </div>
 </div>
 
@@ -211,7 +211,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full is-resized"><img width="873" height="635" src="/images/Reconcile-Arbor-Finance.png" alt="Reconcile OASIS Finance" class="wp-image-13619" style="width:410px" srcset="/images/Reconcile-Arbor-Finance.png 873w, /images/Reconcile-Arbor-Finance-300x218.png 300w, /images/Reconcile-Arbor-Finance-768x559.png 768w" sizes="auto, (max-width: 873px) 100vw, 873px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="Reconcile OASIS Finance" class="wp-image-13619" style="width:410px" /></figure>
 </div>
 </div>
 
@@ -229,7 +229,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full"><img width="1048" height="652" src="/images/Arbor-Finance-top-rated.png" alt="OASIS Finance top-rated" class="wp-image-13615" srcset="/images/Arbor-Finance-top-rated.png 1048w, /images/Arbor-Finance-top-rated-300x187.png 300w, /images/Arbor-Finance-top-rated-1024x637.png 1024w, /images/Arbor-Finance-top-rated-768x478.png 768w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image aligncenter size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="OASIS Finance top-rated" class="wp-image-13615" /></figure>
 </div>
 </div>
 </div>

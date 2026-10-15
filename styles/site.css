@@ -494,3 +494,22 @@ body.js-reveal-active .scroll-reveal.is-in-view {
 .oasis-app__strip figcaption { margin-top: 6px; font-size: 14px; color: #4f4b44; }
 .oasis-app__ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; padding: 0 24px; }
 @media (max-width: 520px) { .oasis-app__strip figure { flex-basis: 64%; } }
+
+/* ---- Site-wide: trim the imported WordPress spacing ------------------- */
+.entry-content [style*="margin-top:132px"] { margin-top: 72px !important; }
+.entry-content [style*="margin-bottom:132px"] { margin-bottom: 72px !important; }
+.entry-content [style*="padding-top:132px"] { padding-top: 72px !important; }
+.entry-content [style*="padding-bottom:132px"] { padding-bottom: 72px !important; }
+.entry-content [style*="margin-top:88px"] { margin-top: 56px !important; }
+.entry-content [style*="margin-bottom:88px"] { margin-bottom: 56px !important; }
+.entry-content [style*="padding-top:88px"] { padding-top: 56px !important; }
+.entry-content [style*="padding-bottom:88px"] { padding-bottom: 56px !important; }
+.entry-content [style*="padding-top:var(--wp--preset--spacing--60)"] { padding-top: 64px !important; }
+.entry-content [style*="padding-bottom:var(--wp--preset--spacing--60)"] { padding-bottom: 64px !important; }
+/* App screens used across the product pages */
+.entry-content img[src^="/images/app/card-"] { border-radius: 12px; height: auto; max-width: 100%; }
+/* Every content slider on the site: swipeable row, not a stack */
+.wp-block-getwid-content-slider:not(.slick-initialized) .wp-block-getwid-content-slider__wrapper {
+  display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin;
+}
+.wp-block-getwid-content-slider:not(.slick-initialized) .wp-block-getwid-content-slider-slide { flex: 0 0 min(520px, 86%); scroll-snap-align: start; }

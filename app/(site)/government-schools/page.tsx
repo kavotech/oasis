@@ -29,7 +29,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="1067" height="776" src="/images/Arbor-for-MATs.png" alt="OASIS for school groups" class="wp-image-13522" srcset="/images/Arbor-for-MATs.png 1067w, /images/Arbor-for-MATs-300x218.png 300w, /images/Arbor-for-MATs-1024x745.png 1024w, /images/Arbor-for-MATs-768x559.png 768w" sizes="auto, (max-width: 1067px) 100vw, 1067px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-reporting.png" alt="OASIS for school groups" class="wp-image-13522" /></figure>
 </div>
 </div>
 </div>
@@ -127,7 +127,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image size-full has-custom-border"><img width="468" height="281" src="/images/School-MIS-1.png" alt="" class="wp-image-14097" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a" srcset="/images/School-MIS-1.png 468w, /images/School-MIS-1-300x180.png 300w" sizes="auto, (max-width: 468px) 100vw, 468px" /></figure>
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-home.png" alt="" class="wp-image-14097" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a" /></figure>
 </div>
 </div>
 </div></div>
@@ -147,7 +147,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image size-full has-custom-border"><img width="1000" height="668" src="/images/Cloud-finance.png" alt="Cloud finance" class="wp-image-13618" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a" srcset="/images/Cloud-finance.png 1000w, /images/Cloud-finance-300x200.png 300w, /images/Cloud-finance-768x513.png 768w" sizes="auto, (max-width: 1000px) 100vw, 1000px" /></figure>
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="Cloud finance" class="wp-image-13618" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a" /></figure>
 </div>
 </div>
 </div></div>
@@ -167,7 +167,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="737" height="428" src="/images/Home_MIS-MATS-Groups_Attendance@2x.png" alt="" class="wp-image-6227"/></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="" class="wp-image-6227"/></figure>
 </div>
 </div>
 </div></div>
@@ -187,7 +187,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized"><img width="585" height="495" src="/images/Frame-26085909.png" alt="Local Authority OASIS" class="wp-image-16113" style="width:323px;height:auto" srcset="/images/Frame-26085909.png 585w, /images/Frame-26085909-300x254.png 300w" sizes="auto, (max-width: 585px) 100vw, 585px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-messages.png" alt="Local Authority OASIS" class="wp-image-16113" style="width:323px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -418,7 +418,7 @@ export default function Page() {
 
 
 
-<figure class="wp-block-image size-large is-resized"><img width="1024" height="689" src="/images/auto-absence-page-image-2-1024x689.png" alt="" class="wp-image-14240" style="width:259px;height:auto" srcset="/images/auto-absence-page-image-2-1024x689.png 1024w, /images/auto-absence-page-image-2-300x202.png 300w, /images/auto-absence-page-image-2-768x517.png 768w, /images/auto-absence-page-image-2.png 1040w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="" class="wp-image-14240" style="width:259px;height:auto" /></figure>
 </div>
 
 

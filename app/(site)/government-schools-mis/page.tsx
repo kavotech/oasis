@@ -29,7 +29,7 @@ export default function Page() {
 
 
 
-<figure class="wp-block-image aligncenter size-full"><img width="2237" height="1587" src="/images/Amy-U-Ad-hoc-work-3.png" alt="Local Authority MIS" class="wp-image-18116" srcset="/images/Amy-U-Ad-hoc-work-3.png 2237w, /images/Amy-U-Ad-hoc-work-3-300x213.png 300w, /images/Amy-U-Ad-hoc-work-3-1024x726.png 1024w, /images/Amy-U-Ad-hoc-work-3-768x545.png 768w, /images/Amy-U-Ad-hoc-work-3-1536x1090.png 1536w, /images/Amy-U-Ad-hoc-work-3-2048x1453.png 2048w, /images/Amy-U-Ad-hoc-work-3-1200x851.png 1200w" sizes="auto, (max-width: 2237px) 100vw, 2237px" /></figure>
+<figure class="wp-block-image aligncenter size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-ai.png" alt="Local Authority MIS" class="wp-image-18116" /></figure>
 </div>
 
 
@@ -73,7 +73,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img width="1594" height="1000" src="/images/Primary-attendance.png" alt="" class="wp-image-18136" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.4839672654279685;width:395px;height:auto" srcset="/images/Primary-attendance.png 1594w, /images/Primary-attendance-300x188.png 300w, /images/Primary-attendance-1024x642.png 1024w, /images/Primary-attendance-768x482.png 768w, /images/Primary-attendance-1536x964.png 1536w, /images/Primary-attendance-1200x753.png 1200w" sizes="auto, (max-width: 1594px) 100vw, 1594px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="" class="wp-image-18136" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.4839672654279685;width:395px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -93,7 +93,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img width="1662" height="1120" src="/images/Demographics.png" alt="" class="wp-image-18128" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.4839672654279685;width:395px;height:auto" srcset="/images/Demographics.png 1662w, /images/Demographics-300x202.png 300w, /images/Demographics-1024x690.png 1024w, /images/Demographics-768x518.png 768w, /images/Demographics-1536x1035.png 1536w, /images/Demographics-1200x809.png 1200w" sizes="auto, (max-width: 1662px) 100vw, 1662px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-reporting.png" alt="" class="wp-image-18128" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.4839672654279685;width:395px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -113,7 +113,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img width="2704" height="1572" src="/images/School-MIS-homepage.png" alt="" class="wp-image-18127" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.4839672654279685;width:395px;height:auto" srcset="/images/School-MIS-homepage.png 2704w, /images/School-MIS-homepage-300x174.png 300w, /images/School-MIS-homepage-1024x595.png 1024w, /images/School-MIS-homepage-768x446.png 768w, /images/School-MIS-homepage-1536x893.png 1536w, /images/School-MIS-homepage-2048x1191.png 2048w, /images/School-MIS-homepage-1200x698.png 1200w" sizes="auto, (max-width: 2704px) 100vw, 2704px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-students.png" alt="" class="wp-image-18127" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.4839672654279685;width:395px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -133,7 +133,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-large is-resized has-custom-border"><img width="1024" height="761" src="/images/Redesigned-product-visuals-3-1-1024x761.png" alt="Data sharing agreement" class="wp-image-18140" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.3456548119107625;width:378px;height:auto" srcset="/images/Redesigned-product-visuals-3-1-1024x761.png 1024w, /images/Redesigned-product-visuals-3-1-300x223.png 300w, /images/Redesigned-product-visuals-3-1-768x571.png 768w, /images/Redesigned-product-visuals-3-1-1536x1141.png 1536w, /images/Redesigned-product-visuals-3-1-2048x1521.png 2048w, /images/Redesigned-product-visuals-3-1-200x150.png?crop=1 200w, /images/Redesigned-product-visuals-3-1-1200x891.png 1200w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image aligncenter size-large is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="Data sharing agreement" class="wp-image-18140" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;aspect-ratio:1.3456548119107625;width:378px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -399,7 +399,7 @@ export default function Page() {
 
 
 
-<p class="wp-block-paragraph">Against each other, DfE and Ofsted benchmarks, plus our live national database of thousands of OASIS schools</p>
+<p class="wp-block-paragraph">Against each other, Ministry of Education and UNEB benchmarks, plus our live national database of thousands of OASIS schools</p>
 </div>
 
 
@@ -497,11 +497,11 @@ export default function Page() {
 
 <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-5455c187 wp-block-columns-is-layout-flex">
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:33.34%">
-<p class="wp-block-paragraph" style="font-style:normal;font-weight:500">Ofsted data</p>
+<p class="wp-block-paragraph" style="font-style:normal;font-weight:500">school inspection data</p>
 
 
 
-<p class="wp-block-paragraph">View the Ofsted data for all the schools in your LA</p>
+<p class="wp-block-paragraph">View the school inspection data for all the schools in your LA</p>
 </div>
 
 
@@ -591,7 +591,7 @@ export default function Page() {
 
 
 <div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-28f12d0a wp-block-group-is-layout-constrained" style="margin-top:171px;margin-bottom:88px">
-<figure class="wp-block-image alignwide size-large" style="margin-top:var(--wp--preset--spacing--20)"><img src="/images/Photography-v4-1024x566.png" alt="" class="wp-image-458"/></figure>
+<figure class="wp-block-image alignwide size-large" style="margin-top:var(--wp--preset--spacing--20)"><img loading="lazy" height="730" width="1176" src="/images/app/card-class-register.png" alt="" class="wp-image-458"/></figure>
 
 
 

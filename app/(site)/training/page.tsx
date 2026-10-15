@@ -29,7 +29,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full has-custom-border"><img width="866" height="720" src="/images/training-page-image-1.png" alt="" class="wp-image-14462" style="border-radius:4px;object-fit:cover" srcset="/images/training-page-image-1.png 866w, /images/training-page-image-1-300x249.png 300w, /images/training-page-image-1-768x639.png 768w" sizes="auto, (max-width: 866px) 100vw, 866px" /></figure>
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-home.png" alt="" class="wp-image-14462" style="border-radius:4px;object-fit:cover" /></figure>
 </div>
 </div>
 </div>
@@ -44,7 +44,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image size-full"><img width="1048" height="532" src="/images/Frame-9468-2.png" alt="" class="wp-image-13659" srcset="/images/Frame-9468-2.png 1048w, /images/Frame-9468-2-300x152.png 300w, /images/Frame-9468-2-1024x520.png 1024w, /images/Frame-9468-2-768x390.png 768w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-students.png" alt="" class="wp-image-13659" /></figure>
 </div>
 </div>
 
@@ -99,7 +99,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
-<figure class="wp-block-image aligncenter size-large is-resized has-custom-border"><img width="1024" height="683" src="/images/Arbor-Expert-min-1024x683.jpg" alt="OASIS Training" class="wp-image-16131" style="border-radius:4px;width:540px;height:auto" srcset="/images/Arbor-Expert-min-1024x683.jpg 1024w, /images/Arbor-Expert-min-300x200.jpg 300w, /images/Arbor-Expert-min-768x512.jpg 768w, /images/Arbor-Expert-min-1536x1024.jpg 1536w, /images/Arbor-Expert-min-2048x1365.jpg 2048w, /images/Arbor-Expert-min-1200x800.jpg 1200w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image aligncenter size-large is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-setup.png" alt="OASIS Training" class="wp-image-16131" style="border-radius:4px;width:540px;height:auto" /></figure>
 </div>
 </div>
 </div>
@@ -117,7 +117,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-d0a28cf8 wp-block-group-is-layout-flex" style="min-height:100%;padding-bottom:5px">
 <div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow">
-<figure class="wp-block-image size-full has-custom-border"><img width="6192" height="4128" src="/images/Arbor-Expert-1-min.jpg" alt="OASIS Training" class="wp-image-16133" style="border-radius:4px" srcset="/images/Arbor-Expert-1-min.jpg 6192w, /images/Arbor-Expert-1-min-300x200.jpg 300w, /images/Arbor-Expert-1-min-1024x683.jpg 1024w, /images/Arbor-Expert-1-min-768x512.jpg 768w, /images/Arbor-Expert-1-min-1536x1024.jpg 1536w, /images/Arbor-Expert-1-min-2048x1365.jpg 2048w, /images/Arbor-Expert-1-min-1200x800.jpg 1200w" sizes="auto, (max-width: 6192px) 100vw, 6192px" /></figure>
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-register.png" alt="OASIS Training" class="wp-image-16133" style="border-radius:4px" /></figure>
 
 
 
@@ -135,7 +135,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-d0a28cf8 wp-block-group-is-layout-flex" style="min-height:100%;padding-bottom:5px">
 <div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow">
-<figure class="wp-block-image size-full has-custom-border"><img width="6192" height="4128" src="/images/Arbor-Expert-2-min.jpg" alt="OASIS Training" class="wp-image-16132" style="border-radius:4px" srcset="/images/Arbor-Expert-2-min.jpg 6192w, /images/Arbor-Expert-2-min-300x200.jpg 300w, /images/Arbor-Expert-2-min-1024x683.jpg 1024w, /images/Arbor-Expert-2-min-768x512.jpg 768w, /images/Arbor-Expert-2-min-1536x1024.jpg 1536w, /images/Arbor-Expert-2-min-2048x1365.jpg 2048w, /images/Arbor-Expert-2-min-1200x800.jpg 1200w" sizes="auto, (max-width: 6192px) 100vw, 6192px" /></figure>
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-messages.png" alt="OASIS Training" class="wp-image-16132" style="border-radius:4px" /></figure>
 
 
 
@@ -153,7 +153,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-d0a28cf8 wp-block-group-is-layout-flex" style="min-height:100%;padding-bottom:5px">
 <div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow">
-<figure class="wp-block-image size-full has-custom-border"><img width="5760" height="3840" src="/images/training-page-image-2.jpg" alt="OASIS Training" class="wp-image-16129" style="border-radius:4px" srcset="/images/training-page-image-2.jpg 5760w, /images/training-page-image-2-300x200.jpg 300w, /images/training-page-image-2-1024x683.jpg 1024w, /images/training-page-image-2-768x512.jpg 768w, /images/training-page-image-2-1536x1024.jpg 1536w, /images/training-page-image-2-2048x1365.jpg 2048w, /images/training-page-image-2-1200x800.jpg 1200w" sizes="auto, (max-width: 5760px) 100vw, 5760px" /></figure>
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="OASIS Training" class="wp-image-16129" style="border-radius:4px" /></figure>
 
 
 

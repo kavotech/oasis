@@ -32,7 +32,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="1000" height="1000" src="/images/Amy-U-work-Ad-hoc-square-4.png" alt="OASIS Workflows" class="wp-image-18823" srcset="/images/Amy-U-work-Ad-hoc-square-4.png 1000w, /images/Amy-U-work-Ad-hoc-square-4-300x300.png 300w, /images/Amy-U-work-Ad-hoc-square-4-768x768.png 768w, /images/Amy-U-work-Ad-hoc-square-4-800x800.png?crop=1 800w, /images/Amy-U-work-Ad-hoc-square-4-600x600.png?crop=1 600w, /images/Amy-U-work-Ad-hoc-square-4-400x400.png?crop=1 400w, /images/Amy-U-work-Ad-hoc-square-4-200x200.png?crop=1 200w" sizes="auto, (max-width: 1000px) 100vw, 1000px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-ai.png" alt="OASIS Workflows" class="wp-image-18823" /></figure>
 </div>
 </div>
 </div>
@@ -71,7 +71,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-accent-3-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img width="2000" height="1125" src="/images/workflows-page-image-1.png" alt="OASIS Workflows" class="wp-image-18793" style="border-radius:4px;aspect-ratio:1.7778874021088982;width:425px;height:auto" srcset="/images/workflows-page-image-1.png 2000w, /images/workflows-page-image-1-300x169.png 300w, /images/workflows-page-image-1-1024x576.png 1024w, /images/workflows-page-image-1-768x432.png 768w, /images/workflows-page-image-1-1536x864.png 1536w, /images/workflows-page-image-1-1200x675.png 1200w" sizes="auto, (max-width: 2000px) 100vw, 2000px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-setup.png" alt="OASIS Workflows" class="wp-image-18793" style="border-radius:4px;aspect-ratio:1.7778874021088982;width:425px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -93,7 +93,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-accent-4-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full has-custom-border"><img width="2000" height="1125" src="/images/workflows-page-image-2.png" alt="OASIS Workflows" class="wp-image-18795" style="border-radius:4px" srcset="/images/workflows-page-image-2.png 2000w, /images/workflows-page-image-2-300x169.png 300w, /images/workflows-page-image-2-1024x576.png 1024w, /images/workflows-page-image-2-768x432.png 768w, /images/workflows-page-image-2-1536x864.png 1536w, /images/workflows-page-image-2-1200x675.png 1200w" sizes="auto, (max-width: 2000px) 100vw, 2000px" /></figure>
+<figure class="wp-block-image aligncenter size-full has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-setup.png" alt="OASIS Workflows" class="wp-image-18795" style="border-radius:4px" /></figure>
 </div>
 </div>
 </div></div>
@@ -115,7 +115,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-accent-2-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img width="1352" height="807" src="/images/workflows-page-image-3.png" alt="OASIS Workflows" class="wp-image-18797" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;width:446px;height:auto" srcset="/images/workflows-page-image-3.png 1352w, /images/workflows-page-image-3-300x179.png 300w, /images/workflows-page-image-3-1024x611.png 1024w, /images/workflows-page-image-3-768x458.png 768w, /images/workflows-page-image-3-1200x716.png 1200w" sizes="auto, (max-width: 1352px) 100vw, 1352px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-setup.png" alt="OASIS Workflows" class="wp-image-18797" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;width:446px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -137,7 +137,7 @@ export default function Page() {
 
 
 <div class="wp-block-column has-accent-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30);flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img width="2000" height="1125" src="/images/workflows-page-image-4.png" alt="OASIS Workflows" class="wp-image-18800" style="border-radius:4px;width:468px;height:auto" srcset="/images/workflows-page-image-4.png 2000w, /images/workflows-page-image-4-300x169.png 300w, /images/workflows-page-image-4-1024x576.png 1024w, /images/workflows-page-image-4-768x432.png 768w, /images/workflows-page-image-4-1536x864.png 1536w, /images/workflows-page-image-4-1200x675.png 1200w" sizes="auto, (max-width: 2000px) 100vw, 2000px" /></figure>
+<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img loading="lazy" width="1176" height="730" src="/images/app/card-setup.png" alt="OASIS Workflows" class="wp-image-18800" style="border-radius:4px;width:468px;height:auto" /></figure>
 </div>
 </div>
 </div></div>
@@ -147,7 +147,7 @@ export default function Page() {
 
 
 <div class="wp-block-group alignfull has-base-2-color has-accent-background-color has-text-color has-background has-link-color wp-elements-5e354ece16a1b863b3bc9060f4a5c148 has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:88px;padding-bottom:88px">
-<div class="wp-block-getwid-video-popup has-image has-foreground-0 alignwide"><a class="wp-block-getwid-video-popup__link" href="https://youtu.be/pf6M7sB-Quc"><div class="wp-block-getwid-video-popup__wrapper"><img width="2237" height="1587" src="/images/Amy-U-Ad-hoc-work-2.png" alt="" class="wp-block-getwid-video-popup__image wp-block-getwid-video-popup__source wp-image-19167" srcset="/images/Amy-U-Ad-hoc-work-2.png 2237w, /images/Amy-U-Ad-hoc-work-2-300x213.png 300w, /images/Amy-U-Ad-hoc-work-2-1024x726.png 1024w, /images/Amy-U-Ad-hoc-work-2-768x545.png 768w, /images/Amy-U-Ad-hoc-work-2-1536x1090.png 1536w, /images/Amy-U-Ad-hoc-work-2-2048x1453.png 2048w, /images/Amy-U-Ad-hoc-work-2-1200x851.png 1200w" sizes="auto, (max-width: 2237px) 100vw, 2237px" /><div class="wp-block-getwid-video-popup__button is-style-default has-animation-pulse is-size-large" style="border-color:#888CF8"><div class="wp-block-getwid-video-popup__icon has-text-color has-contrast-color has-background has-accent-background-color" style="border-color:#888CF8"><i class="fas fa-play" aria-hidden="true"></i></div></div></div></a><div class="wp-block-getwid-video-popup__caption"></div></div>
+<div class="wp-block-getwid-video-popup has-image has-foreground-0 alignwide"><a class="wp-block-getwid-video-popup__link" href="https://youtu.be/pf6M7sB-Quc"><div class="wp-block-getwid-video-popup__wrapper"><img loading="lazy" width="1176" height="730" src="/images/app/card-ai.png" alt="" class="wp-block-getwid-video-popup__image wp-block-getwid-video-popup__source wp-image-19167" /><div class="wp-block-getwid-video-popup__button is-style-default has-animation-pulse is-size-large" style="border-color:#888CF8"><div class="wp-block-getwid-video-popup__icon has-text-color has-contrast-color has-background has-accent-background-color" style="border-color:#888CF8"><i class="fas fa-play" aria-hidden="true"></i></div></div></div></a><div class="wp-block-getwid-video-popup__caption"></div></div>
 </div>
 
 
@@ -162,7 +162,7 @@ export default function Page() {
 
 
 
-<figure class="wp-block-image size-full" style="margin-top:0"><img width="755" height="377" src="/images/Send-welcome-email-to-parents-1.gif" alt="Workflows GIF" class="wp-image-18802"/></figure>
+<figure class="wp-block-image size-full" style="margin-top:0"><img loading="lazy" width="1176" height="730" src="/images/app/card-messages.png" alt="Workflows GIF" class="wp-image-18802"/></figure>
 </div>
 </div>
 
@@ -234,7 +234,7 @@ export default function Page() {
 
 <div class="wp-block-column has-custom-color-1-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-9f13b3b1 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;flex-basis:202px">
 <div class="wp-block-group is-horizontal is-content-justification-center is-layout-flex wp-container-core-group-is-layout-19274660 wp-block-group-is-layout-flex" style="min-height:100%;padding-bottom:0">
-<h3 class="wp-block-heading has-text-align-center has-contrast-color has-text-color has-link-color wp-elements-efea976a9e0b7213a82ea6478e23187c" style="font-size:clamp(0.957rem, 0.957rem + ((1vw - 0.2rem) * 1.049), 1.45rem);">Ofsted preparation</h3>
+<h3 class="wp-block-heading has-text-align-center has-contrast-color has-text-color has-link-color wp-elements-efea976a9e0b7213a82ea6478e23187c" style="font-size:clamp(0.957rem, 0.957rem + ((1vw - 0.2rem) * 1.049), 1.45rem);">school inspection preparation</h3>
 </div>
 </div>
 </div>
@@ -442,7 +442,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-center is-layout-flex wp-container-core-group-is-layout-1af4f3bb wp-block-group-is-layout-flex" style="min-height:100%">
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
-<figure class="wp-block-image size-full"><img width="2237" height="1587" src="/images/Amy-U-Ad-hoc-work-13.png" alt="OASIS Workflows" class="wp-image-18836" srcset="/images/Amy-U-Ad-hoc-work-13.png 2237w, /images/Amy-U-Ad-hoc-work-13-300x213.png 300w, /images/Amy-U-Ad-hoc-work-13-1024x726.png 1024w, /images/Amy-U-Ad-hoc-work-13-768x545.png 768w, /images/Amy-U-Ad-hoc-work-13-1536x1090.png 1536w, /images/Amy-U-Ad-hoc-work-13-2048x1453.png 2048w, /images/Amy-U-Ad-hoc-work-13-1200x851.png 1200w" sizes="auto, (max-width: 2237px) 100vw, 2237px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-ai.png" alt="OASIS Workflows" class="wp-image-18836" /></figure>
 
 
 
@@ -462,7 +462,7 @@ export default function Page() {
 <div class="wp-block-column has-base-2-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-26a738c0 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;box-shadow:var(--wp--preset--shadow--deep)">
 <div class="wp-block-group is-vertical is-content-justification-center is-layout-flex wp-container-core-group-is-layout-1af4f3bb wp-block-group-is-layout-flex" style="min-height:100%">
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
-<figure class="wp-block-image size-full"><img width="2237" height="1587" src="/images/Amy-U-Ad-hoc-work-15.png" alt="OASIS Workflows" class="wp-image-18838" srcset="/images/Amy-U-Ad-hoc-work-15.png 2237w, /images/Amy-U-Ad-hoc-work-15-300x213.png 300w, /images/Amy-U-Ad-hoc-work-15-1024x726.png 1024w, /images/Amy-U-Ad-hoc-work-15-768x545.png 768w, /images/Amy-U-Ad-hoc-work-15-1536x1090.png 1536w, /images/Amy-U-Ad-hoc-work-15-2048x1453.png 2048w, /images/Amy-U-Ad-hoc-work-15-1200x851.png 1200w" sizes="auto, (max-width: 2237px) 100vw, 2237px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-ai.png" alt="OASIS Workflows" class="wp-image-18838" /></figure>
 
 
 

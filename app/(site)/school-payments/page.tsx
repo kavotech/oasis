@@ -29,7 +29,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full" style="margin-right:0;margin-left:0"><img width="1096" height="776" src="/images/Arbor-Payments-2.png" alt="OASIS Payments 2" class="wp-image-14206" srcset="/images/Arbor-Payments-2.png 1096w, /images/Arbor-Payments-2-300x212.png 300w, /images/Arbor-Payments-2-1024x725.png 1024w, /images/Arbor-Payments-2-768x544.png 768w" sizes="auto, (max-width: 1096px) 100vw, 1096px" /></figure>
+<figure class="wp-block-image size-full" style="margin-right:0;margin-left:0"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="OASIS Payments 2" class="wp-image-14206" /></figure>
 </div>
 </div>
 </div>
@@ -98,7 +98,7 @@ export default function Page() {
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-layout-flex wp-container-core-columns-is-layout-044b9ecc wp-block-columns-is-layout-flex" style="margin-top:88px;margin-bottom:88px">
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image size-full has-custom-border" style="margin-top:0;margin-right:0;margin-bottom:0;margin-left:0"><img width="1003" height="630" src="/images/Arbor-payments.png" alt="OASIS payments" class="wp-image-15067" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;object-fit:cover" srcset="/images/Arbor-payments.png 1003w, /images/Arbor-payments-300x188.png 300w, /images/Arbor-payments-768x482.png 768w" sizes="auto, (max-width: 1003px) 100vw, 1003px" /></figure>
+<figure class="wp-block-image size-full has-custom-border" style="margin-top:0;margin-right:0;margin-bottom:0;margin-left:0"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="OASIS payments" class="wp-image-15067" style="border-radius:4px;box-shadow:0px 12px 24px 0 #0000001a;object-fit:cover" /></figure>
 </div>
 </div>
 </div>
@@ -120,7 +120,7 @@ export default function Page() {
 
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-layout-flex wp-container-core-columns-is-layout-e6d9a13e wp-block-columns-is-layout-flex" style="margin-top:88px;margin-bottom:88px;padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image size-full"><img width="1098" height="789" src="/images/School-shop-and-Apple-pay.png" alt="School shop and Apple pay" class="wp-image-14208" srcset="/images/School-shop-and-Apple-pay.png 1098w, /images/School-shop-and-Apple-pay-300x216.png 300w, /images/School-shop-and-Apple-pay-1024x736.png 1024w, /images/School-shop-and-Apple-pay-768x552.png 768w" sizes="auto, (max-width: 1098px) 100vw, 1098px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-fees.png" alt="School shop and Apple pay" class="wp-image-14208" /></figure>
 </div>
 
 

@@ -1353,6 +1353,60 @@ export type Database = {
           },
         ]
       }
+      school_file_extractions: {
+        Row: {
+          counts: Json | null
+          created_at: string
+          error: string | null
+          file_id: string
+          id: string
+          import_result: Json | null
+          imported_at: string | null
+          imported_by: string | null
+          model: string | null
+          requested_by: string | null
+          result: Json | null
+          school_id: string
+          status: string
+          summary: string | null
+          updated_at: string
+        }
+        Insert: {
+          counts?: Json | null
+          created_at?: string
+          error?: string | null
+          file_id: string
+          id?: string
+          import_result?: Json | null
+          imported_at?: string | null
+          imported_by?: string | null
+          model?: string | null
+          requested_by?: string | null
+          result?: Json | null
+          school_id: string
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Update: {
+          counts?: Json | null
+          created_at?: string
+          error?: string | null
+          file_id?: string
+          id?: string
+          import_result?: Json | null
+          imported_at?: string | null
+          imported_by?: string | null
+          model?: string | null
+          requested_by?: string | null
+          result?: Json | null
+          school_id?: string
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       school_files: {
         Row: {
           category: string

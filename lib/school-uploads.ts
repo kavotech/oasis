@@ -12,7 +12,7 @@ export async function uploadSchoolFile(
   file: File,
   category: UploadCategory,
   opts: { relativePath?: string; note?: string } = {}
-): Promise<{ error: string | null }> {
+): Promise<{ error: string | null; id?: string }> {
   const supabase = createClient();
   const rel = (opts.relativePath || file.name).replace(/^\/+/, "");
   const safe = rel
@@ -28,7 +28,7 @@ export async function uploadSchoolFile(
   if (upErr) return { error: upErr.message };
 
   const { data: auth } = await supabase.auth.getUser();
-  const { error: rowErr } = await supabase.from("school_files").insert({
+  const { data: row, error: rowErr } = await supabase.from("school_files").insert({
     school_id: schoolId,
     path,
     name: rel,
@@ -37,8 +37,8 @@ export async function uploadSchoolFile(
     category,
     note: opts.note ?? null,
     uploaded_by: auth.user?.id ?? null,
-  });
-  return { error: rowErr?.message ?? null };
+  }).select("id").single();
+  return { error: rowErr?.message ?? null, id: row?.id };
 }
 
 /** A short-lived download link (developers and the school itself). */

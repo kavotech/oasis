@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SAMpeople - OASIS",
-  description: "Education HR system Everything you need to manage and support your staff SAMpeople is Uganda's fastest growing education HR system, transforming HR, recruitment and payroll for over 2,300 schools. Book a demo SAMpeople is now part of the OASIS School Management Suite Onboard new hires, track absences, and manage cover with two…",
+  title: "OASIS Staff - OASIS",
+  description: "Education HR system Everything you need to manage and support your staff OASIS Staff is Uganda's fastest growing education HR system, transforming HR, recruitment and payroll for schools across Uganda. Book a demo OASIS Staff is now part of the OASIS School Management Suite Onboard new hires, track absences, and manage cover with two…",
 };
 
 export default function Page() {
@@ -21,7 +21,7 @@ export default function Page() {
 
 
 
-<p class="wp-block-paragraph" style="font-size:clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.798), 20px);">SAMpeople is Uganda's fastest growing education HR system, transforming HR, recruitment and payroll for over 2,300 schools.</p>
+<p class="wp-block-paragraph" style="font-size:clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.798), 20px);">OASIS Staff is Uganda's fastest growing education HR system, transforming HR, recruitment and payroll for schools across Uganda.</p>
 
 
 
@@ -32,14 +32,14 @@ export default function Page() {
 
 
 
-<figure class="wp-block-image size-full is-resized"><img width="319" height="117" src="/images/Sampeople-Arbor.png" alt="" class="wp-image-13506" style="width:193px;height:auto" srcset="/images/Sampeople-Arbor.png 319w, /images/Sampeople-Arbor-300x110.png 300w" sizes="auto, (max-width: 319px) 100vw, 319px" /></figure>
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" width="1176" height="730" src="/images/app/card-staff.png" alt="" class="wp-image-13506" style="width:193px;height:auto" /></figure>
 </div>
 </div>
 
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-full"><img width="1072" height="1105" src="/images/SAMpeople-2.png" alt="SAMpeople" class="wp-image-14201" srcset="/images/SAMpeople-2.png 1072w, /images/SAMpeople-2-291x300.png 291w, /images/SAMpeople-2-993x1024.png 993w, /images/SAMpeople-2-768x792.png 768w" sizes="auto, (max-width: 1072px) 100vw, 1072px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-staff.png" alt="OASIS Staff" class="wp-image-14201" /></figure>
 </div>
 </div>
 </div>
@@ -48,17 +48,17 @@ export default function Page() {
 
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-style-first-col-to-second is-layout-flex wp-container-core-columns-is-layout-044b9ecc wp-block-columns-is-layout-flex" style="margin-top:88px;margin-bottom:88px">
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
-<h2 class="wp-block-heading" style="font-size:clamp(20px, 1.25rem + ((1vw - 3.2px) * 1.596), 32px);">SAMpeople is now part of the OASIS School Management Suite</h2>
+<h2 class="wp-block-heading" style="font-size:clamp(20px, 1.25rem + ((1vw - 3.2px) * 1.596), 32px);">OASIS Staff is now part of the OASIS School Management Suite</h2>
 
 
 
-<p class="wp-block-paragraph">Onboard new hires, track absences, and manage cover with two systems that work seamlessly together. Staff data syncs instantly between OASIS and SAMpeople, keeping it accurate and up-to-date everywhere at once.</p>
+<p class="wp-block-paragraph">Onboard new hires, track absences, and manage cover with two systems that work seamlessly together. Staff data syncs instantly between OASIS and OASIS Staff, keeping it accurate and up-to-date everywhere at once.</p>
 </div>
 
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image size-full"><img width="1048" height="396" src="/images/Frame-9468-3.png" alt="SAMpeople collaboration" class="wp-image-13670" srcset="/images/Frame-9468-3.png 1048w, /images/Frame-9468-3-300x113.png 300w, /images/Frame-9468-3-1024x387.png 1024w, /images/Frame-9468-3-768x290.png 768w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-students.png" alt="OASIS Staff collaboration" class="wp-image-13670" /></figure>
 </div>
 </div>
 
@@ -67,7 +67,7 @@ export default function Page() {
 <div class="wp-block-group alignfull has-base-2-color has-custom-color-1-background-color has-text-color has-background has-link-color wp-elements-15d6776b7c978363e0c6ea656b307ff7 has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:88px;padding-bottom:88px">
 <div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-is-layout-f4757ddb wp-block-columns-is-layout-flex" style="padding-bottom:var(--wp--preset--spacing--30)">
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-right:0;padding-left:0;flex-basis:40%">
-<h2 class="wp-block-heading has-contrast-color has-text-color has-link-color wp-elements-7b1451c1a4c754b2ce48183ec43c4c74">SAMpeople and OASIS <em><mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-accent-color">together</mark></em></h2>
+<h2 class="wp-block-heading has-contrast-color has-text-color has-link-color wp-elements-7b1451c1a4c754b2ce48183ec43c4c74">OASIS Staff and OASIS <em><mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-accent-color">together</mark></em></h2>
 </div>
 
 
@@ -79,7 +79,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:0;flex-basis:100%">
-<p class="has-contrast-color has-text-color has-link-color has-small-font-size wp-elements-669847c7f265c734d7c65016c8e89938 wp-block-paragraph">Hear from two trust leaders on how they&#8217;re using SAMpeople and OASIS to bring together their staff and student data and make a real difference to their schools.</p>
+<p class="has-contrast-color has-text-color has-link-color has-small-font-size wp-elements-669847c7f265c734d7c65016c8e89938 wp-block-paragraph">Hear from two trust leaders on how they&#8217;re using OASIS Staff and OASIS to bring together their staff and student data and make a real difference to their schools.</p>
 </div>
 </div>
 </div>
@@ -89,13 +89,13 @@ export default function Page() {
 
 <div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-is-layout-f4757ddb wp-block-columns-is-layout-flex" style="padding-bottom:var(--wp--preset--spacing--30)">
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-right:0;padding-left:0;flex-basis:50%">
-<div class="wp-block-getwid-video-popup has-image has-foreground-0 alignwide"><a class="wp-block-getwid-video-popup__link" href="https://youtu.be/lymbUJ8w-M4"><div class="wp-block-getwid-video-popup__wrapper" style="min-height:100px"><img width="1320" height="1628" src="/images/staff-management-page-image-1.png" alt="" class="wp-block-getwid-video-popup__image wp-block-getwid-video-popup__source wp-image-17667" srcset="/images/staff-management-page-image-1.png 1320w, /images/staff-management-page-image-1-243x300.png 243w, /images/staff-management-page-image-1-830x1024.png 830w, /images/staff-management-page-image-1-768x947.png 768w, /images/staff-management-page-image-1-1245x1536.png 1245w, /images/staff-management-page-image-1-1200x1480.png 1200w" sizes="auto, (max-width: 1320px) 100vw, 1320px" /><div class="wp-block-getwid-video-popup__button is-style-default is-size-large" style="border-color:#ffffff"><div class="wp-block-getwid-video-popup__icon has-text-color has-contrast-color has-background has-base-2-background-color" style="border-color:#ffffff"><i class="fas fa-play" aria-hidden="true"></i></div></div></div></a><div class="wp-block-getwid-video-popup__caption"></div></div>
+<div class="wp-block-getwid-video-popup has-image has-foreground-0 alignwide"><a class="wp-block-getwid-video-popup__link" href="https://youtu.be/lymbUJ8w-M4"><div class="wp-block-getwid-video-popup__wrapper" style="min-height:100px"><img loading="lazy" width="1176" height="730" src="/images/app/card-staff.png" alt="" class="wp-block-getwid-video-popup__image wp-block-getwid-video-popup__source wp-image-17667" /><div class="wp-block-getwid-video-popup__button is-style-default is-size-large" style="border-color:#ffffff"><div class="wp-block-getwid-video-popup__icon has-text-color has-contrast-color has-background has-base-2-background-color" style="border-color:#ffffff"><i class="fas fa-play" aria-hidden="true"></i></div></div></div></a><div class="wp-block-getwid-video-popup__caption"></div></div>
 </div>
 
 
 
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-right:0;padding-left:0;flex-basis:50%">
-<div class="wp-block-getwid-video-popup has-image has-foreground-0 alignwide"><a class="wp-block-getwid-video-popup__link" href="https://youtu.be/GdTHqb3S2Uw"><div class="wp-block-getwid-video-popup__wrapper" style="min-height:100px"><img width="1302" height="1606" src="/images/staff-management-page-image-2.png" alt="" class="wp-block-getwid-video-popup__image wp-block-getwid-video-popup__source wp-image-17670" srcset="/images/staff-management-page-image-2.png 1302w, /images/staff-management-page-image-2-243x300.png 243w, /images/staff-management-page-image-2-830x1024.png 830w, /images/staff-management-page-image-2-768x947.png 768w, /images/staff-management-page-image-2-1245x1536.png 1245w, /images/staff-management-page-image-2-1200x1480.png 1200w" sizes="auto, (max-width: 1302px) 100vw, 1302px" /><div class="wp-block-getwid-video-popup__button is-style-default is-size-large" style="border-color:#ffffff"><div class="wp-block-getwid-video-popup__icon has-text-color has-contrast-color has-background has-base-2-background-color" style="border-color:#ffffff"><i class="fas fa-play" aria-hidden="true"></i></div></div></div></a><div class="wp-block-getwid-video-popup__caption"></div></div>
+<div class="wp-block-getwid-video-popup has-image has-foreground-0 alignwide"><a class="wp-block-getwid-video-popup__link" href="https://youtu.be/GdTHqb3S2Uw"><div class="wp-block-getwid-video-popup__wrapper" style="min-height:100px"><img loading="lazy" width="1176" height="730" src="/images/app/card-staff.png" alt="" class="wp-block-getwid-video-popup__image wp-block-getwid-video-popup__source wp-image-17670" /><div class="wp-block-getwid-video-popup__button is-style-default is-size-large" style="border-color:#ffffff"><div class="wp-block-getwid-video-popup__icon has-text-color has-contrast-color has-background has-base-2-background-color" style="border-color:#ffffff"><i class="fas fa-play" aria-hidden="true"></i></div></div></div></a><div class="wp-block-getwid-video-popup__caption"></div></div>
 </div>
 </div>
 </div>
@@ -109,13 +109,13 @@ export default function Page() {
 
 
 
-<p class="wp-block-paragraph">SAMpeople is a complete HR system for schools, designed by education HR specialists. Manage absences, CPD, communications, documents and more — with best-practice workflows and features built-in.</p>
+<p class="wp-block-paragraph">OASIS Staff is a complete HR system for schools, designed by education HR specialists. Manage absences, CPD, communications, documents and more — with best-practice workflows and features built-in.</p>
 </div>
 
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full"><img width="1096" height="677" src="/images/Arbor-School-MIS-Homepage.png" alt="Case work contracts" class="wp-image-13671" srcset="/images/Arbor-School-MIS-Homepage.png 1096w, /images/Arbor-School-MIS-Homepage-300x185.png 300w, /images/Arbor-School-MIS-Homepage-1024x633.png 1024w, /images/Arbor-School-MIS-Homepage-768x474.png 768w" sizes="auto, (max-width: 1096px) 100vw, 1096px" /></figure>
+<figure class="wp-block-image aligncenter size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-home.png" alt="Case work contracts" class="wp-image-13671" /></figure>
 </div>
 </div>
 
@@ -133,7 +133,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full"><img width="1000" height="505" src="/images/Frame-26085899.png" alt="Sickness tracker" class="wp-image-14204" style="box-shadow:var(--wp--preset--shadow--deep)" srcset="/images/Frame-26085899.png 1000w, /images/Frame-26085899-300x152.png 300w, /images/Frame-26085899-768x388.png 768w" sizes="auto, (max-width: 1000px) 100vw, 1000px" /></figure>
+<figure class="wp-block-image aligncenter size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-staff.png" alt="Sickness tracker" class="wp-image-14204" style="box-shadow:var(--wp--preset--shadow--deep)" /></figure>
 </div>
 </div>
 
@@ -145,13 +145,13 @@ export default function Page() {
 
 
 
-<p class="wp-block-paragraph">Give staff a simple way to request leave, access documents and submit new personal details with SAMpeople’s mobile-friendly employee portal. End the paper back-and-forth with all policies, tasks and training activities in a place staff can always find.</p>
+<p class="wp-block-paragraph">Give staff a simple way to request leave, access documents and submit new personal details with OASIS Staff’s mobile-friendly employee portal. End the paper back-and-forth with all policies, tasks and training activities in a place staff can always find.</p>
 </div>
 
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full"><img width="1048" height="932" src="/images/Frame-9467-5.png" alt="SAMpeople phone" class="wp-image-13667" srcset="/images/Frame-9467-5.png 1048w, /images/Frame-9467-5-300x267.png 300w, /images/Frame-9467-5-1024x911.png 1024w, /images/Frame-9467-5-768x683.png 768w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image aligncenter size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-staff.png" alt="OASIS Staff phone" class="wp-image-13667" /></figure>
 </div>
 </div>
 
@@ -163,13 +163,13 @@ export default function Page() {
 
 
 
-<p class="wp-block-paragraph">Build your policies, processes and templates in SAMpeople to create consistency. Automated reminders and alerts help your people managers stay on top of important follow-ups.</p>
+<p class="wp-block-paragraph">Build your policies, processes and templates in OASIS Staff to create consistency. Automated reminders and alerts help your people managers stay on top of important follow-ups.</p>
 </div>
 
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full"><img width="1071" height="524" src="/images/Sampeople-tasks.png" alt="Sampeople tasks" class="wp-image-14200" srcset="/images/Sampeople-tasks.png 1071w, /images/Sampeople-tasks-300x147.png 300w, /images/Sampeople-tasks-1024x501.png 1024w, /images/Sampeople-tasks-768x376.png 768w" sizes="auto, (max-width: 1071px) 100vw, 1071px" /></figure>
+<figure class="wp-block-image aligncenter size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-staff.png" alt="OASIS Staff tasks" class="wp-image-14200" /></figure>
 </div>
 </div>
 
@@ -181,13 +181,13 @@ export default function Page() {
 
 
 
-<p class="wp-block-paragraph">Create a professional online candidate journey, advertise roles and ensure Safer Recruitment with SAMpeople’s recruitment software, which integrates seamlessly with SAMpeople.</p>
+<p class="wp-block-paragraph">Create a professional online candidate journey, advertise roles and ensure Safer Recruitment with OASIS Staff’s recruitment software, which integrates seamlessly with OASIS Staff.</p>
 </div>
 
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full"><img width="1096" height="666" src="/images/Frame-9468-2-1.png" alt="Hiring school staff" class="wp-image-13669" srcset="/images/Frame-9468-2-1.png 1096w, /images/Frame-9468-2-1-300x182.png 300w, /images/Frame-9468-2-1-1024x622.png 1024w, /images/Frame-9468-2-1-768x467.png 768w" sizes="auto, (max-width: 1096px) 100vw, 1096px" /></figure>
+<figure class="wp-block-image aligncenter size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="Hiring school staff" class="wp-image-13669" /></figure>
 </div>
 </div>
 </div>
@@ -355,7 +355,7 @@ export default function Page() {
 
 <div class="wp-block-column is-vertically-aligned-stretch has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:66.66%">
 <blockquote class="wp-block-quote is-style-default has-background is-layout-flow wp-block-quote-is-layout-flow" style="background-color:#ffffff00">
-<p class="wp-block-paragraph">&#8220;[SAMpeople] has all reduced admin time excessively&#8230; It’s helping build an inclusive culture.&#8221;</p>
+<p class="wp-block-paragraph">&#8220;[OASIS Staff] has all reduced admin time excessively&#8230; It’s helping build an inclusive culture.&#8221;</p>
 <cite><strong>OASIS User</strong><br>Chief Finance &amp; Operations Officer, Raleigh Education Trust</cite></blockquote>
 </div>
 </div>
@@ -395,7 +395,7 @@ export default function Page() {
 
 <div class="wp-block-column is-vertically-aligned-stretch has-custom-color-1-background-color has-background is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:66.66%">
 <blockquote class="wp-block-quote is-style-default has-background is-layout-flow wp-block-quote-is-layout-flow" style="background-color:#ffffff00">
-<p class="wp-block-paragraph">&#8220;SAMpeople was our first venture into removing some heavy paper admin work. It&#8217; already making time savings and improved reporting processes.&#8221;</p>
+<p class="wp-block-paragraph">&#8220;OASIS Staff was our first venture into removing some heavy paper admin work. It&#8217; already making time savings and improved reporting processes.&#8221;</p>
 <cite><strong>OASIS User</strong><br>Ruskin Community High School</cite></blockquote>
 </div>
 </div>
@@ -427,7 +427,7 @@ export default function Page() {
 
 
 <div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-5ca31eee wp-block-group-is-layout-constrained" style="margin-top:88px;margin-bottom:88px">
-<h2 class="wp-block-heading has-text-align-center">Book your demo with SAMpeople today</h2>
+<h2 class="wp-block-heading has-text-align-center">Book your demo with OASIS Staff today</h2>
 
 
 

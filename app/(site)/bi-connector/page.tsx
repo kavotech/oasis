@@ -29,7 +29,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image size-large"><img width="1024" height="710" src="/images/Header-content-1024x710.png" alt="Secondary schools" class="wp-image-13638" srcset="/images/Header-content-1024x710.png 1024w, /images/Header-content-300x208.png 300w, /images/Header-content-768x533.png 768w, /images/Header-content.png 1096w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" width="1176" height="730" src="/images/app/card-attendance.png" alt="Secondary schools" class="wp-image-13638" /></figure>
 </div>
 </div>
 </div>
@@ -92,7 +92,7 @@ export default function Page() {
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-layout-flex wp-container-core-columns-is-layout-044b9ecc wp-block-columns-is-layout-flex" style="margin-top:88px;margin-bottom:88px">
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image size-full"><img width="524" height="201" src="/images/Frame-9467-1.png" alt="Student data" class="wp-image-13634" srcset="/images/Frame-9467-1.png 524w, /images/Frame-9467-1-300x115.png 300w" sizes="auto, (max-width: 524px) 100vw, 524px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-reporting.png" alt="Student data" class="wp-image-13634" /></figure>
 </div>
 </div>
 </div>
@@ -110,7 +110,7 @@ export default function Page() {
 
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-layout-flex wp-container-core-columns-is-layout-044b9ecc wp-block-columns-is-layout-flex" style="margin-top:88px;margin-bottom:88px">
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image size-full"><img width="1048" height="389" src="/images/Frame-9467-4.png" alt="" class="wp-image-13657" srcset="/images/Frame-9467-4.png 1048w, /images/Frame-9467-4-300x111.png 300w, /images/Frame-9467-4-1024x380.png 1024w, /images/Frame-9467-4-768x285.png 768w" sizes="auto, (max-width: 1048px) 100vw, 1048px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="1176" height="730" src="/images/app/card-setup.png" alt="" class="wp-image-13657" /></figure>
 </div>
 
 
