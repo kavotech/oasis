@@ -11,10 +11,14 @@ iPhone 16 mockups of every screen in the app, in the Ultramarine finish.
 
 Screens: welcome (3 slides), sign in, sign up, forgot password, school pending
 approval, home, students, add student, attendance, messages, more, fees,
-timetable, school setup, reporting, calendar, account.
+timetable, school setup, reporting, calendar, account, class register, bulk tools,
+staff, school registration (details, modules, documents & data), import students
+& parents, join the OASIS team, and the developer console (requests, application,
+files, people & access, decision, school admins, developers & keys).
 
 Signed-in screens use the app's demo mode (the OASIS Demo School snapshot), so
-no real school's data appears.
+no real school's data appears. Console screens add `as=developer`, which shows
+made-up registrations (Sunrise Hill, Lakeview…).
 
 ## Regenerating
 

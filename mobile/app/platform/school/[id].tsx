@@ -17,7 +17,7 @@ type Tab = "application" | "files" | "people" | "decision";
 
 /** One school, everything a developer needs to decide on it. */
 export default function SchoolDetail() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, tab: initialTab } = useLocalSearchParams<{ id: string; tab?: Tab }>();
   const [school, setSchool] = useState<Tables<"schools"> | null>(null);
   const [app, setApp] = useState<Tables<"school_applications"> | null>(null);
   const [files, setFiles] = useState<Tables<"school_files">[]>([]);
@@ -26,7 +26,7 @@ export default function SchoolDetail() {
   const [counts, setCounts] = useState({ students: 0, staff: 0 });
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [tab, setTab] = useState<Tab>("application");
+  const [tab, setTab] = useState<Tab>(initialTab && ["application", "files", "people", "decision"].includes(initialTab) ? initialTab : "application");
 
   const load = useCallback(async () => {
     const [s, a, f, p, st, sc, stc] = await Promise.all([

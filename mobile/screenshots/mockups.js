@@ -41,6 +41,19 @@ const CAPTIONS = {
   "22-invoice-a-class": ["Invoice every student", "at once"],
   "23-staff-and-teaching": ["Add staff, assign", "who teaches what"],
   "24-join-as-staff": ["Teachers join with", "the email you added"],
+  "25-register-school": ["Tell us about", "your school"],
+  "26-register-profile": ["Everything OASIS", "needs, step by step"],
+  "27-register-modules": ["Choose the modules", "you want"],
+  "28-register-documents-data": ["Upload documents", "and your school's data"],
+  "29-import-students-parents": ["Students and parents,", "imported together"],
+  "30-join-oasis-team": ["Developers join", "the OASIS team"],
+  "31-console-requests": ["Every onboarding", "request in one inbox"],
+  "32-console-application": ["Read the full", "application"],
+  "33-console-files": ["Open every file", "a school sends"],
+  "34-console-people-access": ["Add admins,", "remove access"],
+  "35-console-decision": ["Approve, ask for more,", "or reject"],
+  "36-console-school-admins": ["Every school admin,", "in one place"],
+  "37-console-developers-keys": ["Developers", "and keys"],
 };
 
 // iPhone 16 in points: 393x852 screen, ~21pt frame, 55pt screen corners.

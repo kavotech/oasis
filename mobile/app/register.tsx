@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from "react-native";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import * as DocumentPicker from "expo-document-picker";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -23,7 +23,9 @@ export default function Register() {
   const { profile, user, refreshProfile } = useAuth();
   const schoolId = profile?.school_id ?? null;
   const [data, setData] = useState<OnboardingData>(emptyOnboarding);
-  const [step, setStep] = useState(0);
+  // ?step=N reopens a given step (e.g. "Documents" from an email link).
+  const params = useLocalSearchParams<{ step?: string }>();
+  const [step, setStep] = useState(() => Math.min(Math.max(Number(params.step) || 0, 0), FILES_STEP));
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);

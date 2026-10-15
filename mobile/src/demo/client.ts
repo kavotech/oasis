@@ -3,6 +3,7 @@
 // eq/neq/gte/lte/in/order/limit/single, head counts, and postgres_changes
 // realtime callbacks so the UI behaves exactly as it does online.
 import fixture from "./fixture.json";
+import { demoAsDeveloper } from "./mode";
 
 type Row = Record<string, unknown> & { id: string };
 type Store = Record<string, Row[]>;
@@ -36,6 +37,11 @@ function buildStore(): Store {
   const store: Store = {};
   for (const [table, rows] of Object.entries(fx)) if (Array.isArray(rows)) store[table] = shiftDates(rows as Row[], days);
   const school = store.schools?.[0];
+  // ?as=developer shows the OASIS developer console with made-up registrations.
+  if (demoAsDeveloper) {
+    addPlatformSamples(store);
+    return store;
+  }
   store.profiles = [
     {
       id: DEMO_USER_ID,
@@ -54,6 +60,59 @@ function buildStore(): Store {
     },
   ];
   return store;
+}
+
+const daysAgo = (d: number) => new Date(Date.now() - d * 86_400_000).toISOString();
+
+/** Fictional schools, applications and files for the developer console demo. */
+function addPlatformSamples(store: Store) {
+  const mk = (id: string, name: string, code: string, status: string, district: string, contact: string, email: string, type: string, band: string, ago: number) => ({
+    id, name, code, status, district, contact_name: contact, contact_email: email, contact_phone: "0772 000000", school_type: type, student_band: band,
+    address: `${district}`, created_at: daysAgo(ago), academic_year: "2026", onboarding_skipped_steps: [],
+  });
+  const S = [
+    mk("d0000000-0000-4000-8000-000000000001", "Sunrise Hill Primary School", "SUN-HILL", "pending_review", "Wakiso", "Ruth Nambi", "head@sunrisehill.example", "nursery_primary", "500_1000", 1),
+    mk("d0000000-0000-4000-8000-000000000002", "Lakeview Secondary School", "LAKEVIEW", "pending_review", "Mukono", "Daniel Okot", "admin@lakeview.example", "secondary", "1000_2500", 2),
+    mk("d0000000-0000-4000-8000-000000000003", "Green Valley Junior School", "GREEN-VAL", "more_info_requested", "Kampala", "Esther Akello", "info@greenvalley.example", "primary", "250_500", 5),
+    mk("d0000000-0000-4000-8000-000000000005", "Riverside Nursery & Primary", "RIVERSIDE", "approved", "Entebbe", "Agnes Nakku", "office@riverside.example", "nursery_primary", "250_500", 20),
+    mk("d0000000-0000-4000-8000-000000000004", "Hope Vocational Institute", "HOPE-VOC", "pending_review", "Jinja", "Paul Mugisha", "office@hopevoc.example", "vocational", "50_250", 3),
+  ];
+  store.schools = [...S, ...(store.schools ?? []).map((x) => ({ ...x, status: "approved" }))];
+  const data = {
+    organisation: { schoolName: "Sunrise Hill Primary School", companyName: "Sunrise Education Ltd", tradingName: "", schoolEmail: "head@sunrisehill.example", schoolPhone: "0772 000000", altPhone: "", headTeacherName: "Ruth Nambi", directorName: "Joseph Kato", website: "" },
+    schoolType: { schoolType: "nursery_primary" },
+    location: { country: "Uganda", region: "Central", district: "Wakiso", cityTown: "Kira", parish: "Kireka", physicalAddress: "Plot 4, Hill Road, Kira", mapsLink: "", postalAddress: "" },
+    profile: { yearEstablished: "2009", yearsInOperation: "17", academicCalendar: "3_terms", ownership: "private", boarding: "both", gender: "mixed", numCampuses: "1", annualIntake: "120" },
+    studentNumbers: { currentPopulation: "500_1000", expectedGrowth: "15%" },
+    staff: { teachers: "34", adminStaff: "6", financeStaff: "3", ictStaff: "1", boardingStaff: "8", supportStaff: "14", totalEmployees: "66" },
+    academic: { curriculum: "uneb", otherCurriculum: "", subjectsOffered: "English, Maths, Science, SST, RE", numClasses: "10", numStreams: "2", examinationLevels: "PLE" },
+    currentSystems: { currentSystem: "excel", currentSoftwareName: "" },
+    modules: { modules: ["student_management", "attendance", "school_fees", "parent_portal", "exams", "reports"] },
+  };
+  store.school_applications = S.map((x, i) => ({ id: `a000000${i}`, school_id: x.id, data: { ...data, organisation: { ...data.organisation, schoolName: x.name } }, status: i === 3 ? "draft" : "submitted", submitted_at: i === 3 ? null : x.created_at, review_note: i === 2 ? "Please upload your operating licence." : null, created_at: x.created_at }));
+  const file = (i: number, school: string, name: string, category: string, note: string | null, size: number, status = "received") => ({ id: `f${i}`, school_id: school, path: `${school}/${category}/x/${name}`, name, category, note, size_bytes: size, status, content_type: null, created_at: daysAgo(1) });
+  const a = S[0].id;
+  store.school_files = [
+    file(1, a, "URSB certificate.pdf", "document", "ursb_certificate", 412_000),
+    file(2, a, "Operating licence 2026.pdf", "document", "operating_licence", 268_000),
+    file(3, a, "TIN certificate.pdf", "document", "tin", 120_000),
+    file(4, a, "Students and parents 2026.csv", "data", "All classes with both parents", 86_000),
+    file(5, a, "Staff list.xlsx", "data", "Teachers and support staff", 31_000, "imported"),
+    file(6, S[1].id, "Registration.pdf", "document", "ursb_certificate", 300_000),
+  ];
+  store.profiles = [
+    { id: DEMO_USER_ID, school_id: null, role: "super_admin", full_name: "OASIS Developer", email: "dev@oasis.co.ug", created_at: daysAgo(30) },
+    { id: "p1", school_id: a, role: "school_admin", full_name: "Ruth Nambi", email: "head@sunrisehill.example", created_at: daysAgo(1) },
+    { id: "p2", school_id: a, role: "school_admin", full_name: "Brian Ssemwogerere", email: "ict@sunrisehill.example", created_at: daysAgo(1) },
+    { id: "p3", school_id: S[1].id, role: "school_admin", full_name: "Daniel Okot", email: "admin@lakeview.example", created_at: daysAgo(2) },
+    { id: "p4", school_id: store.schools.find((x) => x.code === "OASIS-DEMO")?.id ?? null, role: "school_admin", full_name: "Grace Atim", email: "demo@oasis.co.ug", created_at: daysAgo(60) },
+  ];
+  store.staff = [...(store.staff ?? []), { id: "s-inv", school_id: a, full_name: "Sarah Namutebi", email: "data@sunrisehill.example", access_role: "school_admin", profile_id: null, status: "active", created_at: daysAgo(0) }];
+  store.platform_developers = [
+    { id: "dv1", email: "dev@oasis.co.ug", full_name: "OASIS Developer", profile_id: DEMO_USER_ID, revoked_at: null, created_at: daysAgo(30) },
+    { id: "dv2", email: "ops@oasis.co.ug", full_name: "Operations", profile_id: "x", revoked_at: null, created_at: daysAgo(10) },
+    { id: "dv3", email: "newdev@oasis.co.ug", full_name: "New Developer", profile_id: null, revoked_at: null, created_at: daysAgo(1) },
+  ];
 }
 
 let store: Store | null = null;
@@ -142,6 +201,10 @@ class Query implements PromiseLike<{ data: unknown; error: { message: string } |
   }
   lte(col: string, v: unknown) {
     this.filters.push((r) => String(r[col] ?? "") <= String(v));
+    return this;
+  }
+  is(col: string, v: unknown) {
+    this.filters.push((r) => (r[col] ?? null) === v);
     return this;
   }
   in(col: string, vs: unknown[]) {
@@ -287,6 +350,7 @@ export const demoClient = {
     stopAutoRefresh: () => {},
   },
   functions: {
-    invoke: async () => ({ data: null, error: new Error("Not available in the demo.") }),
+    invoke: async (name: string, opts?: { body?: { action?: string } }) =>
+      name === "platform-admin" && opts?.body?.action === "list_access" ? { data: { banned: [] }, error: null } : { data: null, error: new Error("Not available in the demo.") },
   },
 };

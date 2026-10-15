@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Alert, Pressable, Switch, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useLocalSearchParams } from "expo-router";
 import * as DocumentPicker from "expo-document-picker";
 import { Text } from "@/components/Text";
 import { ToolScreen } from "@/components/ToolScreen";
@@ -18,7 +19,8 @@ type Summary = { students: number; guardians: number; links: number; classes: nu
  * child's row and is created once, then linked to every child. */
 export default function ImportStudents() {
   const { profile, role } = useAuth();
-  const [text, setText] = useState("");
+  const params = useLocalSearchParams<{ example?: string }>();
+  const [text, setText] = useState(params.example === "1" ? IMPORT_TEMPLATE : "");
   const [existing, setExisting] = useState<Set<string>>(new Set());
   const [createClasses, setCreateClasses] = useState(true);
   const [running, setRunning] = useState<string | null>(null);

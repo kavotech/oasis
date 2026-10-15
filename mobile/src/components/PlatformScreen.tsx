@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text } from "./Text";
-import { Glass } from "./glass";
+import { Backdrop, Glass } from "./glass";
 import { colors } from "@/theme";
 
 /** Chrome for the developer console screens (no tab bar). */
@@ -26,6 +26,7 @@ export function PlatformScreen({
   children: ReactNode;
 }) {
   return (
+    <Backdrop>
     <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
         <ScrollView
@@ -51,6 +52,7 @@ export function PlatformScreen({
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </Backdrop>
   );
 }
 
