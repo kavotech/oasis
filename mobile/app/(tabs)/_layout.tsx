@@ -8,6 +8,7 @@ export default function TabsLayout() {
   const { user, role, schoolStatus, loading } = useAuth();
   if (loading) return <Spinner />;
   if (!user) return <Redirect href="/login" />;
+  if (role === "super_admin") return <Redirect href="/platform" />;
   if (role === "school_admin" && schoolStatus && schoolStatus !== "approved") return <Redirect href="/pending" />;
 
   return (

@@ -111,6 +111,7 @@ const A: Record<string, QuickAction> = {
   addStaff: { label: "Add staff", icon: "briefcase", href: "/modules/staff?add=1", color: "#0d9488" },
   addStudent: { label: "Add student", icon: "user-plus", href: "/students?add=1", color: colors.oasis600 },
   bulkStudents: { label: "Bulk add students", icon: "users", href: "/modules/bulk-students", color: "#6366f1" },
+  importStudents: { label: "Import students & parents", icon: "upload-cloud", href: "/modules/import-students", color: "#7c3aed" },
   newInvoice: { label: "New invoice", icon: "credit-card", href: "/modules/fees?add=1", color: "#f59e0b" },
   classInvoice: { label: "Invoice a class", icon: "layers", href: "/modules/bulk-invoice", color: "#d97706" },
   message: { label: "Send message", icon: "send", href: "/messages?add=1", color: "#0ea5e9" },
@@ -131,7 +132,7 @@ export function quickActionsFor(role: string | null): QuickAction[] {
     case "student":
       return [];
     default:
-      return [A.addStaff, A.addStudent, A.bulkStudents, A.registers, A.newInvoice, A.classInvoice, A.message, A.event];
+      return [A.addStaff, A.addStudent, A.importStudents, A.bulkStudents, A.registers, A.newInvoice, A.classInvoice, A.message, A.event];
   }
 }
 

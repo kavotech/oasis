@@ -7,7 +7,7 @@ import { AuthShell } from "@/components/AuthShell";
 import { Button, ErrorBanner, Field, Input } from "@/components/ui";
 import { colors } from "@/theme";
 import { supabase } from "@/lib/supabase";
-import { SchoolPicker, UNLISTED_SCHOOL } from "@/components/SchoolPicker";
+import { OASIS_TEAM, SchoolPicker, UNLISTED_SCHOOL } from "@/components/SchoolPicker";
 
 export default function Login() {
   const { signIn, signOut, enterDemo } = useAuth();
@@ -38,13 +38,18 @@ export default function Login() {
     // and schools still under review are exempt).
     const { data: auth } = await supabase.auth.getUser();
     const { data: me } = await supabase.from("profiles").select("school_id, role").eq("id", auth.user?.id ?? "").maybeSingle();
+    if (school === OASIS_TEAM && me?.role !== "super_admin") {
+      await signOut();
+      setLoading(false);
+      return setError("This account isn't an OASIS developer account. Pick your school instead.");
+    }
     if (me && me.role !== "super_admin" && school !== UNLISTED_SCHOOL && me.school_id !== school) {
       await signOut();
       setLoading(false);
       return setError("This account isn't registered at the school you picked. Check the school and try again.");
     }
     setLoading(false);
-    router.replace("/");
+    router.replace(me?.role === "super_admin" ? "/platform" : "/");
   }
 
   return (
@@ -59,6 +64,14 @@ export default function Login() {
             Create an account
           </Text>
         </Text>
+        {school === OASIS_TEAM && (
+          <Text style={{ color: colors.slate500, fontSize: 14 }}>
+            New OASIS developer?{" "}
+            <Text style={{ color: colors.oasis600, fontWeight: "600" }} onPress={() => router.push("/signup?mode=developer")}>
+              Join the team
+            </Text>
+          </Text>
+        )}
         <Pressable
           onPress={async () => {
             await enterDemo();

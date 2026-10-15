@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Linking, View } from "react-native";
+import { View } from "react-native";
 import { router } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { Text } from "@/components/Text";
@@ -10,7 +10,7 @@ import { colors } from "@/theme";
 
 const STEPS = [
   { icon: "check-circle" as const, title: "Account created", body: "Your login is ready to use." },
-  { icon: "file-text" as const, title: "Finish registration", body: "Add your school's details and documents on the website." },
+  { icon: "file-text" as const, title: "Finish registration", body: "Tell us about your school and upload documents and your student and parent lists." },
   { icon: "shield" as const, title: "OASIS review", body: "We check your school and unlock the dashboard - usually within a day." },
 ];
 
@@ -31,7 +31,7 @@ export default function Pending() {
       title={schoolStatus === "rejected" ? "Registration not approved" : "Your school is under review"}
       subtitle={
         schoolStatus === "more_info_requested"
-          ? "Our team needs a little more information. Please update your registration on the website."
+          ? "Our team needs a little more information. Please update your registration below."
           : schoolStatus === "rejected"
             ? "Please contact OASIS support if you think this is a mistake."
             : "Thanks for joining OASIS. Your dashboard unlocks as soon as your school is approved."
@@ -59,8 +59,8 @@ export default function Pending() {
           </View>
         ))}
       </View>
-      <Button size="lg" icon="external-link" onPress={() => Linking.openURL("https://oasis.co.ug/register")}>
-        Finish registration
+      <Button size="lg" icon="file-text" onPress={() => router.push("/register")}>
+        {schoolStatus === "more_info_requested" ? "Update registration" : "Finish registration"}
       </Button>
       <Button size="lg" variant="secondary" style={{ marginTop: 10 }} onPress={check} loading={checking}>
         Check approval status

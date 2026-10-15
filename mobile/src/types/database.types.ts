@@ -1107,6 +1107,51 @@ export type Database = {
           },
         ]
       }
+      platform_developers: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          invited_by: string | null
+          profile_id: string | null
+          revoked_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id?: string
+          invited_by?: string | null
+          profile_id?: string | null
+          revoked_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          invited_by?: string | null
+          profile_id?: string | null
+          revoked_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "platform_developers_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "platform_developers_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           admin_section: string | null
@@ -1240,6 +1285,127 @@ export type Database = {
             columns: ["student_id"]
             isOneToOne: false
             referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      school_applications: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          school_id: string
+          status: string
+          submitted_at: string | null
+          submitted_by: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          data?: Json
+          id?: string
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          school_id: string
+          status?: string
+          submitted_at?: string | null
+          submitted_by?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          school_id?: string
+          status?: string
+          submitted_at?: string | null
+          submitted_by?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_applications_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "school_applications_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "school_applications_submitted_by_fkey"
+            columns: ["submitted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      school_files: {
+        Row: {
+          category: string
+          content_type: string | null
+          created_at: string
+          id: string
+          name: string
+          note: string | null
+          path: string
+          school_id: string
+          size_bytes: number | null
+          status: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          category?: string
+          content_type?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          note?: string | null
+          path: string
+          school_id: string
+          size_bytes?: number | null
+          status?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          category?: string
+          content_type?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          note?: string | null
+          path?: string
+          school_id?: string
+          size_bytes?: number | null
+          status?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_files_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "school_files_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]

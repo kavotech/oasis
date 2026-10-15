@@ -37,6 +37,7 @@ export default function Index() {
 
   if (loading || seenWelcome === null) return <Spinner />;
   if (!user) return <Redirect href={seenWelcome ? "/login" : "/welcome"} />;
+  if (role === "super_admin") return <Redirect href="/platform" />;
   if (role === "school_admin" && schoolStatus && schoolStatus !== "approved") return <Redirect href="/pending" />;
   return <Redirect href="/(tabs)" />;
 }

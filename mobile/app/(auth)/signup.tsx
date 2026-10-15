@@ -20,7 +20,7 @@ export default function Signup() {
   // school that already has you on file.
   // ?mode=staff|parent deep-links straight to joining (e.g. a link a school sends its teachers).
   const params = useLocalSearchParams<{ mode?: string }>();
-  const [mode, setMode] = useState<"new" | "staff" | "parent">(params.mode === "staff" || params.mode === "parent" ? params.mode : "new");
+  const [mode, setMode] = useState<"new" | "staff" | "parent" | "developer">(params.mode === "staff" || params.mode === "parent" || params.mode === "developer" ? params.mode : "new");
   const [schoolId, setSchoolId] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [fullName, setFullName] = useState("");
@@ -33,7 +33,7 @@ export default function Signup() {
 
   async function requestCode() {
     if (mode === "new" && !schoolName.trim()) return setError("Enter your school's name.");
-    if (mode !== "new" && !schoolId) return setError("Choose your school.");
+    if ((mode === "staff" || mode === "parent") && !schoolId) return setError("Choose your school.");
     if (!fullName.trim()) return setError("Enter your name.");
     if (!EMAIL_RE.test(email.trim())) return setError("Enter a valid work email address.");
     if (password.length < 8) return setError("Use at least 8 characters for your password.");
@@ -53,7 +53,9 @@ export default function Signup() {
     const created = await completeSignup(
       mode === "new"
         ? { email, code: code.trim(), password, fullName, schoolName }
-        : { email, code: code.trim(), password, fullName, role: mode === "parent" ? "parent" : "teacher", schoolId }
+        : mode === "developer"
+          ? { email, code: code.trim(), password, fullName, role: "super_admin" }
+          : { email, code: code.trim(), password, fullName, role: mode === "parent" ? "parent" : "teacher", schoolId }
     );
     if (created.error) {
       setLoading(false);
@@ -62,7 +64,7 @@ export default function Signup() {
     const signedIn = await signIn(email, password);
     setLoading(false);
     if (signedIn.error) return setError(signedIn.error);
-    router.replace(mode === "new" ? "/pending" : "/");
+    router.replace(mode === "new" ? "/register" : mode === "developer" ? "/platform" : "/");
   }
 
   const footer = (
@@ -107,17 +109,19 @@ export default function Signup() {
 
   return (
     <AuthShell
-      title={mode === "new" ? "Create your school account" : mode === "staff" ? "Join your school as staff" : "Join as a parent"}
+      title={mode === "new" ? "Create your school account" : mode === "staff" ? "Join your school as staff" : mode === "developer" ? "Join the OASIS team" : "Join as a parent"}
       subtitle={
         mode === "new"
           ? "Start with the basics. Your login works right away; your school just needs approval before your dashboard unlocks."
           : mode === "staff"
             ? "Use the email your school admin added you with - your classes and access come from the school."
+            : mode === "developer"
+              ? "For OASIS developers. Use the email another developer added for you in the console."
             : "Use the email your school has on file for you - you'll see your children's attendance, results and fees."
       }
       footer={footer}
     >
-      <View style={{ flexDirection: "row", backgroundColor: "rgba(118,118,128,0.12)", borderRadius: 12, padding: 3, marginBottom: 18 }}>
+      {mode !== "developer" && <View style={{ flexDirection: "row", backgroundColor: "rgba(118,118,128,0.12)", borderRadius: 12, padding: 3, marginBottom: 18 }}>
         {([
           ["new", "New school"],
           ["staff", "I'm staff"],
@@ -134,9 +138,9 @@ export default function Signup() {
             <Text style={{ fontSize: 13, fontWeight: mode === m ? "700" : "500", color: mode === m ? colors.slate900 : colors.slate500 }}>{label}</Text>
           </Pressable>
         ))}
-      </View>
+      </View>}
       {error && <ErrorBanner message={error} />}
-      {mode === "new" ? (
+      {mode === "developer" ? null : mode === "new" ? (
         <Field label="School name">
           <Input value={schoolName} onChangeText={setSchoolName} placeholder="e.g. Kampala Parents School" autoCapitalize="words" />
         </Field>

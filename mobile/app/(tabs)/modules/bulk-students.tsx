@@ -76,6 +76,12 @@ export default function BulkStudents() {
       }
     >
       {error && <ErrorBanner message={error} />}
+      {role === "school_admin" && (
+        <Pressable onPress={() => router.push("/modules/import-students")} style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 16, padding: 12, borderRadius: 14, backgroundColor: "rgba(148,152,239,0.14)" }}>
+          <Feather name="upload-cloud" size={17} color={colors.oasis700} />
+          <Text style={{ flex: 1, fontSize: 13.5, color: colors.oasis700, fontWeight: "600" }}>Have parents' details too? Import students with parents across classes →</Text>
+        </Pressable>
+      )}
       <View style={{ flexDirection: "row", gap: 10 }}>
         <View style={{ flex: 1 }}>
           <Field label="Class *">

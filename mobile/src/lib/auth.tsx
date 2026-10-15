@@ -30,7 +30,7 @@ type AuthContextValue = {
   sendSignupOtp: (email: string) => Promise<AuthResult>;
   /** school_admin registers a new school (schoolName); staff and parents join
    * an approved school (schoolId) - the server checks the school has them on file. */
-  completeSignup: (input: { email: string; code: string; password: string; fullName: string; schoolName?: string; role?: "school_admin" | "teacher" | "parent"; schoolId?: string }) => Promise<AuthResult>;
+  completeSignup: (input: { email: string; code: string; password: string; fullName: string; schoolName?: string; role?: "school_admin" | "teacher" | "parent" | "super_admin"; schoolId?: string }) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   sendPasswordResetOtp: (email: string) => Promise<AuthResult>;
@@ -124,7 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const completeSignup = useCallback(
-    async ({ email, code, password, fullName, schoolName, role = "school_admin", schoolId }: { email: string; code: string; password: string; fullName: string; schoolName?: string; role?: "school_admin" | "teacher" | "parent"; schoolId?: string }) => {
+    async ({ email, code, password, fullName, schoolName, role = "school_admin", schoolId }: { email: string; code: string; password: string; fullName: string; schoolName?: string; role?: "school_admin" | "teacher" | "parent" | "super_admin"; schoolId?: string }) => {
       const { error } = await supabase.functions.invoke("create-account", {
         body:
           role === "school_admin"
