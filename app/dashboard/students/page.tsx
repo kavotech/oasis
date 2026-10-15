@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
-import { Plus, Users } from "lucide-react";
+import { Plus, Upload, Users } from "lucide-react";
 import { PageHeader } from "@/components/portal/PageHeader";
 import { Card } from "@/components/portal/ui/Card";
 import { Table, type Column } from "@/components/portal/ui/Table";
@@ -148,6 +148,9 @@ export default function StudentsPage() {
         action={
           canWrite && (
             <div className="flex flex-wrap gap-2">
+              <ButtonLink href="/dashboard/setup/import">
+                <Upload className="h-4 w-4" /> Import with parents
+              </ButtonLink>
               <ButtonLink href="/dashboard/students/bulk">
                 <Users className="h-4 w-4" /> Bulk add
               </ButtonLink>

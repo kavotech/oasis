@@ -1,449 +1,401 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import {
-  ArrowLeft,
-  Ban,
-  Building2,
-  Check,
-  Copy,
-  FileText,
-  KeyRound,
-  MessageCircleQuestion,
-  Plus,
-  X,
-} from "lucide-react";
+import { Building2, CheckCircle2, Download, FileText, Loader2, MessageCircleQuestion, ShieldOff, Trash2, UserPlus, Users, XCircle } from "lucide-react";
 import { PageHeader } from "@/components/portal/PageHeader";
 import { Card, CardHeader } from "@/components/portal/ui/Card";
 import { Badge } from "@/components/portal/ui/Badge";
-import { Avatar } from "@/components/portal/ui/Avatar";
 import { Button } from "@/components/portal/ui/Button";
-import { EmptyState } from "@/components/portal/ui/EmptyState";
-import { Modal } from "@/components/portal/ui/Modal";
 import { Input } from "@/components/portal/ui/Input";
-import { addApiKey, revokeApiKey } from "@/lib/school-registry";
-import { logEvent } from "@/lib/platform-store";
-import { useCollection } from "@/lib/store";
+import { Modal } from "@/components/portal/ui/Modal";
+import { EmptyState } from "@/components/portal/ui/EmptyState";
+import { SchoolLogo } from "@/components/auth/SchoolCombobox";
 import { useRealtimeRows } from "@/lib/supabase/useRealtimeRows";
-import { schoolRowToRequest } from "@/lib/supabase/school-mapper";
 import { createClient } from "@/lib/supabase/client";
-import { documentRequirements } from "@/lib/onboarding-types";
-import type { Tables } from "@/types/database.types";
-import type { AdminActionType } from "@/lib/admin-actions";
-import type { ApiKey, SchoolRequestStatus } from "@/types/portal";
 import { useToast } from "@/hooks/useToast";
+import { formatBytes, signedUrl } from "@/lib/school-uploads";
+import { platformAction, STATUS_LABEL, STATUS_TONE } from "@/lib/platform";
 import { cn } from "@/lib/utils/cn";
+import type { Tables } from "@/types/database.types";
 
 const TABS = [
-  { key: "overview", label: "Overview", icon: Building2 },
-  { key: "documents", label: "Documents", icon: FileText },
-  { key: "keys", label: "API Keys", icon: KeyRound },
-  { key: "actions", label: "Actions", icon: MessageCircleQuestion },
+  { key: "application", label: "Application", icon: Building2 },
+  { key: "files", label: "Files", icon: FileText },
+  { key: "people", label: "People & access", icon: Users },
+  { key: "actions", label: "Decision", icon: MessageCircleQuestion },
 ] as const;
 
-const STAGE_TONE: Record<SchoolRequestStatus, "neutral" | "info" | "warning" | "success" | "danger"> = {
-  pending_review: "warning",
-  approved: "success",
-  rejected: "danger",
-  more_info_requested: "info",
-  suspended: "neutral",
+// Human labels for the registration wizard's sections and fields.
+const SECTION_LABELS: Record<string, string> = {
+  organisation: "Organisation",
+  schoolType: "School type",
+  location: "Location",
+  profile: "School profile",
+  studentNumbers: "Students",
+  staff: "Staff",
+  academic: "Academics",
+  currentSystems: "Current systems",
+  modules: "Modules requested",
 };
-const STAGE_LABEL: Record<SchoolRequestStatus, string> = {
-  pending_review: "Pending Review",
-  approved: "Approved",
-  rejected: "Rejected",
-  more_info_requested: "More Info Requested",
-  suspended: "Suspended",
-};
+const humanize = (k: string) => k.replace(/([A-Z])/g, " $1").replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
 
-const ACTION_TO_STATUS: Record<AdminActionType, SchoolRequestStatus> = {
-  approve: "approved",
-  reject: "rejected",
-  request_more_info: "more_info_requested",
-  suspend: "suspended",
-};
-
-export default function SchoolRequestDetailPage() {
-  const params = useParams<{ id: string }>();
+/** One school, for OASIS developers: everything they registered, the files
+ * they sent, who can log in, and the approve / reject / suspend controls. */
+export default function SchoolDetailPage() {
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { toast } = useToast();
-  const [tab, setTab] = useState<(typeof TABS)[number]["key"]>("overview");
+  const [tab, setTab] = useState<(typeof TABS)[number]["key"]>("application");
+  const { rows: schools, loading } = useRealtimeRows<Tables<"schools">>("schools");
+  const { rows: apps } = useRealtimeRows<Tables<"school_applications">>("school_applications");
+  const { rows: allFiles } = useRealtimeRows<Tables<"school_files">>("school_files");
+  const { rows: allProfiles } = useRealtimeRows<Tables<"profiles">>("profiles");
+  const { rows: allStaff } = useRealtimeRows<Tables<"staff">>("staff", "full_name");
 
-  // Live from Supabase (Realtime postgres_changes) - reflects changes made
-  // anywhere else, including the mobile app, instantly.
-  const { rows: schoolRows, loading } = useRealtimeRows<Tables<"schools">>("schools");
-  const schoolRow = schoolRows.find((s) => s.id === params.id);
-  const request = schoolRow ? schoolRowToRequest(schoolRow) : undefined;
-  // API keys aren't part of the shared schema yet - still admin-console-local.
-  const [allKeys] = useCollection<ApiKey>("oasis_api_keys_registry");
+  const school = schools.find((s) => s.id === id);
+  const app = apps.find((a) => a.school_id === id);
+  const files = allFiles.filter((f) => f.school_id === id);
+  const profiles = allProfiles.filter((p) => p.school_id === id);
+  const admins = allStaff.filter((s) => s.school_id === id && s.access_role === "school_admin");
 
-  const [newKeyOpen, setNewKeyOpen] = useState(false);
-  const [newKeyLabel, setNewKeyLabel] = useState("");
-  const [revealedKey, setRevealedKey] = useState<{ label: string; full: string } | null>(null);
-
-  if (!request) {
-    if (loading) return null;
+  if (loading) return <p className="p-10 text-center text-sm text-slate-400">Loading…</p>;
+  if (!school) {
     return (
       <div>
         <PageHeader title="School not found" breadcrumbs={[{ label: "Schools", href: "/portal/schools" }, { label: "Not found" }]} />
-        <EmptyState title="We couldn't find that school" />
+        <EmptyState title="We couldn't find that school" description="It may have been deleted." />
       </div>
     );
   }
 
-  const status = request.status;
-  const keys = allKeys.filter((k) => k.schoolRequestId === request.id);
-
-  async function runAction(action: AdminActionType) {
-    const nextStatus = ACTION_TO_STATUS[action];
-    const patch = nextStatus === "approved" ? { status: nextStatus, plan: "starter", subscription_status: "trial" } : { status: nextStatus };
-    const { error } = await createClient().from("schools").update(patch).eq("id", request!.id);
-    if (error) {
-      toast("error", "Couldn't update status", error.message);
-      return;
-    }
-    const messages: Record<AdminActionType, string> = {
-      approve: `${request!.schoolName} has been approved and can now be onboarded.`,
-      reject: `${request!.schoolName}'s request has been rejected.`,
-      request_more_info: `More information has been requested from ${request!.schoolName}.`,
-      suspend: `${request!.schoolName}'s access has been suspended.`,
-    };
-    const eventType = action === "approve" ? "school_created" : action === "suspend" ? "subscription_cancelled" : "admin_invited";
-    logEvent(eventType, messages[action], "admin");
-    toast(action === "approve" ? "success" : action === "reject" || action === "suspend" ? "error" : "info", "Status updated", messages[action]);
-  }
-
-  function generateKey() {
-    const { key, full } = addApiKey(request!.id, newKeyLabel);
-    setRevealedKey({ label: key.label, full });
-    setNewKeyOpen(false);
-    setNewKeyLabel("");
-    logEvent("feature_enabled", `API key "${key.label}" issued for ${request!.schoolName}`, "admin");
-  }
-
-  function handleRevoke(id: string) {
-    revokeApiKey(id);
-    toast("info", "API key revoked", "This key can no longer be used to authenticate requests.");
-  }
-
   return (
     <div>
-      <button
-        type="button"
-        onClick={() => router.push("/portal/schools")}
-        className="mb-3 flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-oasis-600"
-      >
-        <ArrowLeft className="h-4 w-4" /> Back to schools
-      </button>
-
-      <Card className="mb-5">
-        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
-            <Avatar name={request.schoolName} size={48} />
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-xl font-bold text-slate-900">{request.schoolName}</h1>
-                <Badge tone={STAGE_TONE[status]}>{STAGE_LABEL[status]}</Badge>
-              </div>
-              <p className="mt-1 text-sm text-slate-500">
-                {request.schoolCode} &middot; {request.district} District &middot; {request.schoolType}
-              </p>
-            </div>
-          </div>
-          {status === "pending_review" && (
-            <div className="flex gap-2">
-              <Button variant="secondary" onClick={() => runAction("request_more_info")}>
-                Request Info
-              </Button>
-              <Button variant="danger" onClick={() => runAction("reject")}>
-                Reject
-              </Button>
-              <Button onClick={() => runAction("approve")}>Approve</Button>
-            </div>
-          )}
+      <div className="mb-6 flex flex-wrap items-center gap-4">
+        <SchoolLogo school={school} size={56} />
+        <div className="flex-1">
+          <PageHeader
+            title={school.name}
+            description={[school.district, school.school_type, school.contact_email].filter(Boolean).join(" · ")}
+            breadcrumbs={[{ label: "Requests", href: "/portal/requests" }, { label: "Schools", href: "/portal/schools" }, { label: school.name }]}
+            action={<Badge tone={STATUS_TONE[school.status] ?? "neutral"}>{STATUS_LABEL[school.status] ?? school.status}</Badge>}
+          />
         </div>
-      </Card>
+      </div>
 
-      <div className="mb-5 flex gap-1 overflow-x-auto rounded-2xl border border-slate-200/70 bg-white p-1.5">
+      <div className="mb-5 flex flex-wrap gap-2">
         {TABS.map((t) => (
           <button
             key={t.key}
+            type="button"
             onClick={() => setTab(t.key)}
             className={cn(
-              "flex flex-shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-[13px] font-medium transition",
-              tab === t.key ? "bg-oasis-500 text-white shadow-sm" : "text-slate-500 hover:bg-slate-100"
+              "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition",
+              tab === t.key ? "bg-oasis-500 text-white" : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
             )}
           >
             <t.icon className="h-4 w-4" /> {t.label}
+            {t.key === "files" && files.length > 0 && <span className={tab === t.key ? "text-white/80" : "text-slate-400"}>{files.length}</span>}
           </button>
         ))}
       </div>
 
-      {tab === "overview" && (
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          <Card>
-            <CardHeader title="School metadata" />
-            <dl className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
-              <Detail label="School Name" value={request.schoolName} />
-              <Detail label="School Code" value={request.schoolCode} />
-              <Detail label="Address" value={request.address || "—"} />
-              <Detail label="Contact Email" value={request.contactEmail} />
-              <Detail label="Contact Phone" value={request.contactPhone} />
-              <Detail label="Created Date" value={request.createdAt} />
-              <Detail label="Version" value={request.version} />
-            </dl>
-          </Card>
-          <Card>
-            <CardHeader title="Subscription" />
-            <dl className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
-              <Detail label="Plan" value={request.plan ?? "No plan yet"} />
-              <Detail label="Subscription Status" value={request.subscriptionStatus ?? "—"} />
-              <Detail label="Expiry Date" value={request.expiryDate ?? "—"} />
-              <Detail label="Last Login" value={request.lastLoginAt ?? "Never"} />
-              <Detail
-                label="Storage Used"
-                value={request.storageLimitMb ? `${(request.storageUsedMb / 1024).toFixed(1)} GB of ${(request.storageLimitMb / 1024).toFixed(0)} GB` : "—"}
-              />
-            </dl>
-          </Card>
-          {request.modulesRequested.length > 0 && (
-            <Card className="lg:col-span-2">
-              <CardHeader title="Modules requested" />
-              <div className="flex flex-wrap gap-1.5">
-                {request.modulesRequested.map((m) => (
-                  <Badge key={m} tone="info">
-                    {m}
-                  </Badge>
-                ))}
-              </div>
-            </Card>
-          )}
-          <Card className="lg:col-span-2 border-dashed bg-slate-50/60">
-            <p className="text-xs text-slate-400">
-              This view is metadata only. Student, parent, attendance, fee, class and exam data belonging to this
-              school are never accessible here - see the Support page for the time-boxed access process.
-            </p>
-          </Card>
-        </div>
-      )}
+      {tab === "application" && <ApplicationTab school={school} app={app} />}
+      {tab === "files" && <FilesTab files={files} />}
+      {tab === "people" && <PeopleTab school={school} profiles={profiles} admins={admins} />}
+      {tab === "actions" && <DecisionTab school={school} onDeleted={() => router.push("/portal/requests")} toast={toast} />}
+    </div>
+  );
+}
 
-      {tab === "documents" && (
-        <Card className="p-0">
-          <div className="border-b border-slate-100 p-4">
-            <p className="text-sm text-slate-500">
-              Document upload happens on the school&rsquo;s side after approval; nothing has been uploaded here yet.
-            </p>
-          </div>
-          <div className="divide-y divide-slate-50">
-            {documentRequirements.map((doc) => (
-              <div key={doc.key} className="flex items-center justify-between p-4">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-400">
-                    <FileText className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-medium text-slate-700">
-                      {doc.label} {doc.required && <span className="text-rose-400">*</span>}
-                    </p>
-                    <p className="text-xs text-slate-400">{doc.description}</p>
-                  </div>
-                </div>
-                <Badge tone="neutral">Not uploaded</Badge>
+function ApplicationTab({ school, app }: { school: Tables<"schools">; app?: Tables<"school_applications"> }) {
+  const data = (app?.data ?? {}) as Record<string, Record<string, unknown>>;
+  const sections = Object.entries(data).filter(([, v]) => v && typeof v === "object");
+  return (
+    <div className="space-y-5">
+      <Card>
+        <CardHeader title="Headline details" subtitle={app?.submitted_at ? `Submitted ${new Date(app.submitted_at).toLocaleString("en-GB")}` : "The school hasn't submitted the full form yet."} />
+        <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
+          {[
+            ["School", school.name],
+            ["Code", school.code],
+            ["Type", school.school_type],
+            ["Students", school.student_band],
+            ["District", school.district],
+            ["Address", school.address],
+            ["Contact", school.contact_name],
+            ["Email", school.contact_email],
+            ["Phone", school.contact_phone],
+            ["Registered", new Date(school.created_at).toLocaleDateString("en-GB")],
+          ].map(([k, v]) => (
+            <div key={k}>
+              <dt className="text-xs font-semibold text-slate-400">{k}</dt>
+              <dd className="text-slate-800">{v || "—"}</dd>
+            </div>
+          ))}
+        </dl>
+        {app?.review_note && (
+          <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            <strong>Last note to school:</strong> {app.review_note}
+          </p>
+        )}
+      </Card>
+      {sections.map(([key, value]) => (
+        <Card key={key}>
+          <CardHeader title={SECTION_LABELS[key] ?? humanize(key)} />
+          <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
+            {Object.entries(value).map(([field, v]) => (
+              <div key={field}>
+                <dt className="text-xs font-semibold text-slate-400">{humanize(field)}</dt>
+                <dd className="whitespace-pre-wrap text-slate-800">{Array.isArray(v) ? v.join(", ") || "—" : v === "" || v === null || v === undefined ? "—" : String(v)}</dd>
               </div>
             ))}
+          </dl>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+function FilesTab({ files }: { files: Tables<"school_files">[] }) {
+  const [opening, setOpening] = useState<string | null>(null);
+  const sorted = [...files].sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
+  async function open(path: string) {
+    setOpening(path);
+    const url = await signedUrl(path, 600);
+    setOpening(null);
+    if (url) window.open(url, "_blank", "noopener");
+  }
+  async function setStatus(id: string, status: string) {
+    await createClient().from("school_files").update({ status }).eq("id", id);
+  }
+  return (
+    <Card className="p-0">
+      {sorted.length === 0 ? (
+        <div className="p-6">
+          <EmptyState icon={FileText} title="No files yet" description="Documents and data the school uploads during registration appear here." />
+        </div>
+      ) : (
+        sorted.map((f) => (
+          <div key={f.id} className="flex flex-wrap items-center gap-3 border-b border-slate-100 px-5 py-3 last:border-0">
+            <FileText className="h-5 w-5 text-oasis-500" />
+            <div className="min-w-[200px] flex-1">
+              <p className="text-sm font-semibold text-slate-800">{f.name}</p>
+              <p className="text-xs text-slate-500">
+                {f.category === "document" ? `Document · ${humanize(f.note ?? "")}` : "School data"} · {formatBytes(f.size_bytes)} · {new Date(f.created_at).toLocaleDateString("en-GB")}
+                {f.category === "data" && f.note ? ` · "${f.note}"` : ""}
+              </p>
+            </div>
+            {f.category === "data" && (
+              <select
+                value={f.status}
+                onChange={(e) => setStatus(f.id, e.target.value)}
+                className="h-9 rounded-lg border border-slate-200 bg-white px-2 text-xs text-slate-700"
+                aria-label="Import status"
+              >
+                <option value="received">Received</option>
+                <option value="imported">Imported</option>
+                <option value="rejected">Can't use</option>
+              </select>
+            )}
+            <Button size="sm" variant="secondary" onClick={() => open(f.path)} loading={opening === f.path}>
+              <Download className="h-3.5 w-3.5" /> Download
+            </Button>
+          </div>
+        ))
+      )}
+    </Card>
+  );
+}
+
+function PeopleTab({ school, profiles, admins }: { school: Tables<"schools">; profiles: Tables<"profiles">[]; admins: Tables<"staff">[] }) {
+  const { toast } = useToast();
+  const [banned, setBanned] = useState<Set<string>>(new Set());
+  const [busy, setBusy] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [adding, setAdding] = useState(false);
+  const ids = useMemo(() => profiles.map((p) => p.id).sort().join(","), [profiles]);
+
+  useEffect(() => {
+    if (!ids) return;
+    platformAction({ action: "list_access", user_ids: ids.split(",") }).then(({ data }) => setBanned(new Set((data?.banned as string[]) ?? [])));
+  }, [ids]);
+
+  async function toggle(p: Tables<"profiles">) {
+    const revoke = !banned.has(p.id);
+    if (revoke && !window.confirm(`Remove ${p.full_name ?? p.email}'s access to OASIS? They won't be able to sign in until restored.`)) return;
+    setBusy(p.id);
+    const { error } = await platformAction({ action: "set_user_access", user_id: p.id, revoked: revoke });
+    setBusy(null);
+    if (error) return toast("error", "Couldn't change access", error);
+    setBanned((b) => {
+      const n = new Set(b);
+      if (revoke) n.add(p.id);
+      else n.delete(p.id);
+      return n;
+    });
+    toast("success", revoke ? "Access removed" : "Access restored", p.email ?? "");
+  }
+
+  async function addAdmin() {
+    if (!name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return toast("error", "Enter a name and a valid email", "");
+    setAdding(true);
+    const { error } = await createClient()
+      .from("staff")
+      .insert({ school_id: school.id, full_name: name.trim(), email: email.trim().toLowerCase(), access_role: "school_admin", job_title: "Administrator", status: "active" });
+    setAdding(false);
+    if (error) return toast("error", "Couldn't add administrator", error.message);
+    setName("");
+    setEmail("");
+    toast("success", "Administrator added", `They can now sign up as staff of ${school.name} with ${email.trim()}.`);
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
+      <Card className="p-0 lg:col-span-3">
+        <div className="border-b border-slate-100 px-5 py-3.5">
+          <p className="text-sm font-semibold text-slate-800">Logins at this school</p>
+          <p className="text-xs text-slate-500">Remove access instantly - they&rsquo;re signed out and can&rsquo;t sign back in until restored.</p>
+        </div>
+        {profiles.length === 0 ? (
+          <p className="px-5 py-10 text-center text-sm text-slate-400">No logins yet.</p>
+        ) : (
+          profiles.map((p) => (
+            <div key={p.id} className="flex items-center gap-3 border-b border-slate-100 px-5 py-3 last:border-0">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold text-slate-800">{p.full_name || "—"}</p>
+                <p className="text-xs text-slate-500">
+                  {p.email} · {p.role.replace("_", " ")}
+                </p>
+              </div>
+              {banned.has(p.id) && <Badge tone="danger">Access removed</Badge>}
+              <Button size="sm" variant={banned.has(p.id) ? "secondary" : "danger"} onClick={() => toggle(p)} loading={busy === p.id}>
+                {banned.has(p.id) ? "Restore" : <><ShieldOff className="h-3.5 w-3.5" /> Remove access</>}
+              </Button>
+            </div>
+          ))
+        )}
+      </Card>
+
+      <div className="space-y-5 lg:col-span-2">
+        <Card>
+          <CardHeader title="Add an administrator" subtitle="Head teacher, ICT or data manager. They sign up as staff with this email and get full admin access to this school." />
+          <div className="space-y-3">
+            <Input placeholder="Full name" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Button onClick={addAdmin} loading={adding} className="w-full">
+              <UserPlus className="h-4 w-4" /> Add administrator
+            </Button>
           </div>
         </Card>
-      )}
-
-      {tab === "keys" && (
         <Card className="p-0">
-          <div className="flex items-center justify-between border-b border-slate-100 p-4">
-            <p className="text-sm text-slate-500">
-              {status === "approved" ? "Issue API keys so this school can integrate with OASIS." : "API keys can be issued once this school is approved."}
-            </p>
-            {status === "approved" && (
-              <Button size="sm" onClick={() => setNewKeyOpen(true)}>
-                <Plus className="h-3.5 w-3.5" /> Generate key
-              </Button>
-            )}
-          </div>
-          {keys.length === 0 ? (
-            <div className="p-6">
-              <EmptyState icon={KeyRound} title="No API keys issued yet" description="Generate a key once this school has been approved." />
-            </div>
+          <div className="border-b border-slate-100 px-5 py-3.5 text-sm font-semibold text-slate-800">Administrators on file</div>
+          {admins.length === 0 ? (
+            <p className="px-5 py-6 text-center text-sm text-slate-400">None added yet.</p>
           ) : (
-            <div className="divide-y divide-slate-50">
-              {keys.map((k) => (
-                <div key={k.id} className="flex items-center justify-between p-4">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">{k.label}</p>
-                    <p className="mt-0.5 font-mono text-xs text-slate-400">{k.keyPreview}</p>
-                    <p className="mt-0.5 text-[11px] text-slate-400">
-                      Created {k.createdAt} &middot; {k.lastUsedAt ? `Last used ${k.lastUsedAt}` : "Never used"}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge tone={k.status === "active" ? "success" : "neutral"}>{k.status === "active" ? "Active" : "Revoked"}</Badge>
-                    {k.status === "active" && (
-                      <Button variant="ghost" size="sm" onClick={() => handleRevoke(k.id)}>
-                        <Ban className="h-3.5 w-3.5" /> Revoke
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+            admins.map((a) => (
+              <div key={a.id} className="flex items-center justify-between border-b border-slate-100 px-5 py-3 text-sm last:border-0">
+                <span>
+                  <span className="font-semibold text-slate-800">{a.full_name}</span>
+                  <span className="block text-xs text-slate-500">{a.email}</span>
+                </span>
+                <Badge tone={a.profile_id ? "success" : "warning"}>{a.profile_id ? "Signed up" : "Invited"}</Badge>
+              </div>
+            ))
           )}
         </Card>
-      )}
+      </div>
+    </div>
+  );
+}
 
-      {tab === "actions" && (
-        <Card>
-          <CardHeader title="Review actions" subtitle="Change this school's status." />
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <ActionButton
-              label="Approve"
-              description="Grant access and allow document upload + API key issuance."
-              icon={Check}
-              tone="success"
-              onClick={() => runAction("approve")}
-              disabled={status === "approved"}
-            />
-            <ActionButton
-              label="Request more info"
-              description="Ask the school to provide additional details before deciding."
-              icon={MessageCircleQuestion}
-              tone="info"
-              onClick={() => runAction("request_more_info")}
-              disabled={status === "more_info_requested"}
-            />
-            <ActionButton
-              label="Reject"
-              description="Decline this request. The school can re-apply later."
-              icon={X}
-              tone="danger"
-              onClick={() => runAction("reject")}
-              disabled={status === "rejected"}
-            />
-            <ActionButton
-              label="Suspend"
-              description="Temporarily revoke an approved school's access."
-              icon={Ban}
-              tone="neutral"
-              onClick={() => runAction("suspend")}
-              disabled={status !== "approved"}
-            />
-          </div>
-        </Card>
-      )}
+function DecisionTab({ school, onDeleted, toast }: { school: Tables<"schools">; onDeleted: () => void; toast: ReturnType<typeof useToast>["toast"] }) {
+  const [note, setNote] = useState("");
+  const [busy, setBusy] = useState<string | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmName, setConfirmName] = useState("");
+
+  async function setStatus(status: string, needsNote = false) {
+    if (needsNote && !note.trim()) return toast("error", "Add a note for the school", "Tell them what's missing or why.");
+    setBusy(status);
+    const { error } = await platformAction({ action: "set_school_status", school_id: school.id, status, note: note.trim() });
+    setBusy(null);
+    if (error) return toast("error", "Couldn't update the school", error);
+    setNote("");
+    toast("success", `${school.name}: ${STATUS_LABEL[status] ?? status}`, "The school has been emailed.");
+  }
+
+  async function remove() {
+    setBusy("delete");
+    const { error } = await platformAction({ action: "delete_school", school_id: school.id, confirm_name: confirmName });
+    setBusy(null);
+    if (error) return toast("error", "Couldn't delete", error);
+    setConfirmOpen(false);
+    toast("success", "School deleted", school.name);
+    onDeleted();
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <Card>
+        <CardHeader title="Review" subtitle="Every decision emails the school's contact and administrators." />
+        <textarea
+          className="mb-3 w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm outline-none focus:border-oasis-400 focus:ring-4 focus:ring-oasis-100"
+          rows={4}
+          placeholder="Note to the school (required for 'Ask for more info' and 'Reject')"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
+        <div className="flex flex-wrap gap-2">
+          <Button onClick={() => setStatus("approved")} loading={busy === "approved"} disabled={school.status === "approved"}>
+            <CheckCircle2 className="h-4 w-4" /> Approve
+          </Button>
+          <Button variant="secondary" onClick={() => setStatus("more_info_requested", true)} loading={busy === "more_info_requested"}>
+            <MessageCircleQuestion className="h-4 w-4" /> Ask for more info
+          </Button>
+          <Button variant="danger" onClick={() => setStatus("rejected", true)} loading={busy === "rejected"}>
+            <XCircle className="h-4 w-4" /> Reject
+          </Button>
+        </div>
+      </Card>
+      <Card>
+        <CardHeader title="Access" subtitle="Suspending blocks the whole school's dashboard but keeps its data." />
+        <div className="flex flex-wrap gap-2">
+          {school.status === "suspended" ? (
+            <Button onClick={() => setStatus("approved")} loading={busy === "approved"}>
+              Restore school
+            </Button>
+          ) : (
+            <Button variant="secondary" onClick={() => setStatus("suspended")} loading={busy === "suspended"}>
+              <ShieldOff className="h-4 w-4" /> Suspend school
+            </Button>
+          )}
+          <Button variant="danger" onClick={() => setConfirmOpen(true)}>
+            <Trash2 className="h-4 w-4" /> Delete school
+          </Button>
+        </div>
+        <p className="mt-3 text-xs text-slate-500">Deleting is only possible for schools with no logins or students yet (e.g. spam or duplicate registrations).</p>
+      </Card>
 
       <Modal
-        open={newKeyOpen}
-        onClose={() => setNewKeyOpen(false)}
-        title="Generate API key"
-        description={`For ${request.schoolName}`}
-        maxWidth={420}
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        title={`Delete ${school.name}?`}
+        description="This permanently removes the school, its application and its uploaded files. Type the school's exact name to confirm."
         footer={
-          <>
-            <Button variant="secondary" onClick={() => setNewKeyOpen(false)}>
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setConfirmOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={generateKey}>Generate key</Button>
-          </>
+            <Button variant="danger" onClick={remove} disabled={confirmName.trim() !== school.name || busy === "delete"}>
+              {busy === "delete" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />} Delete permanently
+            </Button>
+          </div>
         }
       >
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-slate-600">Key label</label>
-          <Input placeholder="e.g. Production" value={newKeyLabel} onChange={(e) => setNewKeyLabel(e.target.value)} />
-        </div>
-      </Modal>
-
-      <Modal
-        open={!!revealedKey}
-        onClose={() => setRevealedKey(null)}
-        title="API key generated"
-        description="Copy this key now - you won't be able to see it again."
-        maxWidth={480}
-        footer={<Button onClick={() => setRevealedKey(null)}>Done</Button>}
-      >
-        {revealedKey && (
-          <div>
-            <p className="mb-1.5 text-xs font-semibold text-slate-600">{revealedKey.label}</p>
-            <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
-              <code className="flex-1 overflow-x-auto whitespace-nowrap font-mono text-xs text-slate-700">{revealedKey.full}</code>
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard?.writeText(revealedKey.full);
-                  toast("success", "Copied to clipboard", "");
-                }}
-                className="flex-shrink-0 rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-200 hover:text-slate-600"
-                aria-label="Copy key"
-              >
-                <Copy className="h-3.5 w-3.5" />
-              </button>
-            </div>
-          </div>
-        )}
+        <Input value={confirmName} onChange={(e) => setConfirmName(e.target.value)} placeholder={school.name} />
       </Modal>
     </div>
-  );
-}
-
-function Detail({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="text-xs text-slate-400">{label}</dt>
-      <dd className="mt-0.5 font-medium text-slate-800">{value}</dd>
-    </div>
-  );
-}
-
-function ActionButton({
-  label,
-  description,
-  icon: Icon,
-  tone,
-  onClick,
-  disabled,
-}: {
-  label: string;
-  description: string;
-  icon: typeof Check;
-  tone: "success" | "info" | "danger" | "neutral";
-  onClick: () => void;
-  disabled?: boolean;
-}) {
-  const toneClasses: Record<string, string> = {
-    success: "hover:border-emerald-300 hover:bg-emerald-50",
-    info: "hover:border-sky-300 hover:bg-sky-50",
-    danger: "hover:border-rose-300 hover:bg-rose-50",
-    neutral: "hover:border-slate-300 hover:bg-slate-50",
-  };
-  const iconClasses: Record<string, string> = {
-    success: "bg-emerald-50 text-emerald-600",
-    info: "bg-sky-50 text-sky-600",
-    danger: "bg-rose-50 text-rose-600",
-    neutral: "bg-slate-100 text-slate-500",
-  };
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      className={cn(
-        "flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-left transition disabled:cursor-not-allowed disabled:opacity-40",
-        !disabled && toneClasses[tone]
-      )}
-    >
-      <span className={cn("flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl", iconClasses[tone])}>
-        <Icon className="h-4.5 w-4.5" />
-      </span>
-      <span>
-        <span className="block text-sm font-semibold text-slate-800">{label}</span>
-        <span className="mt-0.5 block text-xs text-slate-500">{description}</span>
-      </span>
-    </button>
   );
 }

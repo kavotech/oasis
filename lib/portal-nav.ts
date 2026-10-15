@@ -14,6 +14,8 @@ import {
   ScrollText,
   UserCog,
   Terminal,
+  Inbox,
+  Users,
 } from "lucide-react";
 
 export type PortalNavItem = {
@@ -22,9 +24,15 @@ export type PortalNavItem = {
   icon: LucideIcon;
 };
 
+// Developer console. The first block is the day-to-day work of running OASIS;
+// the rest are platform pages.
 export const portalNav: PortalNavItem[] = [
   { label: "Dashboard", href: "/portal/dashboard", icon: LayoutDashboard },
+  { label: "Onboarding requests", href: "/portal/requests", icon: Inbox },
   { label: "Schools", href: "/portal/schools", icon: Building2 },
+  { label: "School Administrators", href: "/portal/school-admins", icon: UserCog },
+  { label: "Developers", href: "/portal/developers", icon: Users },
+  { label: "Keys & Developer Tools", href: "/portal/developer-tools", icon: Terminal },
   { label: "Subscriptions", href: "/portal/subscriptions", icon: CreditCard },
   { label: "Finance", href: "/portal/finance", icon: Wallet },
   { label: "Platform", href: "/portal/platform", icon: Cog },
@@ -35,6 +43,4 @@ export const portalNav: PortalNavItem[] = [
   { label: "Integrations", href: "/portal/integrations", icon: Plug },
   { label: "Backups", href: "/portal/backups", icon: DatabaseBackup },
   { label: "Audit Logs", href: "/portal/audit-logs", icon: ScrollText },
-  { label: "School Administrators", href: "/portal/school-admins", icon: UserCog },
-  { label: "Developer Tools", href: "/portal/developer-tools", icon: Terminal },
 ];

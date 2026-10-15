@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { PageHeader } from "@/components/portal/PageHeader";
 import { Badge } from "@/components/portal/ui/Badge";
 import { SimpleModule, type FieldDef } from "@/components/school/SimpleModule";
@@ -16,6 +17,17 @@ export default function SetupPage() {
       />
 
       <OnboardingChecklist />
+
+      <Link
+        href="/dashboard/setup/import"
+        className="mb-6 flex items-center justify-between gap-4 rounded-2xl border border-oasis-200 bg-oasis-50/70 px-5 py-4 transition hover:bg-oasis-50"
+      >
+        <span>
+          <span className="block text-sm font-semibold text-oasis-800">Import your students and parents</span>
+          <span className="block text-xs text-oasis-700">Paste a sheet from Excel or upload a CSV - siblings are linked to the same parent automatically.</span>
+        </span>
+        <span className="text-sm font-semibold text-oasis-700">Import →</span>
+      </Link>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <SimpleModule<Tables<"classes">>

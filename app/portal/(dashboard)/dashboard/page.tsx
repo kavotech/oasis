@@ -35,8 +35,24 @@ export default function DashboardPage() {
   const totalStorageLimit = approved.reduce((s, r) => s + r.storageLimitMb, 0);
   const storagePct = totalStorageLimit ? Math.round((totalStorageUsed / totalStorageLimit) * 100) : 0;
 
+  // Registrations waiting on a developer (directory listings and the demo school aren't registrations).
+  const awaitingReview = rows.filter((s) => s.status === "pending_review" && !s.code?.startsWith("DIR-") && s.code !== "OASIS-DEMO").length;
+
   return (
     <div>
+      {awaitingReview > 0 && (
+        <Link
+          href="/portal/requests"
+          className="mb-5 flex items-center justify-between rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900 transition hover:bg-amber-100"
+        >
+          <span>
+            <strong>{awaitingReview} school registration{awaitingReview === 1 ? "" : "s"}</strong> waiting for review
+          </span>
+          <span className="inline-flex items-center gap-1 font-semibold">
+            Review now <ArrowRight className="h-4 w-4" />
+          </span>
+        </Link>
+      )}
       <PageHeader
         title="Dashboard"
         description="Platform health and business overview."

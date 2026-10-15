@@ -215,10 +215,27 @@ export default function RegisterPage() {
       console.error("School registration submit failed:", error.message);
     }
 
+    // Keep the complete application (every wizard step) for the OASIS team -
+    // the schools row above only holds the headline fields.
+    if (profile?.school_id) {
+      const { error: appError } = await supabase.from("school_applications").upsert(
+        {
+          school_id: profile.school_id,
+          submitted_by: profile.id,
+          data: submitted.data as unknown as never,
+          status: "submitted",
+          submitted_at: submitted.submittedAt,
+        },
+        { onConflict: "school_id" }
+      );
+      if (appError) console.error("Application save failed:", appError.message);
+    }
+
     // Local mirror the platform-admin console currently reads from
     // (lib/store.ts) - not yet migrated to query Supabase directly.
     registerSchoolFromApplication(submitted);
-    router.push("/register/pending");
+    // Last step: documents + the school's existing data, then confirmation email.
+    router.push(profile?.school_id ? "/register/documents" : "/register/pending");
   }
 
   return (
