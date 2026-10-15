@@ -8,28 +8,11 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
+    <Hero />
     <div
       className={"wp-block-group is-layout-flow wp-block-group-is-layout-flow"}
       dangerouslySetInnerHTML={{ __html: `<div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
-<div class="wp-block-cover alignfull" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><img width="2704" height="1310" class="wp-block-cover__image-background wp-image-15743" alt="OASIS school management system" src="/images/hero-image.webp" style="object-position:13% 25%" data-object-fit="cover" data-object-position="13% 25%" srcset="/images/hero-image.webp 2704w, /images/hero-image-300x145.webp 300w, /images/hero-image-1024x496.webp 1024w, /images/hero-image-768x372.webp 768w, /images/hero-image-1536x744.webp 1536w, /images/hero-image-2048x992.webp 2048w, /images/hero-image-1200x581.webp 1200w" sizes="auto, (max-width: 2704px) 100vw, 2704px" /><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span><div class="wp-block-cover__inner-container has-global-padding is-layout-constrained wp-container-core-cover-is-layout-1c9c1223 wp-block-cover-is-layout-constrained">
-<p class="has-text-align-center has-base-2-color has-text-color has-link-color has-grenette-pro-font-family wp-elements-d6f7cf92c479946e11277df76ffc4a23 wp-block-paragraph" style="font-size:clamp(67.975px, 4.248rem + ((1vw - 3.2px) * 10.642), 148px);letter-spacing:-2.96px;line-height:1">One platform. <em>Every</em> school.</p>
-
-
-
-<div class="wp-block-group is-content-justification-center is-nowrap is-layout-flex wp-container-core-group-is-layout-f56f9fcf wp-block-group-is-layout-flex">
-<div class="wp-block-buttons is-content-justification-center is-layout-flex wp-container-core-buttons-is-layout-2d6d62f2 wp-block-buttons-is-layout-flex">
-<div class="wp-block-button"><a class="wp-block-button__link has-contrast-color has-base-2-background-color has-text-color has-background has-link-color wp-element-button" href="/contact/">Book a demo</a></div>
-
-
-
-<div class="wp-block-button is-style-outline is-style-outline--3"><a class="wp-block-button__link has-base-2-color has-text-color has-background has-link-color wp-element-button" href="/pricing/" style="background-color:#16140c33">Start free trial</a></div>
-</div>
-</div>
-</div></div>
-
-
-
-<div class="wp-block-group alignwide gap is-vertical is-layout-flex wp-container-core-group-is-layout-7b869480 wp-block-group-is-layout-flex" style="margin-top:132px;margin-bottom:88px">
+<div class="wp-block-group alignwide gap is-vertical is-layout-flex wp-container-core-group-is-layout-7b869480 wp-block-group-is-layout-flex" style="margin-top:72px;margin-bottom:56px">
 <div class="wp-block-group alignwide spacing is-vertical is-layout-flex wp-container-core-group-is-layout-e6ca8e27 wp-block-group-is-layout-flex" style="margin-top:0px">
 <h1 class="wp-block-heading has-text-align-center alignwide">Uganda&#8217;s <em>most complete</em> school management system</h1>
 
@@ -72,7 +55,7 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border" style="margin-right:0;margin-left:0"><img width="1000" height="588" src="/images/School-MIS-dashboard.png" alt="OASIS student information dashboard" class="wp-image-14968" style="border-radius:4px;box-shadow:var(--wp--preset--shadow--deep);width:500px;height:auto" srcset="/images/School-MIS-dashboard.png 1000w, /images/School-MIS-dashboard-300x176.png 300w, /images/School-MIS-dashboard-768x452.png 768w" sizes="auto, (max-width: 1000px) 100vw, 1000px" /></figure>
+<div class="oasis-phone-pair"><img src="/images/app/09-students.png" alt="OASIS students list and school setup on iPhone" width="520" height="1029" loading="lazy" /><img src="/images/app/16-school-setup.png" alt="" width="520" height="1029" loading="lazy" /></div>
 </div>
 </div>
 
@@ -100,14 +83,14 @@ export default function Page() {
 
 
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<figure class="wp-block-image aligncenter size-full is-resized has-custom-border"><img src="/images/Product-visual.png" alt="" class="wp-image-73" style="border-radius:4px;box-shadow:var(--wp--preset--shadow--deep);width:500px;height:auto"/></figure>
+<div class="oasis-phone-pair"><img src="/images/app/17-reporting.png" alt="OASIS live reports and the OASIS console" width="520" height="1029" loading="lazy" /><img src="/images/app/31-console-requests.png" alt="" width="520" height="1029" loading="lazy" /></div>
 </div>
 </div>
 </div>
 
 
 
-<div class="wp-block-group alignfull has-accent-5-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:0;margin-bottom:0;padding-top:80px;padding-bottom:132px">
+<div class="wp-block-group alignfull has-accent-5-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:0;margin-bottom:0;padding-top:64px;padding-bottom:72px">
 <h2 class="wp-block-heading has-text-align-center">Schools save <em>time</em>, <em>money</em> and <em>more</em> with OASIS</h2>
 
 
@@ -159,7 +142,7 @@ export default function Page() {
 
 
 
-<div class="wp-block-group alignfull slider-section has-accent-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:0;margin-bottom:0;padding-top:88px;padding-bottom:88px">
+<div class="wp-block-group alignfull slider-section has-accent-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:0;margin-bottom:0;padding-top:64px;padding-bottom:64px">
 <div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-ff7a70f3 wp-block-group-is-layout-constrained" style="margin-top:0;margin-bottom:0;padding-top:0;padding-right:100px;padding-bottom:0;padding-left:100px">
 <div class="wp-block-getwid-content-slider alignwide has-arrows-outside has-dots-none testimonals-slider" data-infinite="true" data-adaptive-height="true" data-arrows="outside" data-dots="none"><div class="wp-block-getwid-content-slider__wrapper">
 
@@ -468,7 +451,7 @@ export default function Page() {
 
 
 
-<div class="wp-block-group alignwide is-layout-flow wp-block-group-is-layout-flow" style="border-radius:16px;margin-top:88px;margin-bottom:88px">
+<div class="wp-block-group alignwide is-layout-flow wp-block-group-is-layout-flow" style="border-radius:16px;margin-top:64px;margin-bottom:64px">
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
 <div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-fa1f8afe wp-block-group-is-layout-flex">
 <h2 class="wp-block-heading has-text-align-center is-style-asterisk is-style-line">More than an MIS</h2>
@@ -554,7 +537,7 @@ export default function Page() {
 
 
 
-<div class="wp-block-group alignfull has-base-2-color has-accent-2-background-color has-text-color has-background has-link-color wp-elements-d40de115ad17bf677220f16581c87aa1 has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:88px;padding-bottom:88px">
+<div class="wp-block-group alignfull has-base-2-color has-accent-2-background-color has-text-color has-background has-link-color wp-elements-d40de115ad17bf677220f16581c87aa1 has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:64px;padding-bottom:64px">
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-layout-flex wp-container-core-columns-is-layout-f4757ddb wp-block-columns-is-layout-flex" style="padding-bottom:var(--wp--preset--spacing--30)">
 <div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-block-column-is-layout-flow" style="padding-right:0;padding-left:0;flex-basis:40%">
 <h2 class="wp-block-heading has-base-2-color has-text-color has-link-color wp-elements-f804d7219acccbff58a09d99959c30f6">Built for Uganda</h2>
@@ -578,16 +561,16 @@ export default function Page() {
 
 
 
-<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-5ca31eee wp-block-group-is-layout-constrained" style="margin-top:88px;margin-bottom:88px">
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-5ca31eee wp-block-group-is-layout-constrained" style="margin-top:64px;margin-bottom:64px">
 <h2 class="wp-block-heading has-text-align-center">OASIS Resources</h2>
 
 
 
-<p class="wp-block-paragraph">Everything you need to know about bringing OASIS to your school</p>
+<p class="has-text-align-center wp-block-paragraph">Everything you need to know about bringing OASIS to your school</p>
 
 
 
-<div class="wp-block-columns is-not-stacked-on-mobile overflow-x-auto is-layout-flex wp-container-core-columns-is-layout-fac6a333 wp-block-columns-is-layout-flex" style="margin-top:64px;padding-bottom:88px">
+<div class="wp-block-columns alignwide oasis-resources is-layout-flex wp-block-columns-is-layout-flex" style="margin-top:32px;padding-bottom:0">
 <div class="wp-block-column has-accent-background-color has-background has-global-padding is-layout-constrained wp-container-core-column-is-layout-b61c9c78 wp-block-column-is-layout-constrained" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px;flex-basis:202px">
 <div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-d0a28cf8 wp-block-group-is-layout-flex" style="min-height:100%;padding-bottom:5px">
 <p class="has-accent-3-color has-text-color has-link-color has-small-font-size wp-elements-68ac4393f5eb31c3b7edd4af4d1010db wp-block-paragraph">Pricing</p>
@@ -654,7 +637,7 @@ export default function Page() {
 
 
 
-<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-5ca31eee wp-block-group-is-layout-constrained" style="margin-top:88px;margin-bottom:88px">
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-5ca31eee wp-block-group-is-layout-constrained" style="margin-top:64px;margin-bottom:64px">
 <h2 class="wp-block-heading has-text-align-center">Simplifying school management across Uganda</h2>
 
 
@@ -672,45 +655,88 @@ export default function Page() {
   );
 }
 
-// The OASIS iPhone app, in sync with this site. Inline styles: the marketing
-// pages run on the legacy site CSS, not the portal's Tailwind.
+const HERO_PHONES = [
+  { src: "/images/app/11-attendance.png", alt: "Taking the class register in the OASIS app" },
+  { src: "/images/app/08-home.png", alt: "The OASIS app home screen: today's attendance and school overview" },
+  { src: "/images/app/14-fees.png", alt: "Fees and invoices in the OASIS app" },
+];
+
+// Split hero: the pitch on the left, the real iPhone app on the right.
+// Layout lives in styles/site.css (.oasis-hero*) so it can respond to width.
+function Hero() {
+  return (
+    <section className="oasis-hero" aria-labelledby="oasis-hero-title">
+      <div className="oasis-hero__inner">
+        <div className="oasis-hero__copy">
+          <p className="oasis-pill">School management for Uganda · Web + iPhone</p>
+          <h1 id="oasis-hero-title" className="oasis-hero__title">
+            One platform. <em>Every</em> school.
+          </h1>
+          <p className="oasis-hero__lead">
+            Admissions, attendance, fees, timetables, exams and parents - on the web and in your pocket, always in sync.
+          </p>
+          <div className="oasis-hero__ctas">
+            <a href="/contact/" className="wp-block-button__link wp-element-button">
+              Book a demo
+            </a>
+            <a href="/signup" className="wp-block-button__link wp-element-button oasis-btn-ghost">
+              Create your school account
+            </a>
+          </div>
+          <ul className="oasis-hero__points">
+            <li>Set up in under two weeks</li>
+            <li>Import students with their parents</li>
+            <li>Reviewed and supported by the OASIS team</li>
+          </ul>
+        </div>
+        <div className="oasis-hero__phones">
+          {HERO_PHONES.map((ph, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={ph.src} src={ph.src} alt={ph.alt} width={520} height={1029} className={`oasis-hero__phone oasis-hero__phone--${i}`} fetchPriority={i === 1 ? "high" : "auto"} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const SHOWCASE = [
+  { src: "/images/app/08-home.png", caption: "Today at a glance" },
+  { src: "/images/app/20-class-register.png", caption: "Registers in one tap" },
+  { src: "/images/app/12-messages.png", caption: "Message parents" },
+  { src: "/images/app/29-import-students-parents.png", caption: "Import students & parents" },
+  { src: "/images/app/25-register-school.png", caption: "Register your school" },
+  { src: "/images/app/28-register-documents-data.png", caption: "Upload documents & data" },
+  { src: "/images/app/31-console-requests.png", caption: "OASIS reviews every school" },
+  { src: "/images/app/34-console-people-access.png", caption: "Admins & access" },
+];
+
+// The OASIS iPhone app, in sync with this site: a swipeable strip of real
+// screens (styles/site.css .oasis-app*).
 function AppShowcase() {
   return (
-    <section
-      aria-labelledby="oasis-app"
-      style={{
-        padding: "72px 24px 88px",
-        background:
-          "radial-gradient(circle at 12% 10%, rgba(166,169,247,.45), transparent 40%), radial-gradient(circle at 90% 40%, rgba(201,184,255,.35), transparent 38%), linear-gradient(160deg, #f3f1ff, #fbfaff 55%, #eef0ff)",
-      }}
-    >
-      <div style={{ maxWidth: 1180, margin: "0 auto", textAlign: "center" }}>
-        <p style={{ display: "inline-block", margin: 0, padding: "6px 14px", borderRadius: 999, background: "rgba(148,152,239,.16)", color: "#5f61c9", fontSize: 14 }}>
-          New · OASIS for iPhone
-        </p>
-        <h2 id="oasis-app" style={{ margin: "18px auto 10px", maxWidth: 720, fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, color: "#16151f" }}>
-          Run your school from your pocket
-        </h2>
-        <p style={{ margin: "0 auto", maxWidth: 620, fontSize: 18, lineHeight: 1.55, color: "#635f56" }}>
-          Attendance, fees, students, timetables and every other OASIS module - on your phone, and always in sync with your dashboard here.
-        </p>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/oasis-app-showcase.png"
-          alt="The OASIS iPhone app: welcome, home dashboard, attendance, fees and students screens"
-          width={1600}
-          height={900}
-          loading="lazy"
-          style={{ display: "block", width: "100%", height: "auto", margin: "32px auto 0", borderRadius: 28 }}
-        />
-        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 28 }}>
-          <a href="/signup" className="wp-block-button__link wp-element-button">
-            Create your school account
-          </a>
-          <a href="/contact/" className="wp-block-button__link wp-element-button" style={{ background: "#fff", color: "#16140c", border: "1px solid #e2e8f0" }}>
-            Book a demo
-          </a>
-        </div>
+    <section className="oasis-app" aria-labelledby="oasis-app">
+      <div className="oasis-app__head">
+        <p className="oasis-pill">OASIS for iPhone</p>
+        <h2 id="oasis-app">Run your school from your pocket</h2>
+        <p>Attendance, fees, students, timetables and every other OASIS module - on your phone, and always in sync with your dashboard here.</p>
+      </div>
+      <div className="oasis-app__strip" tabIndex={0} aria-label="OASIS app screens">
+        {SHOWCASE.map((sc) => (
+          <figure key={sc.src}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={sc.src} alt={sc.caption} width={520} height={1029} loading="lazy" />
+            <figcaption>{sc.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="oasis-app__ctas">
+        <a href="/signup" className="wp-block-button__link wp-element-button">
+          Create your school account
+        </a>
+        <a href="/contact/" className="wp-block-button__link wp-element-button oasis-btn-ghost">
+          Book a demo
+        </a>
       </div>
     </section>
   );

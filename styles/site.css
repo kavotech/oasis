@@ -413,3 +413,84 @@ body.js-reveal-active .scroll-reveal.is-in-view {
     transform: none !important;
   }
 }
+
+/* ---- Homepage: split hero with the iPhone app ------------------------- */
+.oasis-pill { display: inline-block; margin: 0; padding: 6px 14px; border-radius: 999px; background: rgba(148, 152, 239, 0.16); color: #5457c4; font-size: 14px; }
+.oasis-btn-ghost { background: #fff !important; color: #16140c !important; border: 1px solid #e3e1f5 !important; }
+.oasis-hero {
+  position: relative; overflow: hidden; padding: 56px 24px 0;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(166, 169, 247, 0.5), transparent 38%),
+    radial-gradient(circle at 92% 30%, rgba(201, 184, 255, 0.45), transparent 36%),
+    linear-gradient(160deg, #f3f1ff, #fbfaff 55%, #eef0ff);
+}
+.oasis-hero__inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.oasis-hero__copy { padding-bottom: 56px; }
+.oasis-hero__title { margin: 18px 0 0; font-family: "Grenette Pro", serif; font-weight: 400; font-size: clamp(48px, 6.4vw, 92px); line-height: 0.98; letter-spacing: -0.03em; color: #16140c; }
+.oasis-hero__lead { margin: 20px 0 0; max-width: 520px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.45; color: #4f4b44; }
+.oasis-hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.oasis-hero__points { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 24px 0 0; padding: 0; list-style: none; font-size: 14px; color: #635f56; }
+.oasis-hero__points li::before { content: "✓"; margin-right: 6px; color: #5457c4; font-weight: 700; }
+.oasis-hero__phones { position: relative; height: 600px; }
+.oasis-hero__phone { position: absolute; bottom: -40px; width: 270px; height: auto; filter: drop-shadow(0 28px 40px rgba(63, 65, 128, 0.28)); }
+.oasis-hero__phone--1 { left: 50%; transform: translateX(-50%); width: 300px; bottom: -24px; z-index: 2; }
+.oasis-hero__phone--0 { left: 0; transform: rotate(-6deg); bottom: -70px; }
+.oasis-hero__phone--2 { right: 0; transform: rotate(6deg); bottom: -70px; }
+
+@media (max-width: 900px) {
+  .oasis-hero { padding-top: 40px; }
+  .oasis-hero__inner { grid-template-columns: 1fr; gap: 8px; text-align: center; }
+  .oasis-hero__copy { padding-bottom: 8px; }
+  .oasis-hero__lead { margin-left: auto; margin-right: auto; }
+  .oasis-hero__ctas, .oasis-hero__points { justify-content: center; }
+  .oasis-hero__phones { height: 430px; max-width: 460px; width: 100%; margin: 0 auto; }
+  .oasis-hero__phone { width: 190px; }
+  .oasis-hero__phone--1 { width: 215px; }
+}
+@media (max-width: 480px) {
+  .oasis-hero__phones { height: 360px; }
+  .oasis-hero__phone { width: 150px; }
+  .oasis-hero__phone--1 { width: 180px; }
+}
+
+/* Feature rows: two phones instead of the old desktop picture */
+.oasis-phone-pair { display: flex; justify-content: center; align-items: flex-end; gap: 0; max-width: 460px; margin: 0 auto; }
+.oasis-phone-pair img { width: 50%; max-width: 220px; height: auto; filter: drop-shadow(0 20px 30px rgba(63, 65, 128, 0.22)); }
+.oasis-phone-pair img:first-child { transform: translateX(14px) rotate(-3deg); }
+.oasis-phone-pair img:last-child { transform: translateX(-14px) translateY(-24px) rotate(3deg); }
+
+/* Testimonials: swipeable row instead of ten stacked slides */
+.testimonals-slider .wp-block-getwid-content-slider__wrapper {
+  display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin;
+}
+.testimonals-slider .wp-block-getwid-content-slider-slide { flex: 0 0 min(520px, 86%); scroll-snap-align: start; }
+.testimonals-slider .wp-block-getwid-content-slider-slide__wrapper, .testimonals-slider .wp-block-getwid-content-slider-slide__wrapper > .wp-block-columns { height: 100%; }
+.testimonals-slider .wp-block-getwid-content-slider-slide__wrapper > .wp-block-columns { border-radius: 16px; overflow: hidden; flex-wrap: nowrap !important; }
+.testimonals-slider .wp-block-getwid-content-slider-slide__wrapper > .wp-block-columns > .wp-block-column:first-child { flex: 0 0 96px !important; }
+.slider-section .wp-block-group.alignwide { padding-left: 0 !important; padding-right: 0 !important; }
+
+/* Resources: four cards in one row, two on tablets, one on phones */
+.oasis-resources { display: grid !important; grid-template-columns: repeat(4, 1fr); gap: 16px !important; max-width: 1072px !important; width: 100%; }
+
+.oasis-resources h3 { overflow-wrap: normal; word-break: normal; hyphens: none; }
+.oasis-resources > .wp-block-column { flex-basis: auto !important; }
+@media (max-width: 900px) { .oasis-resources { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .oasis-resources { grid-template-columns: 1fr; } }
+
+/* ---- Homepage: iPhone app strip --------------------------------------- */
+.oasis-app {
+  padding: 64px 0 72px;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(166, 169, 247, 0.45), transparent 40%),
+    radial-gradient(circle at 90% 40%, rgba(201, 184, 255, 0.35), transparent 38%),
+    linear-gradient(160deg, #f3f1ff, #fbfaff 55%, #eef0ff);
+}
+.oasis-app__head { max-width: 720px; margin: 0 auto; padding: 0 24px; text-align: center; }
+.oasis-app__head h2 { margin: 16px 0 10px; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; }
+.oasis-app__head p:last-child { margin: 0; font-size: 18px; line-height: 1.55; color: #635f56; }
+.oasis-app__strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 28px max(24px, calc((100vw - 1180px) / 2)) 8px; scrollbar-width: thin; }
+.oasis-app__strip figure { flex: 0 0 220px; margin: 0; scroll-snap-align: center; text-align: center; }
+.oasis-app__strip img { width: 100%; height: auto; filter: drop-shadow(0 18px 26px rgba(63, 65, 128, 0.2)); }
+.oasis-app__strip figcaption { margin-top: 6px; font-size: 14px; color: #4f4b44; }
+.oasis-app__ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; padding: 0 24px; }
+@media (max-width: 520px) { .oasis-app__strip figure { flex-basis: 64%; } }
